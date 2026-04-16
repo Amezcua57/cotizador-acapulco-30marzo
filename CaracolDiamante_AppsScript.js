@@ -153,7 +153,7 @@ function construirEmail_(nombre, dia, whatsapp) {
         '<p>La disponibilidad es limitada por diseño: 51 unidades en total, boutique, sin expansión posible.</p>' +
         '<p>Si ya tomaste tu decisión o definitivamente no es el momento, con mucho gusto te lo retiramos de nuestra lista. Solo dinos.</p>' +
         '<p>Si sigues evaluando, te agendamos esta semana:</p>' +
-        '<p><a href="' + CONFIG.AGENDA_URL + '" style="background:#c9a84c;color:#0a1628;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold;display:inline-block;margin-top:8px;">AGENDAR SESIÓN →</a></p>',
+        '<p><a href="' + CONFIG.AGENDA_URL + '" style="background:#c9a84c;color:#0a1628;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold;display:inline-block;margin-top:8px;">AGENDAR SESIÔ� →</a></p>',
 
     45: '<p>Hola <strong>' + primerNombre + '</strong>.</p>' +
         '<p>Hace unas semanas platicaste con nosotros sobre la posibilidad de tener un depto en la mejor zona del Pacífico mexicano.</p>' +
