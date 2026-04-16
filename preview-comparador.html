@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preview: Comparador Premium Caracol Reserva</title>
+    <!-- React & Babel CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; background: #060d1a; }
+        #root { min-height: 100vh; }
+        /* Custom scrollbar to match the design */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #1e3a5f; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #f0b429; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useMemo, useEffect, useCallback } = React;
+
+        const fmt = (n) =>
+          new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 }).format(n);
+        const fmtPct = (n) => `${Number(n).toFixed(1)}%`;
+        const fmtNum = (n) => new Intl.NumberFormat("es-MX", { maximumFractionDigits: 0 }).format(n);
+
+        const SliderInput = ({ label, value, onChange, min, max, step = 1, suffix = "" }) => (
+          <div style={{ marginBottom: 16 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+              <span style={{ fontSize: 12, color: "#94a3b8", fontFamily: "'DM Sans', sans-serif" }}>{label}</span>
+              <span style={{ fontSize: 13, fontWeight: 700, color: "#f0b429", fontFamily: "monospace" }}>
+                {suffix === "%" ? fmtPct(value) : `${fmtNum(value)}${suffix}`}
+              </span>
+            </div>
+            <input type="range" min={min} max={max} step={step} value={value}
+              onChange={(e) => onChange(Number(e.target.value))}
+              style={{ width: "100%", accentColor: "#f0b429", cursor: "pointer" }} />
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, color: "#475569", marginTop: 2 }}>
+              <span>{suffix === "%" ? fmtPct(min) : `${fmtNum(min)}${suffix}`}</span>
+              <span>{suffix === "%" ? fmtPct(max) : `${fmtNum(max)}${suffix}`}</span>
+            </div>
+          </div>
+        );
+
+        const NumberInput = ({ label, value, onChange, prefix = "", suffix = "", hint = "" }) => {
+          const [editing, setEditing] = useState(false);
+          const [raw, setRaw] = useState(String(value));
+          useEffect(() => { if (!editing) setRaw(String(value)); }, [value, editing]);
+          return (
+            <div style={{ marginBottom: 14 }}>
+              <label style={{ display: "block", fontSize: 12, color: "#94a3b8", marginBottom: 4, fontFamily: "'DM Sans', sans-serif" }}>
+                {label} {hint && <span style={{ color: "#475569" }}>({hint})</span>}
+              </label>
+              <div style={{ display: "flex", alignItems: "center", background: "#0f172a", border: "1px solid #1e3a5f", borderRadius: 8, overflow: "hidden" }}>
+                {prefix && <span style={{ padding: "8px 10px", color: "#64748b", fontSize: 13, borderRight: "1px solid #1e3a5f" }}>{prefix}</span>}
+                <input
+                  type={editing ? "number" : "text"}
+                  value={editing ? raw : fmtNum(value)}
+                  onFocus={() => { setEditing(true); setRaw(String(value)); }}
+                  onBlur={() => { setEditing(false); const v = parseFloat(raw); if (!isNaN(v)) onChange(v); }}
+                  onChange={(e) => setRaw(e.target.value)}
+                  style={{ flex: 1, background: "transparent", border: "none", color: "#f1f5f9",
+                    padding: "8px 10px", fontSize: 13, fontFamily: "monospace", outline: "none" }} />
+                {suffix && <span style={{ padding: "8px 10px", color: "#64748b", fontSize: 13, borderLeft: "1px solid #1e3a5f" }}>{suffix}</span>}
+              </div>
+            </div>
+          );
+        };
+
+        const ResultCard = ({ title, icon, color, rows, highlight, badge }) => (
+          <div style={{ background: "linear-gradient(135deg, #0f172a 60%, #1a2744)",
+            border: `1.5px solid ${color}40`, borderRadius: 16, padding: 20, position: "relative", overflow: "hidden" }}>
+            <div style={{ position: "absolute", top: 0, right: 0, width: 80, height: 80,
+              background: `radial-gradient(circle at top right, ${color}20, transparent)` }} />
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
+              <span style={{ fontSize: 22 }}>{icon}</span>
+              <div>
+                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, fontWeight: 700, color: "#f1f5f9" }}>{title}</div>
+                {badge && <span style={{ fontSize: 10, background: `${color}25`, color, padding: "2px 8px", borderRadius: 20, fontWeight: 600 }}>{badge}</span>}
+              </div>
+            </div>
+            {rows.map((row, i) => (
+              <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center",
+                padding: "6px 0", borderBottom: i < rows.length - 1 ? "1px solid #1e293b" : "none" }}>
+                <span style={{ fontSize: 12, color: "#64748b" }}>{row.label}</span>
+                <span style={{ fontSize: 13, fontWeight: row.bold ? 700 : 500, color: row.bold ? color : "#cbd5e1", fontFamily: "monospace" }}>
+                  {row.value}
+                </span>
+              </div>
+            ))}
+            {highlight && (
+              <div style={{ marginTop: 14, padding: "10px 14px", background: `${color}15`,
+                borderRadius: 10, border: `1px solid ${color}30`, textAlign: "center" }}>
+                <div style={{ fontSize: 11, color: "#64748b", marginBottom: 2 }}>RESULTADO FINAL</div>
+                <div style={{ fontSize: 20, fontWeight: 800, color, fontFamily: "monospace" }}>{highlight}</div>
+              </div>
+            )}
+          </div>
+        );
+
+        const TAG = ({ text, color }) => (
+          <span style={{ fontSize: 11, fontWeight: 700, padding: "3px 10px", borderRadius: 20,
+            background: `${color}20`, color, border: `1px solid ${color}40` }}>{text}</span>
+        );
+
+        const CORTES = [5, 10, 15, 20];
+
+        function App() {
+          const [valorPropiedad, setValorPropiedad] = useState(3500000);
+          const [enganchePct, setEnganchePct]       = useState(30);
+          const [rentaDiaria, setRentaDiaria]       = useState(1200);
+          const [ocupacion, setOcupacion]           = useState(50);
+          const [gastosOp, setGastosOp]             = useState(25);
+          const [plusvalia, setPlusvalia]           = useState(6);
+          const [horizonte, setHorizonte]           = useState(5);
+          const [tasaMensualidad, setTasaMensualidad] = useState(12);
+          const [tasaCetes, setTasaCetes]           = useState(9.5);
+          const [tasaSP, setTasaSP]                 = useState(11.5);
+          const [tasaUDIS, setTasaUDIS]             = useState(4.5);
+          const [tab, setTab]                       = useState("params");
+          const [fetchStatus, setFetchStatus]       = useState("loading");
+          const [fetchNote, setFetchNote]           = useState("⏳ Simulando datos en tiempo real...");
+
+          const fetchRates = useCallback(async () => {
+            setFetchStatus("loading");
+            setFetchNote("⏳ Consultando CETES e inflación...");
+            // Simulación para el preview (evitar errores de CORS/API)
+            setTimeout(() => {
+                setTasaCetes(11.2);
+                setTasaUDIS(4.8);
+                setFetchNote(`⚡ En vivo — CETES 11.2% · Inflación 4.8% · Abril 2026`);
+                setFetchStatus("done");
+            }, 1000);
+          }, []);
+
+          useEffect(() => { fetchRates(); }, []);
+
+          const calc = useMemo(() => {
+            const enganche  = valorPropiedad * (enganchePct / 100);
+            const credito   = valorPropiedad - enganche;
+            const r         = tasaMensualidad / 100 / 12;
+            const mensualidad = credito * r / (1 - Math.pow(1 + r, -240));
+            const ingresoBrutoAnual  = rentaDiaria * (ocupacion / 100) * 365;
+            const gastosAnuales      = ingresoBrutoAnual * (gastosOp / 100);
+            const ingresoNetoAnual   = ingresoBrutoAnual - gastosAnuales;
+            const ingresoNetoMensual = ingresoNetoAnual / 12;
+            const flujoMensual       = ingresoNetoMensual - mensualidad;
+            const flujoAcumulado     = flujoMensual * 12 * horizonte;
+            const valorFuturoPropiedad = valorPropiedad * Math.pow(1 + plusvalia / 100, horizonte);
+            const gananciaPlusvalia  = valorFuturoPropiedad - valorPropiedad;
+            const totalInmueble      = valorFuturoPropiedad + flujoAcumulado;
+            const roiInmueble        = ((totalInmueble - enganche) / enganche) * 100;
+            const roiAnualInmueble   = (Math.pow(totalInmueble / enganche, 1 / horizonte) - 1) * 100;
+            const fvCetes = enganche * Math.pow(1 + tasaCetes / 100, horizonte);
+            const fvSP    = enganche * Math.pow(1 + tasaSP    / 100, horizonte);
+            const fvUDIS  = enganche * Math.pow(1 + tasaUDIS  / 100, horizonte);
+            const apalancamiento = valorPropiedad / enganche;
+            const cortes = CORTES.map(y => ({
+              y,
+              inmueble: valorPropiedad * Math.pow(1 + plusvalia / 100, y) + flujoMensual * 12 * y,
+              vfProp:   valorPropiedad * Math.pow(1 + plusvalia / 100, y),
+              flujoAc:  flujoMensual * 12 * y,
+              cetes:    enganche * Math.pow(1 + tasaCetes / 100, y),
+              sp:       enganche * Math.pow(1 + tasaSP    / 100, y),
+              udis:     enganche * Math.pow(1 + tasaUDIS  / 100, y),
+            }));
+            return { enganche, credito, mensualidad, ingresoBrutoAnual, gastosAnuales,
+              ingresoNetoAnual, ingresoNetoMensual, flujoMensual, flujoAcumulado,
+              valorFuturoPropiedad, gananciaPlusvalia, totalInmueble, roiInmueble, roiAnualInmueble,
+              fvCetes, fvSP, fvUDIS, apalancamiento, cortes,
+              roiCetes: ((fvCetes - enganche) / enganche) * 100,
+              roiSP:    ((fvSP    - enganche) / enganche) * 100,
+              roiUDIS:  ((fvUDIS  - enganche) / enganche) * 100,
+            };
+          }, [valorPropiedad,enganchePct,rentaDiaria,ocupacion,gastosOp,plusvalia,horizonte,tasaMensualidad,tasaCetes,tasaSP,tasaUDIS]);
+
+          const winner = useMemo(() => [
+            { name: "Bienes Raíces", val: calc.totalInmueble },
+            { name: "S&P 500",       val: calc.fvSP },
+            { name: "CETES",         val: calc.fvCetes },
+            { name: "UDIS",          val: calc.fvUDIS },
+          ].sort((a, b) => b.val - a.val)[0], [calc]);
+
+          const TabBtn = ({ id, label }) => (
+            <button onClick={() => setTab(id)} style={{
+              padding: "8px 18px", borderRadius: 8, border: "none", cursor: "pointer", fontSize: 13, fontWeight: 600,
+              background: tab === id ? "#f0b429" : "transparent",
+              color: tab === id ? "#0f172a" : "#64748b",
+              transition: "all 0.2s"
+            }}>{label}</button>
+          );
+
+          return (
+            <div style={{ minHeight: "100vh", background: "#060d1a",
+              fontFamily: "'DM Sans', system-ui, sans-serif", color: "#f1f5f9" }}>
+
+              {/* HEADER */}
+              <div style={{ background: "linear-gradient(135deg, #0a1628 0%, #0d1f3c 100%)",
+                borderBottom: "1px solid #1e3a5f", padding: "24px 28px" }}>
+                <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+                  <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
+                    <div>
+                      <div style={{ fontSize: 11, letterSpacing: 3, color: "#f0b429", fontWeight: 700, marginBottom: 4 }}>
+                        ANÁLISIS FINANCIERO COMPARATIVO
+                      </div>
+                      <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 26, fontWeight: 800, margin: 0, color: "#f1f5f9" }}>
+                        Bienes Raíces vs Instrumentos Financieros
+                      </h1>
+                      <p style={{ margin: "6px 0 6px", color: "#64748b", fontSize: 13 }}>
+                        Compara el rendimiento real de tu capital en distintas alternativas
+                      </p>
+                      <div style={{ fontSize: 11,
+                        color: fetchStatus === "done" ? "#34d399" : fetchStatus === "error" ? "#f0b429" : "#94a3b8",
+                        background: fetchStatus === "done" ? "#34d39915" : "#FFFFFF08",
+                        border: `1px solid ${fetchStatus === "done" ? "#34d39940" : "#ffffff15"}`,
+                        borderRadius: 8, padding: "4px 12px", display: "inline-block" }}>
+                        {fetchNote}
+                      </div>
+                    </div>
+                    <div style={{ background: "#f0b42915", border: "1px solid #f0b42940",
+                      borderRadius: 12, padding: "10px 18px", textAlign: "center" }}>
+                      <div style={{ fontSize: 10, color: "#94a3b8", marginBottom: 4 }}>🏆 MEJOR OPCIÓN ({horizonte} años)</div>
+                      <div style={{ fontSize: 16, fontWeight: 800, color: "#f0b429" }}>{winner.name}</div>
+                      <div style={{ fontSize: 13, color: "#94a3b8", fontFamily: "monospace" }}>{fmt(winner.val)}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ maxWidth: 1100, margin: "0 auto", padding: "24px 16px" }}>
+
+                {/* TABS */}
+                <div style={{ display: "flex", gap: 4, background: "#0f172a", borderRadius: 10,
+                  padding: 4, marginBottom: 24, border: "1px solid #1e293b", width: "fit-content", flexWrap: "wrap" }}>
+                  <TabBtn id="params"   label="⚙️ Variables" />
+                  <TabBtn id="results"  label="📊 Resultados" />
+                  <TabBtn id="analysis" label="🧠 Análisis" />
+                  <TabBtn id="cierre"   label="🔥 Por Qué Sí" />
+                </div>
+
+                {/* ── PARAMS ── */}
+                {tab === "params" && (
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 20 }}>
+                    <div style={{ background: "#0f172a", border: "1px solid #1e3a5f", borderRadius: 16, padding: 22 }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 20 }}>
+                        <span style={{ fontSize: 20 }}>🏠</span>
+                        <span style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, fontWeight: 700 }}>Propiedad</span>
+                      </div>
+                      <NumberInput label="Valor de la propiedad" value={valorPropiedad} onChange={setValorPropiedad} prefix="$" hint="MXN" />
+                      <SliderInput label="Enganche" value={enganchePct} onChange={setEnganchePct} min={10} max={50} suffix="%" />
+                      <div style={{ padding: "10px 12px", background: "#0a1628", borderRadius: 8, marginBottom: 14 }}>
+                        <div style={{ fontSize: 11, color: "#64748b" }}>Enganche calculado</div>
+                        <div style={{ fontSize: 16, fontWeight: 700, color: "#38bdf8", fontFamily: "monospace" }}>{fmt(calc.enganche)}</div>
+                      </div>
+                      <NumberInput label="Tasa crédito hipotecario" value={tasaMensualidad} onChange={setTasaMensualidad} suffix="% anual" />
+                    </div>
+
+                    <div style={{ background: "#0f172a", border: "1px solid #1e3a5f", borderRadius: 16, padding: 22 }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 20 }}>
+                        <span style={{ fontSize: 20 }}>🏨</span>
+                        <span style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, fontWeight: 700 }}>Operación / Renta</span>
+                      </div>
+                      <NumberInput label="Renta diaria promedio" value={rentaDiaria} onChange={setRentaDiaria} prefix="$" />
+                      <SliderInput label="Ocupación anual" value={ocupacion} onChange={setOcupacion} min={20} max={90} suffix="%" />
+                      <SliderInput label="Plusvalía anual" value={plusvalia} onChange={setPlusvalia} min={2} max={15} suffix="%" />
+                      <SliderInput label="Horizonte de inversión" value={horizonte} onChange={setHorizonte} min={1} max={20} suffix=" años" />
+                    </div>
+
+                    <div style={{ background: "#0f172a", border: "1px solid #1e3a5f", borderRadius: 16, padding: 22 }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 20 }}>
+                        <span style={{ fontSize: 20 }}>📈</span>
+                        <span style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, fontWeight: 700 }}>Instrumentos financieros</span>
+                      </div>
+                      <SliderInput label="CETES (tasa anual)" value={tasaCetes} onChange={setTasaCetes} min={4} max={16} step={0.1} suffix="%" />
+                      <SliderInput label="S&P 500 (rendimiento)" value={tasaSP} onChange={setTasaSP} min={6} max={20} step={0.5} suffix="%" />
+                      <SliderInput label="UDIS (rendimiento real)" value={tasaUDIS} onChange={setTasaUDIS} min={1} max={8} step={0.1} suffix="%" />
+                    </div>
+                  </div>
+                )}
+
+                {/* ── RESULTS ── */}
+                {tab === "results" && (
+                  <div>
+                    <div style={{
+                      background: calc.flujoMensual >= 0 ? "linear-gradient(135deg, #064e3b20, #0f172a)" : "linear-gradient(135deg, #7f1d1d20, #0f172a)",
+                      border: `1px solid ${calc.flujoMensual >= 0 ? "#34d39940" : "#fb718540"}`,
+                      borderRadius: 14, padding: "16px 24px", marginBottom: 20,
+                      display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
+                      <div>
+                        <div style={{ fontSize: 11, color: "#64748b", marginBottom: 4 }}>FLUJO MENSUAL NETO (rentas − hipoteca)</div>
+                        <div style={{ fontSize: 28, fontWeight: 800, color: calc.flujoMensual >= 0 ? "#34d399" : "#fb7185", fontFamily: "monospace" }}>
+                          {fmt(calc.flujoMensual)} / mes
+                        </div>
+                      </div>
+                      <div style={{ textAlign: "right" }}>
+                        <TAG text={calc.flujoMensual >= 0 ? "✅ FLUJO POSITIVO" : "⚠️ FLUJO NEGATIVO"} color={calc.flujoMensual >= 0 ? "#34d399" : "#fb7185"} />
+                        <div style={{ fontSize: 12, color: "#64748b", marginTop: 6 }}>
+                          Flujo acumulado {horizonte} años: <span style={{ color: "#f1f5f9", fontWeight: 700 }}>{fmt(calc.flujoAcumulado)}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 16, marginBottom: 24 }}>
+                      <ResultCard title="Bienes Raíces" icon="🏠" color="#f0b429" badge={`×${calc.apalancamiento.toFixed(1)} Apalancado`}
+                        rows={[
+                          { label: "Enganche invertido",    value: fmt(calc.enganche) },
+                          { label: "Valor futuro",          value: fmt(calc.valorFuturoPropiedad) },
+                          { label: "ROI total",              value: `${calc.roiInmueble.toFixed(0)}%`, bold: true },
+                          { label: "ROI anualizado",         value: `${calc.roiAnualInmueble.toFixed(1)}% anual`, bold: true },
+                        ]} highlight={fmt(calc.totalInmueble)} />
+                      <ResultCard title="CETES" icon="🏦" color="#38bdf8" badge="Libre de riesgo"
+                        rows={[
+                          { label: "Tasa anual",      value: fmtPct(tasaCetes) },
+                          { label: "Ganancia neta",   value: fmt(calc.fvCetes - calc.enganche) },
+                          { label: "ROI total",       value: `${calc.roiCetes.toFixed(0)}%`, bold: true },
+                        ]} highlight={fmt(calc.fvCetes)} />
+                      <ResultCard title="S&P 500" icon="🇺🇸" color="#34d399" badge="Renta variable"
+                        rows={[
+                          { label: "Tasa esperada",   value: fmtPct(tasaSP) },
+                          { label: "Ganancia neta",   value: fmt(calc.fvSP - calc.enganche) },
+                          { label: "ROI total",       value: `${calc.roiSP.toFixed(0)}%`, bold: true },
+                        ]} highlight={fmt(calc.fvSP)} />
+                    </div>
+                  </div>
+                )}
+
+                {/* ── CIERRE ── */}
+                {tab === "cierre" && (
+                  <div>
+                    <div style={{ background: "linear-gradient(135deg, #1a0a2e 0%, #0f172a 60%, #0d1f10 100%)",
+                      border: "1.5px solid #f0b42950", borderRadius: 20, padding: "32px 28px", marginBottom: 24, textAlign: "center" }}>
+                      <div style={{ fontSize: 13, letterSpacing: 3, color: "#f0b429", fontWeight: 700, marginBottom: 10 }}>EL ARGUMENTO QUE CAMBIA LA CONVERSACIÓN</div>
+                      <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 28, fontWeight: 800, color: "#f1f5f9", margin: "0 0 14px", lineHeight: 1.3 }}>
+                        Una propiedad no es un gasto.<br />
+                        <span style={{ color: "#f0b429" }}>Es un activo que trabaja mientras tú duermes.</span>
+                      </h1>
+                      <p style={{ color: "#94a3b8", fontSize: 15, maxWidth: 600, margin: "0 auto", lineHeight: 1.7 }}>
+                        Ningún instrumento financiero te ofrece rendimiento financiero + rendimiento de vida.
+                      </p>
+                    </div>
+
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16 }}>
+                      {[
+                        { icon: "🏦", color: "#f0b429", tag: "APALANCAMIENTO", title: "El banco te presta lo que a otros niega", body: "Con un enganche controlas el 100% de la plusvalía de un activo real." },
+                        { icon: "🌊", color: "#38bdf8", tag: "EL TRUCO DEL SIGLO", title: "El inquilino paga la hipoteca", body: "Tú te quedas con la plusvalía mientras el flujo de renta cubre tu deuda." },
+                        { icon: "🏖️", color: "#fb923c", tag: "BENEFICIO DOBLE", title: "Tú la disfrutas", body: "El retorno emocional no aparece en tablas, pero tiene un valor incalculable." },
+                      ].map((card, i) => (
+                        <div key={i} style={{ background: "#0f172a", border: `1px solid ${card.color}30`, borderRadius: 16, padding: 20 }}>
+                          <div style={{ fontSize: 10, letterSpacing: 2, color: card.color, fontWeight: 700, marginBottom: 8 }}>{card.tag}</div>
+                          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+                            <span style={{ fontSize: 24 }}>{card.icon}</span>
+                            <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 15, fontWeight: 700, color: "#f1f5f9" }}>{card.title}</div>
+                          </div>
+                          <p style={{ fontSize: 13, color: "#64748b", lineHeight: 1.6, margin: 0 }}>{card.body}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div style={{ textAlign: "center", padding: "20px", color: "#334155", fontSize: 11, borderTop: "1px solid #1e293b" }}>
+                Análisis financiero ilustrativo · Proyecciones bajo supuestos declarados
+              </div>
+            </div>
+          );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
