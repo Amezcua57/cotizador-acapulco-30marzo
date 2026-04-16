@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proyección Caracol Diamante</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;1,400&family=Nunito:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--slate:#3d5166;--gold:#b8923c;--gold-lt:#e0c98a;--cream:#f9f6f1;--white:#fff;--txm:#505050;--txl:#909090;--serif:'Lora',Georgia,serif;--sans:'Nunito',system-ui,sans-serif;}
+body{font-family:var(--sans);background:var(--slate);min-height:100vh;padding:1.5rem;}
+h2{font-family:var(--serif);font-size:22px;font-weight:400;color:#fff;margin-bottom:4px;}
+h2 em{font-style:italic;color:var(--gold);}
+.sub{font-size:12px;color:rgba(255,255,255,.5);margin-bottom:1.25rem;}
+.unit-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.25rem;}
+.utab{font-size:12px;font-weight:500;padding:6px 14px;border-radius:20px;cursor:pointer;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.55);background:transparent;transition:all .2s;font-family:var(--sans);}
+.utab.on{background:var(--gold);color:var(--slate);border-color:var(--gold);}
+.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1.25rem;}
+.scard{background:rgba(255,255,255,.07);border:0.5px solid rgba(255,255,255,.12);border-radius:10px;padding:.875rem 1rem;}
+.scard-label{font-size:10px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.25rem;}
+.scard-val{font-family:var(--serif);font-size:26px;color:var(--gold);line-height:1;}
+.scard-sub{font-size:11px;color:rgba(255,255,255,.4);margin-top:3px;line-height:1.4;}
+.tbl-wrap{border-radius:10px;overflow:hidden;border:0.5px solid rgba(255,255,255,.12);}
+table{width:100%;border-collapse:collapse;font-size:13px;font-family:var(--sans);}
+thead tr{background:rgba(255,255,255,.08);}
+thead th{padding:10px 14px;text-align:left;font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.55);border-bottom:0.5px solid rgba(255,255,255,.1);white-space:nowrap;}
+thead th.hl5{background:rgba(184,146,60,.15);color:var(--gold-lt);}
+thead th.hl10{background:rgba(184,146,60,.22);color:var(--gold-lt);}
+thead th.hl20{background:rgba(184,146,60,.3);color:var(--gold-lt);}
+tbody tr{border-bottom:0.5px solid rgba(255,255,255,.06);}
+tbody tr:last-child{border-bottom:none;background:rgba(255,255,255,.05);}
+tbody td{padding:10px 14px;color:rgba(255,255,255,.75);line-height:1.3;}
+tbody td:first-child{color:rgba(255,255,255,.9);}
+td.hl5{background:rgba(184,146,60,.1);color:#f0d898;}
+td.hl10{background:rgba(184,146,60,.16);color:#f0d898;}
+td.hl20{background:rgba(184,146,60,.22);color:#f5e0a0;}
+.nota{font-size:10px;color:rgba(255,255,255,.25);margin-top:.875rem;line-height:1.6;font-style:italic;}
+@media(max-width:600px){.summary{grid-template-columns:1fr 1fr;}.scard:last-child{grid-column:1/-1;}}
+</style>
+</head>
+<body>
+<h2>Proyección de patrimonio · <em>Caracol Diamante</em></h2>
+<p class="sub">Tasa 10.5% anual · Enganche 10% · Plazo 12 años · Plusvalía 8% anual · Renta +5% anual</p>
+
+<div class="unit-tabs">
+  <button class="utab on" onclick="sel(0)">Condo 2R — $3.2M</button>
+  <button class="utab" onclick="sel(1)">Roof Garden 2R — $3.62M</button>
+  <button class="utab" onclick="sel(2)">Roof Garden 3R — $4.58M</button>
+  <button class="utab" onclick="sel(3)">Villa Arena Loft — $3.575M</button>
+</div>
+
+<div class="summary">
+  <div class="scard">
+    <div class="scard-label">Mensualidad est.</div>
+    <div class="scard-val" id="s-men">—</div>
+    <div class="scard-sub">a 12 años · 10.5% anual</div>
+  </div>
+  <div class="scard">
+    <div class="scard-label">Renta mensual (14 noches)</div>
+    <div class="scard-val" id="s-renta">—</div>
+    <div class="scard-sub">cubre el 100% de la mensualidad</div>
+  </div>
+  <div class="scard">
+    <div class="scard-label">Noches libres al mes</div>
+    <div class="scard-val" id="s-noches">16</div>
+    <div class="scard-sub">para uso propio o más ingresos</div>
+  </div>
+</div>
+
+<div class="tbl-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Concepto</th>
+        <th class="hl5">Año 5</th>
+        <th class="hl10">Año 10</th>
+        <th class="hl20">Año 20</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+</div>
+<p class="nota">* Proyección estimativa con supuestos conservadores. Plusvalía 8% anual acumulada. Renta incrementa 5% anual. No incluye gastos de mantenimiento ni impuestos. Los rendimientos pasados no garantizan resultados futuros.</p>
+
+<script>
+var U=[
+  {nombre:"Condo 2 recámaras",precio:3200000,noche:2500,noches:14},
+  {nombre:"Roof Garden 2 rec.",precio:3620000,noche:2800,noches:14},
+  {nombre:"Roof Garden 3 rec.",precio:4580000,noche:3600,noches:14},
+  {nombre:"Villa Arena Loft",precio:3575000,noche:2800,noches:14}
+];
+function fmt(n){return '$'+Math.round(n).toLocaleString('es-MX');}
+function calcMen(precio){
+  var p=precio*0.9,r=0.105/12,n=144;
+  return p*(r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1);
+}
+function calcP(u,a){
+  var valor=u.precio*Math.pow(1.08,a);
+  var plusvalia=valor-u.precio;
+  var rentaAcum=0,rentaMes=u.noche*u.noches;
+  for(var i=1;i<=a;i++) rentaAcum+=rentaMes*Math.pow(1.05,i-1)*12;
+  return {valor:valor,plusvalia:plusvalia,rentaAcum:rentaAcum,retorno:plusvalia+rentaAcum};
+}
+function sel(i){
+  document.querySelectorAll('.utab').forEach(function(t,j){t.classList.toggle('on',i===j);});
+  var u=U[i];
+  var men=calcMen(u.precio);
+  var rentaMes=u.noche*u.noches;
+  document.getElementById('s-men').textContent=fmt(men);
+  document.getElementById('s-renta').textContent=fmt(rentaMes);
+  document.getElementById('s-noches').textContent=(30-u.noches);
+  var p5=calcP(u,5),p10=calcP(u,10),p20=calcP(u,20);
+  var rows=[
+    {l:'Precio de compra',v5:u.precio,v10:u.precio,v20:u.precio},
+    {l:'Valor cstimado del inmueble',v5:p5.valor,v10:p10.valor,v20:p20.valor},
+    {l:'Plusvalía acumulada',v5:p5.plusvalia,v10:p10.plusvalia,v20:p20.plusvalia},
+    {l:'Ingresos por renta acumulados',v5:p5.rentaAcum,v10:p10.rentaAcum,v20:p20.rentaAcum},
+    {l:'Retorno total acumulado',v5:p5.retorno,v10:p10.retorno,v20:p20.retorno,bold:true}
+  ];
+  var html='';
+  rows.forEach(function(r){
+    var b=r.bold?'<strong>':'',be=r.bold?'</strong>':'';
+    html+='<tr><td>'+b+r.l+be+'</td>';
+    html+='<td class="hl5">'+b+fmt(r.v5)+be+'</td>';
+    html+='<td class="hl10">'+b+fmt(r.v10)+be+'</td>';
+    html+='<td class="hl20">'+b+fmt(r.v20)+be+'</td></tr>';
+  });
+  document.getElementById('tbody').innerHTML=html;
+}
+sel(0);
+</script>
+</body>
+</html>
