@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema de Emails · Caracol Diamante</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;1,400&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--slate:#3d5166;--gold:#b8923c;--gold-lt:#e0c98a;--cream:#f9f6f1;--sand:#eee9e1;--white:#fff;--tx:#1e1e1e;--txm:#505050;--txl:#909090;--green:#1a7a4a;--green-lt:#e8f5ee;--serif:'Lora',Georgia,serif;--sans:'Nunito',system-ui,sans-serif;}
+body{font-family:var(--sans);background:var(--cream);color:var(--tx);}
+.header{background:var(--slate);padding:1.25rem 2rem;display:flex;align-items:center;gap:12px;}
+.header-logo{font-family:var(--serif);font-size:14px;color:var(--gold);letter-spacing:.1em;}
+.header-title{font-size:14px;color:rgba(255,255,255,.7);}
+.container{max-width:900px;margin:0 auto;padding:2rem 1.5rem;}
+
+/* TABS */
+.tabs{display:flex;gap:6px;margin-bottom:2rem;flex-wrap:wrap;}
+.tab{font-size:12px;font-weight:600;padding:8px 16px;border-radius:20px;border:1.5px solid rgba(0,0,0,.1);background:var(--white);cursor:pointer;font-family:var(--sans);color:var(--txm);transition:all .15s;}
+.tab.on{background:var(--slate);color:var(--white);border-color:var(--slate);}
+.panel{display:none;}
+.panel.on{display:block;}
+
+/* EMAIL PREVIEW */
+.email-meta{background:var(--white);border:0.5px solid rgba(0,0,0,.08);border-radius:10px;padding:1rem 1.25rem;margin-bottom:1rem;}
+.email-meta-row{display:flex;gap:8px;font-size:13px;padding:4px 0;border-bottom:0.5px solid rgba(0,0,0,.05);}
+.email-meta-row:last-child{border-bottom:none;}
+.email-meta-label{font-weight:600;color:var(--txl);min-width:70px;}
+.email-meta-val{color:var(--txm);}
+.email-frame{border:0.5px solid rgba(0,0,0,.1);border-radius:10px;overflow:hidden;}
+.email-toolbar{background:var(--sand);padding:.625rem 1rem;font-size:11px;color:var(--txl);display:flex;align-items:center;gap:8px;}
+.email-dot{width:10px;height:10px;border-radius:50%;}
+.email-body{background:#f0ece6;padding:1.5rem;}
+.email-card{max-width:580px;margin:0 auto;background:#fff;}
+.email-head{background:#3d5166;padding:1.25rem 1.75rem;text-align:center;}
+.email-brand{font-family:Georgia,serif;font-size:13px;color:#b8923c;letter-spacing:.12em;text-transform:uppercase;}
+.email-brand-sub{font-size:11px;color:rgba(255,255,255,.4);margin-top:3px;letter-spacing:.08em;}
+.email-content{padding:1.75rem;color:#505050;font-size:14px;line-height:1.7;}
+.email-content p{margin-bottom:.875rem;}
+.email-content ul{padding-left:1.25rem;margin-bottom:.875rem;}
+.email-content li{margin-bottom:.3rem;}
+.email-footer{background:#f9f6f1;padding:1rem 1.75rem;border-top:1px solid #e8e4de;}
+.email-footer p{font-size:11px;color:#909090;line-height:1.6;}
+.email-btn{display:inline-block;background:#b8923c;color:#fff;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:600;font-size:13px;margin-right:8px;margin-bottom:6px;}
+.email-btn.slate{background:#3d5166;}
+.email-btn.wa{background:#25d366;}
+.highlight-box{background:#f5edd8;border-left:3px solid #b8923c;padding:1rem;border-radius:0 8px 8px 0;margin:1rem 0;}
+.highlight-box.red{background:#fdecea;border-left-color:#c0392b;}
+.highlight-box.green{background:#e8f5ee;border-left-color:#1a7a4a;}
+.highlight-box.slate{background:#f9f6f1;border:1px solid #e0c98a;border-left:none;border-radius:8px;}
+.table-email{border-collapse:collapse;width:100%;margin:1rem 0;font-size:13px;}
+.table-email th{background:#3d5166;color:#fff;padding:8px 12px;text-align:left;}
+.table-email td{padding:8px 12px;border-bottom:1px solid #eee;}
+.table-email tr:nth-child(2){background:#f9f6f1;}
+.table-email tr.green-row td{background:#e8f5ee;color:#1a7a4a;font-weight:700;}
+
+/* INSTRUCCIONES */
+.steps-wrap{display:flex;flex-direction:column;gap:1.25rem;}
+.step-card{background:var(--white);border:0.5px solid rgba(0,0,0,.08);border-radius:12px;padding:1.25rem 1.5rem;display:flex;gap:1.25rem;align-items:flex-start;}
+.step-num{width:36px;height:36px;border-radius:50%;background:var(--slate);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:18px;flex-shrink:0;}
+.step-title{font-family:var(--serif);font-size:17px;color:var(--slate);margin-bottom:.4rem;}
+.step-body{font-size:13px;color:var(--txm);line-height:1.65;}
+.step-body strong{color:var(--tx);}
+.step-body code{background:var(--sand);padding:2px 6px;border-radius:4px;font-size:12px;font-family:monospace;color:var(--slate);}
+.tip{background:rgba(184,146,60,.07);border:0.5px solid rgba(184,146,60,.2);border-radius:8px;padding:.75rem 1rem;margin-top:.75rem;font-size:12px;color:var(--txm);}
+.tip strong{color:var(--gold);}
+.badge{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;background:var(--green-lt);color:var(--green);margin-left:8px;}
+.badge.gold{background:rgba(184,146,60,.12);color:var(--gold);}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="header-logo">Caracol Diamante</div>
+    <div class="header-title">Sistema de emails automáticos · Vista previa completa</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="tabs">
+    <button class="tab on" onclick="sw(0)">📧 Email Día 0 · Bienvenida</button>
+    <button class="tab" onclick="sw(1)">📸 Email Día 3 · Avance de obra</button>
+    <button class="tab" onclick="sw(2)">🧮 Email Día 10 · Noches</button>
+    <button class="tab" onclick="sw(3)">⚠️ Email Día 21 · Urgencia</button>
+    <button class="tab" onclick="sw(4)">💌 Email Día 45 · Reactivación</button>
+    <button class="tab" onclick="sw(5)">⚙️ Cómo instalarlo</button>
+  </div>
+
+  <!-- DÍA 0 -->
+  <div class="panel on" id="p0">
+    <div class="email-meta">
+      <div class="email-meta-row"><span class="email-meta-label">De:</span><span class="email-meta-val">Karina Rodríguez · Caracol Diamante &lt;karinarbataz@gmail.com&gt;</span></div>
+      <div class="email-meta-row"><span class="email-meta-label">Para:</span><span class="email-meta-val">prospecto@email.com</span></div>
+      <div class="email-meta-row"><span class="email-meta-label">CC:</span><span class="email-meta-val">amezcuaizquierdo@gmail.com (Francisco recibe copia)</span></div>
+      <div class="email-meta-row"><span class="email-meta-label">Asunto:</span><span class="email-meta-val"><strong>Tu información sobre Zona Diamante, Acapulco · Caracol Diamante</strong></span></div>
+      <div class="email-meta-row"><span class="email-meta-label">Cuándo:</span><span class="email-meta-val">Inmediato al registrarse <span class="badge gold">Automático</span></span></div>
+    </div>
+    <div class="email-frame">
+      <div class="email-toolbar"><div class="email-dot" style="background:#ff5f57;"></div><div class="email-dot" style="background:#febc2e;"></div><div class="email-dot" style="background:#28c840;"></div><span>Gmail — Vista previa</span></div>
+      <div class="email-body">
+        <div class="email-card">
+          <div class="email-head"><div class="email-brand">Caracol Diamante</div><div class="email-brand-sub">Zona Diamante · Acapulco</div></div>
+          <div class="email-content">
+            <p>Hola <strong>Ricardo</strong>,</p>
+            <p>Gracias por tu interés en invertir en Zona Diamante. En los próximos minutos te contactaremos por WhatsApp para confirmar tu sesión de asesoría gratuita.</p>
+            <p>Mientras tanto, aquí tienes dos recursos que te van a ser muy útiles:</p>
+            <p><a href="#" class="email-btn">📖 Guía de inversión</a><a href="#" class="email-btn slate">📊 Ver proyecciones</a></p>
+            <p>En tu sesión gratuita de 25–30 minutos vas a obtener:</p>
+            <ul>
+              <li>Un panorama real del mercado en Acapulco Diamante hoy</li>
+              <li>Las principales opciones en tu rango de inversión</li>
+              <li>Cuántas noches necesitas rentar para que se pague prácticamente sola</li>
+              <li>Una proyección personalizada de tu patrimonio a 5, 10 y 20 años</li>
+            </ul>
+            <p style="margin-top:1rem;">Cualquier pregunta, responde este correo o escríbenos directamente:</p>
+            <p><a href="#" class="email-btn wa">💬 WhatsApp directo</a></p>
+          </div>
+          <div class="email-footer"><p><strong style="color:#3d5166;">Karina Rodríguez</strong><br>Asesora de inversiones · Caracol Diamante<br>WhatsApp: +52 744 175 2143 · karinarbataz@gmail.com</p><p style="margin-top:.5rem;font-size:10px;color:#c0c0c0;">Boulevard de las Naciones, Lote 49 · Zona Diamante, Acapulco, Guerrero</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DÍA 3 -->
+  <div class="panel" id="p1">
+    <div class="email-meta">
+      <div class="email-meta-row"><span class="email-meta-label">Asunto:</span><span class="email-meta-val"><strong>Ricardo, avance de obra esta semana · Caracol Diamante</strong></span></div>
+      <div class="email-meta-row"><span class="email-meta-label">Cuándo:</span><span class="email-meta-val">3 días después del registro <span class="badge gold">Automático</span></span></div>
+      <div class="email-meta-row"><span class="email-meta-label">Objetivo:</span><span class="email-meta-val">Mantener interés con contenido real de la obra</span></div>
+    </div>
+    <div class="email-frame">
+      <div class="email-toolbar"><div class="email-dot" style="background:#ff5f57;"></div><div class="email-dot" style="background:#febc2e;"></div><div class="email-dot" style="background:#28c840;"></div><span>Gmail — Vista previa</span></div>
+      <div class="email-body">
+        <div class="email-card">
+          <div class="email-head"><div class="email-brand">Caracol Diamante</div><div class="email-brand-sub">Zona Diamante · Acapulco</div></div>
+          <div class="email-content">
+            <p>Hola <strong>Ricardo</strong>,</p>
+            <p>Esta semana llegaron las fotos de avance de obra de Caracol Diamante. El proyecto avanza según el calendario y los materiales están en sitio.</p>
+            <div class="highlight-box">📸 <strong>Fotos disponibles en tu sesión de asesoría.</strong><br>Te las mostramos en vivo durante la videollamada para que veas el avance real, no solo renders.</div>
+            <p>¿Ya revisaste el cotizador con tu proyección personalizada?</p>
+            <p><a href="#" style="color:#b8923c;font-weight:600;">→ Ver mi proyección a 20 años</a></p>
+            <p>Si tienes dudas o quieres agendar tu sesión, aquí estamos:</p>
+            <p><a href="#" class="email-btn wa">💬 WhatsApp directo</a></p>
+          </div>
+          <div class="email-footer"><p><strong style="color:#3d5166;">Karina Rodríguez</strong><br>Asesora de inversiones · Caracol Diamante<br>WhatsApp: +52 744 175 2143</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DÍA 10 -->
+  <div class="panel" id="p2">
+    <div class="email-meta">
+      <div class="email-meta-row"><span class="email-meta-label">Asunto:</span><span class="email-meta-val"><strong>¿Calculaste cuántas noches necesitas rentar? · Caracol Diamante</strong></span></div>
+      <div class="email-meta-row"><span class="email-meta-label">Cuándo:</span><span class="email-meta-val">10 días después del registro <span class="badge gold">Automático</span></span></div>
+      <div class="email-meta-row"><span class="email-meta-label">Objetivo:</span><span class="email-meta-val">Responder la objeción más común con números reales</span></div>
+    </div>
+    <div class="email-frame">
+      <div class="email-toolbar"><div class="email-dot" style="background:#ff5f57;"></div><div class="email-dot" style="background:#febc2e;"></div><div class="email-dot" style="background:#28c840;"></div><span>Gmail — Vista previa</span></div>
+      <div class="email-body">
+        <div class="email-card">
+          <div class="email-head"><div class="email-brand">Caracol Diamante</div><div class="email-brand-sub">Zona Diamante · Acapulco</div></div>
+          <div class="email-content">
+            <p>Hola <strong>Ricardo</strong>,</p>
+            <p>Una de las preguntas que más nos hacen antes de decidir:</p>
+            <div class="highlight-box" style="font-size:15px;">"¿Cuántas noches tengo que rentar para que la mensualidad esté cubierta?"</div>
+            <p>La respuesta para el <strong>Condo 2 recámaras</strong>:</p>
+            <table class="table-email">
+              <tr><th>Concepto</th><th>Número</th></tr>
+              <tr><td>Mensualidad estimada (10.5% · 12 años)</td><td><strong>$34,054 MXN</strong></td></tr>
+              <tr><td>Renta por noche estimada</td><td><strong>$2,500 MXN</strong></td></tr>
+              <tr class="green-row"><td>Noches para cubrir la mensualidad</td><td style="font-size:18px;">14 noches</td></tr>
+              <tr style="background:#f9f6f1;"><td>Noches libres al mes</td><td><strong>16 noches</strong></td></tr>
+            </table>
+            <p>Puedes ver los números de tu unidad específica aquí:</p>
+            <p><a href="#" class="email-btn">📊 Calcular mi proyección</a></p>
+            <p style="margin-top:1rem;">¿Quieres que revisemos esto juntos? Sin compromiso.</p>
+            <p><a href="#" class="email-btn wa">💬 Agendar sesión por WhatsApp</a></p>
+          </div>
+          <div class="email-footer"><p><strong style="color:#3d5166;">Karina Rodríguez</strong><br>Asesora de inversiones · Caracol Diamante</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DÍA 21 -->
+  <div class="panel" id="p3">
+    <div class="email-meta">
+      <div class="email-meta-row"><span class="email-meta-label">Asunto:</span><span class="email-meta-val"><strong>Una actualización sobre la disponibilidad · Caracol Diamante</strong></span></div>
+      <div class="email-meta-row"><span class="email-meta-label">Cuándo:</span><span class="email-meta-val">21 días después del registro <span class="badge gold">Automático</span></span></div>
+      <div class="email-meta-row"><span class="email-meta-label">Objetivo:</span><span class="email-meta-val">Urgencia real — solo usar si hay interesados activos</span></div>
+    </div>
+    <div class="email-frame">
+      <div class="email-toolbar"><div class="email-dot" style="background:#ff5f57;"></div><div class="email-dot" style="background:#febc2e;"></div><div class="email-dot" style="background:#28c840;"></div><span>Gmail — Vista previa</span></div>
+      <div class="email-body">
+        <div class="email-card">
+          <div class="email-head"><div class="email-brand">Caracol Diamante</div><div class="email-brand-sub">Zona Diamante · Acapulco</div></div>
+          <div class="email-content">
+            <p>Hola <strong>Ricardo</strong>,</p>
+            <p>Ha pasado un tiempo desde que platicamos y quería darte una actualización rápida sobre la disponibilidad en Caracol Diamante.</p>
+            <div class="highlight-box red">⚠️ <strong>Disponibilidad limitada.</strong><br>Caracol Diamante tiene 51 unidades en total — sin posibilidad de expansión. Algunas unidades tienen interesados activos en este momento.</div>
+            <p>Si todavía estás evaluando, me gustaría saber:</p>
+            <ul>
+              <li>¿Qué información te falta para tomar una decisión?</li>
+              <li>¿Hay alguna duda que no te hayamos resuelto?</li>
+              <li>¿Cambió algo en tu situación desde que hablamos?</li>
+            </ul>
+            <p style="margin-top:1rem;">Si seguiste evaluando otras opciones en la zona, me da gusto. Eso significa que cuando elijas Caracol, lo harás con toda la información.</p>
+            <p><a href="#" class="email-btn wa">💬 Responderme por WhatsApp</a></p>
+          </div>
+          <div class="email-footer"><p><strong style="color:#3d5166;">Karina Rodríguez</strong><br>Asesora de inversiones · Caracol Diamante</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DÍA 45 -->
+  <div class="panel" id="p4">
+    <div class="email-meta">
+      <div class="email-meta-row"><span class="email-meta-label">Asunto:</span><span class="email-meta-val"><strong>¿Cambió algo en tu situación? · Caracol Diamante</strong></span></div>
+      <div class="email-meta-row"><span class="email-meta-label">Cuándo:</span><span class="email-meta-val">45 días después del registro <span class="badge gold">Automático</span></span></div>
+      <div class="email-meta-row"><span class="email-meta-label">Objetivo:</span><span class="email-meta-val">Reactivar sin presión — el de mayor tasa de apertura</span></div>
+    </div>
+    <div class="email-frame">
+      <div class="email-toolbar"><div class="email-dot" style="background:#ff5f57;"></div><div class="email-dot" style="background:#febc2e;"></div><div class="email-dot" style="background:#28c840;"></div><span>Gmail — Vista previa</span></div>
+      <div class="email-body">
+        <div class="email-card">
+          <div class="email-head"><div class="email-brand">Caracol Diamante</div><div class="email-brand-sub">Zona Diamante · Acapulco</div></div>
+          <div class="email-content">
+            <p>Hola <strong>Ricardo</strong>,</p>
+            <p>Han pasado casi dos meses desde que te contactaste con nosotros. Quería saber si algo cambió en tu situación o si surgió alguna pregunta que quedó pendiente.</p>
+            <div class="highlight-box slate"><strong style="color:#3d5166;">No hay prisa.</strong><br><span style="color:#505050;">En Caracol Diamante vendemos despacio y bien. Lo que sí nos importa es que cuando llegue el momento correcto para ti, tengas toda la información para decidir sin dudas.</span></div>
+            <p>Lo que sí te puedo decir hoy:</p>
+            <ul>
+              <li>El precio de preventa sigue activo — pero no indefinidamente</li>
+              <li>Las proyecciones a 5, 10 y 20 años siguen siendo las mismas</li>
+              <li>La disponibilidad ha bajado desde que hablamos</li>
+            </ul>
+            <p style="margin-top:1rem;">¿Hay algo en lo que pueda ayudarte hoy?</p>
+            <p><a href="#" class="email-btn wa">💬 Escribirme por WhatsApp</a><a href="#" style="color:#b8923c;font-weight:600;font-size:13px;margin-left:12px;">→ Ver proyección actualizada</a></p>
+          </div>
+          <div class="email-footer"><p><strong style="color:#3d5166;">Karina Rodríguez</strong><br>Asesora de inversiones · Caracol Diamante</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INSTRUCCIONES -->
+  <div class="panel" id="p5">
+    <div class="steps-wrap">
+
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">Crear el Google Sheet</div>
+          <div class="step-body">
+            Ve a <strong>sheets.google.com</strong> desde la cuenta de Gmail de Karina → clic en <strong>+ Nuevo</strong> → nómbrala <strong>"CRM Caracol Diamante"</strong>.
+            <div class="tip">💡 Debe ser desde la cuenta <strong>karinarbataz@gmail.com</strong> para que los emails salgan de ahí.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">Abrir Apps Script</div>
+          <div class="step-body">
+            Dentro del Sheet → menú <strong>Extensiones</strong> (arriba) → <strong>Apps Script</strong>. Se abre una ventana nueva con código vacío.
+          </div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">Pegar el código</div>
+          <div class="step-body">
+            Borra todo el texto que aparece en la ventana de Apps Script → pega el contenido completo del archivo <strong>CaracolDiamante_AppsScript.js</strong> que descargaste → clic en el ícono de guardar 💾.
+            <div class="tip">💡 El nombre del proyecto puede ser cualquiera — escribe "Caracol Seguimiento" y acepta.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <div>
+          <div class="step-title">Correr el setup inicial</div>
+          <div class="step-body">
+            En el menú de funciones (dice <code>procesarLeads</code>) → cambia a <strong>setupInicial</strong> → clic en <strong>▶ Ejecutar</strong>.<br><br>
+            Google va a pedir permisos — haz clic en <strong>"Revisar permisos"</strong> → elige la cuenta de Karina → <strong>"Permitir"</strong>.<br><br>
+            Esto crea automáticamente la hoja "Leads" con todas las columnas y activa el trigger que corre cada hora.
+            <div class="tip">⚠️ Si Google dice "Esta aplicación no está verificada", haz clic en "Configuración avanzada" → "Ir a Caracol Seguimiento (no seguro)". Es normal para scripts propios.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-num">5</div>
+        <div>
+          <div class="step-title">Probar el sistema</div>
+          <div class="step-body">
+            Cambia la función a <strong>probarSistema</strong> → clic en <strong>▶ Ejecutar</strong>.<br><br>
+            Francisco recibirá los 5 emails de prueba en <strong>amezcuaizquierdo@gmail.com</strong> para que puedas ver exactamente cómo llegan.
+            <div class="tip" style="background:#e8f5ee;border-color:rgba(26,122,74,.2);">✅ Si llegan los 5 emails, el sistema está funcionando correctamente.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-num">6</div>
+        <div>
+          <div class="step-title">Agregar leads al Sheet</div>
+          <div class="step-body">
+            En el Google Sheet, pestaña <strong>"Leads"</strong>, agrega una fila por cada prospecto con:<br><br>
+            <strong>Columna A:</strong> Nombre completo<br>
+            <strong>Columna B:</strong> Email del prospecto<br>
+            <strong>Columna C:</strong> Teléfono<br>
+            <strong>Columna D:</strong> Fuente (Landing, Referido, Facebook...)<br>
+            <strong>Columna E:</strong> Fecha de hoy (importante — de aquí cuenta los días)<br>
+            <strong>Columna F:</strong> Activo<br><br>
+            El sistema revisa cada hora y manda el email correcto automáticamente. Las columnas G al K se llenan solas con la fecha de envío de cada email.
+            <div class="tip">💡 Para marcar un lead como <strong>Descartado</strong>, cambia la columna F a "Descartado" y el sistema deja de mandarle emails.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+function sw(i){
+  document.querySelectorAll('.tab').forEach(function(t,j){t.classList.toggle('on',i===j);});
+  document.querySelectorAll('.panel').forEach(function(p,j){p.classList.toggle('on',i===j);});
+}
+</script>
+</body>
+</html>
