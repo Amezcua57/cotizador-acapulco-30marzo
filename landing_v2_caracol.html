@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acapulco · Zona Diamante · Inversión en Playa</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#0a1628;
+  --navy2:#0f2040;
+  --gold:#c49a3c;
+  --gold2:#f0c96a;
+  --gold3:#faecc8;
+  --cream:#faf7f2;
+  --white:#fff;
+  --red:#c0392b;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Jost',system-ui,sans-serif;
+}
+
+html,body{
+  font-family:var(--sans);
+  min-height:100vh;
+  background:var(--navy);
+  color:var(--white);
+  overflow-x:hidden;
+}
+
+/* ── FONDO ── */
+.bg{
+  position:fixed;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(196,154,60,.12) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 90% 80%, rgba(196,154,60,.06) 0%, transparent 50%),
+    linear-gradient(180deg, #0a1628 0%, #071020 100%);
+}
+.bg-grid{
+  position:fixed;inset:0;z-index:0;
+  background-image:
+    linear-gradient(rgba(196,154,60,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(196,154,60,.03) 1px,transparent 1px);
+  background-size:50px 50px;
+}
+
+/* ── WRAPPER ── */
+.page{
+  position:relative;z-index:1;
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:2rem 1.25rem;
+}
+
+/* ── BADGE SUPERIOR ── */
+.top-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(196,154,60,.12);
+  border:1px solid rgba(196,154,60,.25);
+  border-radius:30px;
+  padding:6px 16px;
+  font-size:11px;font-weight:600;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:var(--gold2);
+  margin-bottom:2rem;
+  animation:fadeDown .6s ease both;
+}
+.top-badge::before{
+  content:'';width:6px;height:6px;
+  border-radius:50%;background:var(--gold2);
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-12px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── HERO COPY ── */
+.hero{
+  text-align:center;
+  max-width:640px;
+  animation:fadeUp .7s .1s ease both;
+}
+.hero-pre{
+  font-size:13px;font-weight:400;
+  color:rgba(255,255,255,.5);
+  letter-spacing:.05em;
+  margin-bottom:.875rem;
+}
+.hero-pre span{color:var(--gold2);font-weight:600;}
+.hero-title{
+  font-family:var(--serif);
+  font-size:clamp(36px,7vw,68px);
+  font-weight:300;
+  line-height:1.05;
+  margin-bottom:1.25rem;
+  color:var(--white);
+}
+.hero-title em{
+  font-style:italic;
+  color:var(--gold2);
+  display:block;
+}
+.hero-title strong{
+  font-weight:600;
+  color:var(--white);
+}
+.hero-sub{
+  font-size:15px;font-weight:300;
+  color:rgba(255,255,255,.6);
+  line-height:1.7;
+  max-width:480px;
+  margin:0 auto 1.75rem;
+}
+.hero-sub b{color:var(--gold2);font-weight:500;}
+
+/* ── NÚMEROS RÁPIDOS ── */
+.quick-stats{
+  display:flex;justify-content:center;gap:2rem;
+  margin-bottom:2.5rem;
+  flex-wrap:wrap;
+  animation:fadeUp .7s .2s ease both;
+}
+.qs{text-align:center;}
+.qs-n{
+  font-family:var(--serif);
+  font-size:28px;font-weight:300;
+  color:var(--gold2);line-height:1;
+  margin-bottom:2px;
+}
+.qs-l{
+  font-size:10px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(255,255,255,.35);
+  line-height:1.4;
+}
+.qs-sep{
+  width:1px;background:rgba(255,255,255,.08);
+  align-self:stretch;
+}
+
+/* ── FORM BOX ── */
+.form-box{
+  width:100%;max-width:460px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(196,154,60,.2);
+  border-radius:16px;
+  padding:2rem 1.75rem;
+  animation:fadeUp .7s .3s ease both;
+}
+.form-label{
+  font-size:11px;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(255,255,255,.4);
+  text-align:center;
+  margin-bottom:.5rem;
+}
+.form-cta-title{
+  font-family:var(--serif);
+  font-size:22px;font-weight:400;
+  color:var(--white);
+  text-align:center;
+  line-height:1.2;
+  margin-bottom:1.5rem;
+}
+.form-cta-title em{font-style:italic;color:var(--gold2);}
+
+.input-wrap{position:relative;margin-bottom:.75rem;}
+.input-wrap input{
+  width:100%;
+  font-family:var(--sans);font-size:14px;font-weight:400;
+  padding:14px 16px;
+  background:rgba(255,255,255,.06);
+  border:1.5px solid rgba(255,255,255,.1);
+  border-radius:8px;
+  color:var(--white);
+  outline:none;
+  transition:border-color .2s;
+}
+.input-wrap input::placeholder{color:rgba(255,255,255,.3);}
+.input-wrap input:focus{border-color:var(--gold);}
+
+/* BOTÓN PRINCIPAL */
+.main-btn{
+  width:100%;
+  background:var(--gold);
+  color:var(--navy);
+  font-family:var(--sans);
+  font-size:15px;font-weight:700;
+  padding:17px;
+  border:none;border-radius:8px;
+  cursor:pointer;
+  letter-spacing:.06em;text-transform:uppercase;
+  transition:all .2s;
+  position:relative;overflow:hidden;
+}
+.main-btn::after{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);
+  transform:translateX(-100%);
+  transition:transform .4s;
+}
+.main-btn:hover{background:var(--gold2);transform:translateY(-1px);}
+.main-btn:hover::after{transform:translateX(100%);}
+.main-btn:active{transform:translateY(0);}
+
+.form-trust{
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  margin-top:.875rem;
+  font-size:11px;color:rgba(255,255,255,.3);
+}
+.form-trust::before{content:'🔒';font-size:12px;}
+
+/* ── SOCIAL PROOF ── */
+.proof{
+  margin-top:2.5rem;
+  text-align:center;
+  animation:fadeUp .7s .4s ease both;
+}
+.proof-title{
+  font-size:11px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(255,255,255,.25);
+  margin-bottom:1rem;
+}
+.proof-items{
+  display:flex;justify-content:center;
+  gap:1rem;flex-wrap:wrap;
+}
+.proof-item{
+  display:flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:30px;
+  padding:6px 14px;
+  font-size:12px;color:rgba(255,255,255,.55);
+}
+.proof-dot{
+  width:6px;height:6px;
+  border-radius:50%;background:var(--gold);flex-shrink:0;
+}
+
+/* ── URGENCIA ── */
+.urgency{
+  margin-top:1.5rem;
+  text-align:center;
+  animation:fadeUp .7s .5s ease both;
+}
+.urgency-bar{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(192,57,43,.12);
+  border:1px solid rgba(192,57,43,.25);
+  border-radius:8px;
+  padding:8px 16px;
+  font-size:12px;color:rgba(255,120,100,.9);
+  font-weight:500;
+}
+.urgency-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:#e74c3c;
+  animation:pulse 1.2s infinite;
+}
+
+/* ── LOGOS CIUDADES ── */
+.cities{
+  margin-top:2rem;
+  text-align:center;
+  animation:fadeUp .7s .5s ease both;
+}
+.cities-label{
+  font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(255,255,255,.2);margin-bottom:.75rem;
+}
+.cities-list{
+  display:flex;justify-content:center;
+  gap:.5rem;flex-wrap:wrap;
+}
+.city-pill{
+  font-size:11px;font-weight:500;
+  color:rgba(255,255,255,.45);
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:20px;
+  padding:4px 12px;
+}
+
+/* ── GRACIAS ── */
+.gracias{
+  display:none;
+  text-align:center;
+  animation:fadeUp .5s ease both;
+}
+.gracias-icon{font-size:52px;margin-bottom:1rem;}
+.gracias-title{
+  font-family:var(--serif);
+  font-size:clamp(26px,5vw,40px);
+  font-weight:300;color:var(--white);
+  margin-bottom:.75rem;
+}
+.gracias-title em{font-style:italic;color:var(--gold2);}
+.gracias-sub{
+  font-size:14px;color:rgba(255,255,255,.55);
+  line-height:1.7;max-width:400px;
+  margin:0 auto 2rem;
+}
+.gracias-wa{
+  display:inline-flex;align-items:center;gap:10px;
+  background:#25d366;
+  color:#fff;
+  font-size:14px;font-weight:600;
+  padding:14px 28px;
+  border-radius:8px;
+  text-decoration:none;
+  letter-spacing:.04em;
+}
+
+/* ── FOOTER ── */
+.foot{
+  position:relative;z-index:1;
+  text-align:center;padding:1.5rem;
+}
+.foot p{font-size:10px;color:rgba(255,255,255,.18);line-height:1.7;}
+
+@media(max-width:480px){
+  .quick-stats{gap:1.25rem;}
+  .form-box{padding:1.5rem 1.25rem;}
+  .proof-items{gap:.5rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="bg-grid"></div>
+
+<div class="page" id="main-page">
+
+  <div class="top-badge">Sesión de diagnóstico · Sin costo · 25–30 minutos</div>
+
+  <div class="hero">
+    <p class="hero-pre">Zona Diamante, Acapulco · <span>Boulevard de las Naciones</span></p>
+    <h1 class="hero-title">
+      Dame <strong>25–30 minutos</strong><br>
+      y te mostramos cómo<br>
+      <em>una propiedad de playa<br>se paga prácticamente sola.</em>
+    </h1>
+    <p class="hero-sub">
+      Con <b>14 noches de renta al mes</b> — menos de la mitad — tu mensualidad está cubierta al 100%.<br>
+      Las otras 16 noches son tuyas.
+    </p>
+  </div>
+
+  <div class="quick-stats">
+    <div class="qs">
+      <div class="qs-n">14</div>
+      <div class="qs-l">noches y se paga<br>prácticamente sola</div>
+    </div>
+    <div class="qs-sep"></div>
+    <div class="qs">
+      <div class="qs-n">21</div>
+      <div class="qs-l">familias<br>en total</div>
+    </div>
+    <div class="qs-sep"></div>
+    <div class="qs">
+      <div class="qs-n">8%+</div>
+      <div class="qs-l">plusvalía anual<br>proy. 15–20 años</div>
+    </div>
+    
+  </div>
+
+  <div class="form-box">
+    <div class="form-label">Acceso a la sesión</div>
+    <h2 class="form-cta-title">Agenda tu asesoría<br><em>gratuita ahora</em></h2>
+    <div class="input-wrap">
+      <input type="text" id="f-nombre" placeholder="Tu nombre completo" />
+    </div>
+    <div class="input-wrap">
+      <input type="tel" id="f-wa" placeholder="WhatsApp (10 dígitos)" maxlength="10" />
+    </div>
+    <button class="main-btn" onclick="submit()">
+      ¡QUIERO MI SESIÓN GRATUITA! &rarr;
+    </button>
+    <div class="form-trust">Tu información es privada. Sin spam.</div>
+  </div>
+
+  
+
+  <!-- SEGUNDO INGRESO -->
+  <div style="max-width:460px;margin:2rem auto 0;text-align:left;">
+    <div style="font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(196,154,60,.7);margin-bottom:.875rem;text-align:center;">Por qué funciona como negocio</div>
+    <div style="display:flex;flex-direction:column;gap:.625rem;">
+      <div style="display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.08);border-radius:8px;padding:.875rem 1rem;">
+        <div style="font-size:20px;flex-shrink:0;">💼</div>
+        <div>
+          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:15px;color:var(--gold2);margin-bottom:2px;">Tu segundo ingreso, sin cambiar tu vida</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.5);line-height:1.5;">Sigues en tu trabajo, en tu ciudad. El depto opera solo con un administrador especializado en Zona Diamante.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.08);border-radius:8px;padding:.875rem 1rem;">
+        <div style="font-size:20px;flex-shrink:0;">📈</div>
+        <div>
+          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:15px;color:var(--gold2);margin-bottom:2px;">Dos negocios en uno</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.5);line-height:1.5;">Renta vacacional que paga la mensualidad + plusvalía que crece sola. Son simultáneos, no excluyentes.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.08);border-radius:8px;padding:.875rem 1rem;">
+        <div style="font-size:20px;flex-shrink:0;">🏖</div>
+        <div>
+          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:15px;color:var(--gold2);margin-bottom:2px;">El calendario, en tus manos</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.5);line-height:1.5;">Tú decides cuándo es tuyo y cuándo trabaja para ti. El resto del mes — cobra.</div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <div class="proof">
+    <div class="proof-title">Compradores de México y del mundo</div>
+    <div class="proof-items">
+      <div class="proof-item"><div class="proof-dot"></div>CDMX</div>
+      <div class="proof-item"><div class="proof-dot"></div>Puebla</div>
+      <div class="proof-item"><div class="proof-dot"></div>Morelos</div>
+      <div class="proof-item"><div class="proof-dot"></div>Toluca</div>
+      <div class="proof-item"><div class="proof-dot"></div>Chilpancingo</div>
+      <div class="proof-item"><div class="proof-dot"></div>Texas</div>
+      <div class="proof-item"><div class="proof-dot"></div>California</div>
+      <div class="proof-item"><div class="proof-dot"></div>+ donde estés tú</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- GRACIAS -->
+<div class="page" id="gracias-page" style="display:none;">
+  <div class="gracias-icon">✓</div>
+  <h2 class="gracias-title">¡Listo!<br><em>Tu sesión está reservada.</em></h2>
+  <p class="gracias-sub">En los próximos minutos te contactamos por WhatsApp para confirmar fecha y hora. Puedes también agendar directo en calendario o escribirnos ahora.</p>
+  <div style="display:flex;flex-direction:column;gap:.75rem;align-items:center;width:100%;max-width:360px;">
+    <a href="https://wa.me/527441752143?text=Hola%2C%20acabo%20de%20registrarme%20para%20la%20sesi%C3%B3n%20gratuita%20de%20Zona%20Diamante%20Acapulco" class="gracias-wa" target="_blank" style="width:100%;justify-content:center;">
+      💬 Escríbenos por WhatsApp
+    </a>
+    <a href="https://wa.me/527441752143?text=Hola%20Karina%2C%20quiero%20agendar%20mi%20sesi%C3%B3n%20de%20evaluaci%C3%B3n" target="_blank" style="width:100%;display:flex;align-items:center;justify-content:center;gap:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;font-family:'Jost',sans-serif;font-size:14px;font-weight:600;padding:14px 28px;border-radius:8px;text-decoration:none;letter-spacing:.04em;">
+      📅 Agendar en Google Calendar
+    </a>
+  </div>
+  <p style="font-size:11px;color:rgba(255,255,255,.25);margin-top:1.25rem;text-align:center;">Sesión de 25–30 minutos · Sin costo · Por videollamada</p>
+</div>
+
+<div class="foot">
+  <p>Zona Diamante · Acapulco, Guerrero · Boulevard de las Naciones, Lote 49<br>
+  Material informativo. Proyecciones estimativas — no garantizan rendimientos futuros.</p>
+</div>
+
+<script>
+function submit(){
+  var nombre=document.getElementById('f-nombre').value.trim();
+  var wa=document.getElementById('f-wa').value.trim();
+  if(!nombre||wa.length<10){
+    alert('Por favor completa tu nombre y WhatsApp para continuar.');
+    return;
+  }
+  var num='527441752143';
+  var msg='Hola, me registré para la sesión gratuita de Zona Diamante.\n\nNombre: '+nombre+'\nWhatsApp: '+wa;
+  // Registrar en CRM
+  var crmUrl='crm_caracol.html?nombre='+encodeURIComponent(nombre)+'&wa='+encodeURIComponent(wa)+'&fuente=Landing+V2';
+  var iframe=document.createElement('iframe');
+  iframe.style.display='none';
+  iframe.src=crmUrl;
+  document.body.appendChild(iframe);
+  setTimeout(function(){document.body.removeChild(iframe);},3000);
+  // Abrir WhatsApp
+  window.open('https://wa.me/'+num+'?text='+encodeURIComponent(msg),'_blank');
+  var main=document.getElementById('main-page');
+  var gp=document.getElementById('gracias-page');
+  if(main) main.style.display='none';
+  if(gp) gp.style.display='flex';
+}
+</script>
+
+</body>
+</html>
