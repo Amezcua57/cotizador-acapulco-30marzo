@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buyer Personas · Caracol Diamante</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0d1f2d;
+  --navy-mid: #1a3547;
+  --gold: #c9a84c;
+  --gold-light: #e8d5a3;
+  --cream: #f8f4ee;
+  --sand: #ede8df;
+  --white: #ffffff;
+  --text-dark: #1a1a1a;
+  --text-mid: #4a4a4a;
+  --text-light: #888;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+
+  --p1: #1a3547;
+  --p2: #1e3d2f;
+  --p3: #2d1f3d;
+  --p4: #3d2a1a;
+  --p1a: #e8f4fd;
+  --p2a: #e8f5ee;
+  --p3a: #f0eafd;
+  --p4a: #fdf0e8;
+  --p1g: #4a90c4;
+  --p2g: #3aaa6a;
+  --p3g: #9b7fd4;
+  --p4g: #d4874a;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--sans);background:var(--cream);color:var(--text-dark);}
+
+/* HEADER */
+.page-header{
+  background:var(--navy);
+  padding:3rem 3rem 2.5rem;
+  text-align:center;
+}
+.page-header .tag{
+  font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1rem;font-weight:500;
+}
+.page-header h1{
+  font-family:var(--serif);font-size:clamp(32px,5vw,52px);
+  font-weight:300;color:var(--white);line-height:1.1;margin-bottom:.75rem;
+}
+.page-header h1 em{color:var(--gold);font-style:italic;}
+.page-header p{
+  font-size:14px;color:rgba(255,255,255,.5);
+  max-width:520px;margin:0 auto;line-height:1.7;
+}
+
+/* PERSONA NAV */
+.persona-nav{
+  display:flex;gap:0;
+  border-bottom:1px solid rgba(0,0,0,.08);
+  background:var(--white);
+  position:sticky;top:0;z-index:50;
+  overflow-x:auto;
+}
+.persona-tab{
+  flex:1;min-width:160px;
+  padding:1rem 1.25rem;
+  display:flex;align-items:center;gap:10px;
+  cursor:pointer;border-bottom:2px solid transparent;
+  transition:all .2s;background:var(--white);
+  border-right:1px solid rgba(0,0,0,.05);
+}
+.persona-tab:last-child{border-right:none;}
+.persona-tab:hover{background:var(--sand);}
+.persona-tab.active{border-bottom-color:var(--gold);}
+.tab-avatar{
+  width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:14px;font-weight:600;
+  color:var(--white);flex-shrink:0;
+}
+.tab-text h4{font-size:12px;font-weight:500;color:var(--text-dark);}
+.tab-text p{font-size:10px;color:var(--text-light);margin-top:1px;}
+
+/* PERSONA PANELS */
+.persona-panel{display:none;animation:fadeIn .3s ease;}
+.persona-panel.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+/* HERO STRIP */
+.hero-strip{
+  padding:3rem;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:2.5rem;
+  align-items:start;
+}
+.hero-left{}
+.persona-name{
+  font-family:var(--serif);font-size:clamp(28px,4vw,42px);
+  font-weight:300;line-height:1.1;margin-bottom:.5rem;
+}
+.persona-name em{font-style:italic;}
+.persona-role{
+  font-size:13px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;
+  margin-bottom:1.25rem;padding:4px 12px;
+  border-radius:20px;display:inline-block;
+}
+.persona-quote{
+  font-family:var(--serif);font-size:18px;
+  font-weight:300;font-style:italic;
+  color:var(--text-mid);line-height:1.6;
+  border-left:2px solid var(--gold);
+  padding-left:1rem;margin-bottom:1.5rem;
+}
+.demo-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:8px;
+}
+.demo-item{
+  background:var(--white);border:1px solid rgba(0,0,0,.06);
+  border-radius:8px;padding:10px 12px;
+}
+.demo-label{font-size:10px;color:var(--text-light);
+  letter-spacing:.06em;text-transform:uppercase;margin-bottom:3px;}
+.demo-val{font-size:13px;font-weight:500;color:var(--text-dark);}
+
+.hero-right{}
+.avatar-large{
+  width:100%;aspect-ratio:1;border-radius:16px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:72px;font-weight:300;
+  color:rgba(255,255,255,.5);position:relative;overflow:hidden;
+}
+.avatar-large::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.08) 0%,transparent 60%);
+}
+
+/* SECTION BLOCKS */
+.persona-body{
+  padding:0 3rem 3rem;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1.5rem;
+}
+.block{
+  background:var(--white);border:1px solid rgba(0,0,0,.06);
+  border-radius:12px;overflow:hidden;
+}
+.block-full{grid-column:1/-1;}
+.block-header{
+  padding:.875rem 1.25rem;
+  border-bottom:1px solid rgba(0,0,0,.05);
+  display:flex;align-items:center;gap:8px;
+}
+.block-icon{
+  width:24px;height:24px;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;flex-shrink:0;
+}
+.block-title{font-size:12px;font-weight:500;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--text-mid);}
+.block-body{padding:1.25rem;}
+
+/* LIST ITEMS */
+.item-list{list-style:none;}
+.item-list li{
+  display:flex;gap:8px;align-items:flex-start;
+  padding:6px 0;border-bottom:1px solid rgba(0,0,0,.04);
+  font-size:13px;color:var(--text-mid);line-height:1.5;
+}
+.item-list li:last-child{border-bottom:none;}
+.item-dot{
+  width:6px;height:6px;border-radius:50%;
+  flex-shrink:0;margin-top:5px;
+}
+
+/* OBJECTION CARDS */
+.obj-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.obj-card{border-radius:8px;padding:10px 12px;}
+.obj-card.pain{background:#fce8e6;}
+.obj-card.answer{background:#e6f4ea;}
+.obj-card .obj-label{
+  font-size:10px;font-weight:500;letter-spacing:.06em;
+  text-transform:uppercase;margin-bottom:4px;
+}
+.obj-card.pain .obj-label{color:#c5221f;}
+.obj-card.answer .obj-label{color:#1e7e34;}
+.obj-card p{font-size:12px;line-height:1.5;color:var(--text-mid);}
+
+/* JOURNEY */
+.journey{display:flex;gap:0;overflow-x:auto;}
+.journey-step{
+  flex:1;min-width:110px;
+  text-align:center;padding:.875rem .5rem;
+  position:relative;
+}
+.journey-step::after{
+  content:'→';position:absolute;right:-8px;top:50%;
+  transform:translateY(-50%);font-size:14px;color:var(--text-light);
+}
+.journey-step:last-child::after{display:none;}
+.j-num{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--gold);color:var(--navy);
+  font-size:12px;font-weight:500;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto .5rem;
+}
+.j-label{font-size:11px;color:var(--text-mid);line-height:1.4;}
+
+/* CHANNELS */
+.channel-grid{display:flex;flex-wrap:wrap;gap:6px;}
+.channel-pill{
+  font-size:11px;font-weight:500;
+  padding:4px 10px;border-radius:20px;
+  border:1px solid;
+}
+
+/* MOTIVATION BAR */
+.mot-row{margin-bottom:10px;}
+.mot-label{
+  display:flex;justify-content:space-between;
+  font-size:12px;color:var(--text-mid);margin-bottom:4px;
+}
+.mot-label span{font-weight:500;color:var(--text-dark);}
+.mot-bar-bg{
+  height:6px;background:rgba(0,0,0,.06);
+  border-radius:3px;overflow:hidden;
+}
+.mot-bar-fill{height:100%;border-radius:3px;transition:width .6s;}
+
+/* SCRIPT BOX */
+.script-box{
+  background:var(--navy);border-radius:10px;
+  padding:1.25rem 1.5rem;
+}
+.script-label{
+  font-size:10px;font-weight:500;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:.75rem;
+}
+.script-text{
+  font-family:var(--serif);font-size:17px;font-weight:300;
+  font-style:italic;color:rgba(255,255,255,.85);line-height:1.6;
+}
+
+@media(max-width:768px){
+  .hero-strip{grid-template-columns:1fr;}
+  .hero-right{display:none;}
+  .persona-body{grid-template-columns:1fr;padding:0 1.25rem 2rem;}
+  .hero-strip{padding:1.5rem;}
+  .obj-grid{grid-template-columns:1fr;}
+  .page-header{padding:2rem 1.25rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="tag">Caracol Diamante · Zona Diamante, Acapulco</div>
+  <h1>Buyer Personas<br><em>2025</em></h1>
+  <p>Los cuatro perfiles de comprador que definen nuestra estrategia comercial — quiénes son, qué los mueve y cómo hablarles.</p>
+</div>
+
+<!-- NAV TABS -->
+<div class="persona-nav">
+  <div class="persona-tab active" onclick="switchPersona(0)">
+    <div class="tab-avatar" style="background:var(--p1);">RM</div>
+    <div class="tab-text">
+      <h4>Ricardo M.</h4>
+      <p>Inversionista puro</p>
+    </div>
+  </div>
+  <div class="persona-tab" onclick="switchPersona(1)">
+    <div class="tab-avatar" style="background:var(--p2);">SF</div>
+    <div class="tab-text">
+      <h4>Sofía F.</h4>
+      <p>Vacacional + renta</p>
+    </div>
+  </div>
+  <div class="persona-tab" onclick="switchPersona(2)">
+    <div class="tab-avatar" style="background:var(--p3);">MV</div>
+    <div class="tab-text">
+      <h4>Miguel V.</h4>
+      <p>Fraccionado</p>
+    </div>
+  </div>
+  <div class="persona-tab" onclick="switchPersona(3)">
+    <div class="tab-avatar" style="background:var(--p4);">GH</div>
+    <div class="tab-text">
+      <h4>Grupo Herrera</h4>
+      <p>Corporativo / patrimonial</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- PERSONA 1: INVERSIONISTA PURO -->
+<!-- ══════════════════════════════════════════ -->
+<div class="persona-panel active" id="panel-0">
+  <div class="hero-strip" style="background:var(--sand);">
+    <div class="hero-left">
+      <div class="persona-role" style="background:var(--p1a);color:var(--p1);">Inversionista puro · Segmento 1</div>
+      <h2 class="persona-name">Ricardo<br><em>Montoya</em></h2>
+      <div class="persona-quote">"Me importan los números. Si el metro cuadrado tiene sentido y la renta paga sola, entro."</div>
+      <div class="demo-grid">
+        <div class="demo-item"><div class="demo-label">Edad</div><div class="demo-val">42–58 años</div></div>
+        <div class="demo-item"><div class="demo-label">Ciudad</div><div class="demo-val">CDMX, GDL, MTY</div></div>
+        <div class="demo-item"><div class="demo-label">Perfil profesional</div><div class="demo-val">Empresario / Director</div></div>
+        <div class="demo-item"><div class="demo-label">Capital disponible</div><div class="demo-val">$3.4M – $8M MXN</div></div>
+        <div class="demo-item"><div class="demo-label">Experiencia en BR</div><div class="demo-val">Sí — 1 a 3 propiedades</div></div>
+        <div class="demo-item"><div class="demo-label">Decide en</div><div class="demo-val">2–6 semanas</div></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="avatar-large" style="background:var(--p1);">RM</div>
+    </div>
+  </div>
+
+  <div class="persona-body">
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-icon" style="background:var(--p1a);">🧠</div>
+        <span class="block-title">Motivaciones principales</span>
+      </div>
+      <div class="block-body">
+        <div class="mot-row">
+          <div class="mot-label"><span>Rendimiento financiero</span><span>95%</span></div>
+          <div class="mot-bar-bg"><div class="mot-bar-fill" style="width:95%;background:var(--p1g);"></div></div>
+        </div>
+        <div class="mot-row">
+          <div class="mot-label"><span>Plusvalía del inmueble</span><span>88%</span></div>
+          <div class="mot-bar-bg"><div class="mot-bar-fill" style="width:88%;background:var(--p1g);"></div></div>
+        </div>
+        <div class="mot-row">
+          <div class="mot-label"><span>Diversificación de portafolio</span><span>80%</span></div>
+          <div class="mot-bar-bg"><div class="mot-bar-fill" style="width:80%;background:var(--p1g);"></div></div>
+        </div>
+        <div class="mot-row">
+          <div class="mot-label"><span>Uso personal ocasional</span><span>30%</span></div>
+          <div class="mot-bar-bg"><div class="mot-bar-fill" style="width:30%;background:var(--p1g);"></div></div>
+        </div>
+        <div class="mot-row">
+          <div class="mot-label"><span>Herencia / patrimonio familiar</span><span>55%</span></div>
+          <div class="mot-bar-bg"><div class="mot-bar-fill" style="width:55%;background:var(--p1g);"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-icon" style="background:var(--p1a);">😤</div>
+        <span class="block-title">Dolores y miedos</span>
+      </div>
+      <div class="block-body">
+        <ul class="item-list">
+          <li><div class="item-dot" style="background:#e24b4b;"></div>Ha invertido en desarrollos que no entregaron a tiempo o con calidad inferior a lo prometido</li>
+          <li><div class="item-dot" style="background:#e24b4b;"></div>Desconfía de la narrativa post-Otis — no quiere comprar en un destino que "todavía no se recupera"</li>
+          <li><div class="item-dot" style="background:#e24b4b;"></div>Le preocupa la liquidez: ¿podré vender si necesito el capital?</li>
+          <li><div class="item-dot" style="background:#e24b4b;"></div>No quiere administrar: busca que el inmueble trabaje solo sin ocupar su tiempo</li>
+          <li><div class="item-dot" style="background:#e24b4b;"></div>Ha tenido malas experiencias con vecinos en propiedades previas que deterioraron el inmueble</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block block-full">
+      <div class="block-header">
+        <div class="block-icon" style="background:var(--p1a);">⚡</div>
+        <span class="block-title">Objeciones frecuentes y cómo responderlas</span>
+      </div>
+      <div class="block-body">
+        <div class="obj-grid">
+          <div class="obj-card pain">
+            <div class="obj-label">Objeción</div>
+            <p>"Acapulco no se ha recuperado de Otis. Es un riesgo."</p>
+          </div>
+          <div class="obj-card answer">
+            <div class="obj-label">Respuesta</div>
+            <p>"Exactamente por eso el precio por metro todavía no subió. La Zona Diamante tuvo daños menores. La inversión pública en reconstrucción es inédita. Los que entraron en el mejor momento fueron los que compraron cuando nadie más quería."</p>
+          </div>
+          <div class="obj-card pain">
+            <div class="obj-label">Objeción</div>
+            <p>"¿Quién me garantiza que la renta paga la mensualidad?"</p>
+          </div>
+          <div class="obj-card answer">
+            <div class="obj-label">Respuesta</div>
+            <p>"Nadie garantiza rentas — te mostramos el cálculo real: $2,500/noche × 9 noches = $22,500 mes. Tu mensualidad Exitus es $21,333. Son 9 noches de 30 disponibles. El mercado de Airbnb en la zona tiene registros históricos documentados."</p>
+          </div>
+          <div class="obj-card pain">
+            <div class="obj-label">Objeción</div>
+            <p>"¿Y si el desarrollo no termina a tiempo o quiebra?"</p>
+          </div>
+          <div class="obj-card answer">
+            <div class="obj-label">Respuesta</div>
+            <p>"El terreno es propiedad de Ismava — no hay deuda de tierra. Exitus financia construcción con avance verificado. El constructor Tocino tiene obra entregada. Te mostramos el registro de obra y los contratos antes de firmar."</p>
+          </div>
+          <div class="obj-card pain">
+            <div class="obj-label">Objeción</div>
+            <p>"No quiero lidiar con la operación y los huéspedes."</p>
+          </div>
+          <div class="obj-card answer">
+            <div class="obj-label">Respuesta</div>
+            <p>"La administración es 100% delegable. La plataforma de renta, los check-in, el mantenimiento — todo puede operarse a distancia. Muchos propietarios viven en CDMX y reciben el depósito mensual sin visitar el inmueble."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-icon" style="background:var(--p1a);">📱</div>
+        <span class="block-title">Canales donde lo encontramos</span>
+      </div>
+      <div class="block-body">
+        <div class="channel-grid" style="margin-bottom:1rem;">
+          <span class="channel-pill" style="background:var(--p1a);color:var(--p1);border-color:var(--p1a);">LinkedIn</span>
+          <span class="channel-pill" style="background:var(--p1a);color:var(--p1);border-color:var(--p1a);">Google Ads</span>
+          <span class="channel-pill" style="background:var(--p1a);color:var(--p1);border-color:var(--p1a);">Referidos</span>
+          <span class="channel-pill" style="background:var(--p1a);color:var(--p1);border-color:var(--p1a);">E-book</span>
+          <span class="channel-pill" style="background:var(--p1a);color:var(--p1);border-color:var(--p1a);">Webinar inversor</span>
+        </div>
+        <ul class="item-list">
+          <li><div class="item-dot" style="background:var(--p1g);"></div>Busca activamente en Google: "inversión inmobiliaria playa México", "departamentos en preventa Acapulco"</li>
+          <li><div class="item-dot" style="background:var(--p1g);"></div>Confía más en datos y hojas de cálculo que en renders bonitos</li>
+          <li><div class="item-dot" style="background:var(--p1g);"></div>El boca a boca con otros empresarios es el canal de mayor conversión</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-icon" style="background:var(--p1a);">🗺️</div>
+        <span class="block-title">Su viaje de compra</span>
+      </div>
+      <div class="block-body">
+        <div class="journey">
+          <div class="journey-step">
+            <div class="j-num">1</div>
+            <div class="j-label">Ve anuncio o recibe referido</div>
+          </div>
+          <div class="journey-step">
+            <div class="j-num">2</div>
+            <div class="j-label">Descarga e-book, revisa números</div>
+          </div>
+          <div class="journey-step">
+            <div class="j-num">3</div>
+            <div class="j-label">Agenda sesión — llega con preguntas</div>
+          </div>
+          <div class="journey-step">
+            <div class="j-num">4</div>
+            <div class="j-label">Pide tabla de ROI personalizada</div>
+          </div>
+          <div class="journey-step">
+            <div class="j-num">5</div>
+            <div class="j-label">Aparta en 1–3 semanas</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block block-full">
+      <div class="block-header">
+        <div class="block-icon" style="background:var(--p1a);">💬</div>
+        <span class="block-title">Mensaje clave para este perfil</span>
+      </div>
+      <div class="block-body">
+        <div class="script-box">
+          <div class="script-label">Apertura ideal de sesión</div>
+          <p class="script-text">"Ricardo, te voy a mostrar una sola hoja de cálculo. El condo de 92 m² en $3,200,000 genera $22,500 al mes con 9 noches rentadas. Tu mensualidad Exitus es $21,333. Las otras 21 noches son tuyas o siguen generando. A 5 años, con plusvalía conservadora del 8%, la ganancia total supera $2.6 millones. Dime qué parte te genera dudas y lo revisamos juntos."</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- PERSONA 2: VACACIONAL + RENTA -->
+<!-- ══════════════════════════════════════════ -->
+<div class="persona-panel" id="panel-1">
+  <div class="hero-strip" style="background:#eef7f2;">
+    <div class="hero-left">
+      <div class="persona-role" style="background:var(--p2a);color:var(--p2);">Vacacional + renta · Segmento 2</div>
+      <h2 class="persona-name">Sofía<br><em>Fuentes</em></h2>
+      <div class="persona-quote">"Quiero un lugar mío en la playa. Que se pague solo cuando no estoy. Y que mis hijos lo disfruten."</div>
+      <div class="demo-grid">
+        <div class="demo-item"><div class="demo-label">Edad</div><div class="demo-val">35–52 años</div></div>
+        <div class="demo-item"><div class="demo-label">Ciudad</div><div class="demo-val">CDMX, Puebla, QRO</div></div>
+        <div class="demo-item"><div class="demo-label">Perfil profesional</div><div class="demo-val">Profesionista / Empresaria</div></div>
+        <div class="demo-item"><div class="demo-label">Capital disponible</div><div class="demo-val">$500K – $1.5M enganche</div></div>
+        <div class="demo-item"><div class="demo-label">Estado civil</div><div class="demo-val">Casada, 2–3 hijos</div></div>
+        <div class="demo-item"><div class="demo-label">Decide en</div><div class="demo-val">4–10 semanas</div></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="avatar-large" style="background:var(--p2);">SF</div>
+    </div>
+  </div>
+
+  <div class="persona-body">
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-icon" style="background:var(--p2a);">🧠</div>
+        <span class="block-title">Motivaciones principales</span>
+      </div>
+      <div class="block-body">
+        <div class="mot-row">
+          <div class="mot-label"><span>Tener un espacio propio en playa</span><span>92%</span></div>
+          <div class="mot-bar-bg"><div class="mot-bar-fill" style="width:92%;background:var(--p2g);"></div></div>
+        </div>
+        <div class="mot-row">
+          <div class="mot-label"><span>Que la renta cubra los costos</span><span>85%</span></div>
+          <div class="mot-bar-bg"><div class="mot-bar-fill" style="width:85%;background:var(--p2g);"></div></div>
+        </div>
+        <div class="mot-row">
+          <div class="mot-label"><span>Experiencia de calidad para la familia</span><span>90%</span></div>
+          <div class="mot-bar-bg"><div class="mot-bar-fill" style="width:90%;background:var(--p2g);"></div></div>
+        </div>
+        <div class="mot-row">
+          <div class="mot-label"><span>Plusvalía / inversión a futuro</span><span>65%</span></div>
+          <div class="mot-bar-bg"><div class="mot-bar-fill" style="width:65%;background:var(--p2g);"></div></div>
+        </div>
+        <div class="mot-row">
+          <div class="mot-label"><span>Privacidad vs hotel</span><span>88%</span></div>
+          <div class="mot-bar-bg"><div class="mot-bar-fill" style="width:88%;background:var(--p2g);"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-icon" style="background:var(--p2a);">😤</div>
+        <span class="block-title">Dolores y miedos</span>
+      </div>
+      <div class="block-body">
+        <ul class="item-list">
+          <li><div class="item-dot" style="background:#e24b4b;"></div>Se cansa de pagar hotel cada vacaciones y no tener "su lugar" — siente que tira el dinero</li>
+          <li><div class="item-dot" style="background:#e24b4b;"></div>Le preocupa que el desarrollo sea de bajo nivel y no pueda rentar bien</li>
+          <li><div class="item-dot" style="background:#e24b4b;"></div>No quiere vecinos ruidosos ni un edificio con 300 familias en la alberca</li>
+          <li><div class="item-dot" style="background:#e24b4b;"></div>Su esposo/pareja tiene dudas — necesita argumentos sólidos para convencerlo</li>
+          <li><div class="item-dot" style="background:#e24b4b;"></div>Le da miedo no poder usarlo cuando quiera por estar ocupado con rentas</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block block-full">
+      <div class="block-header">
+        <div class="block-icon" style="background:var(--p2a);">⚡</div>
+        <span class="block-title">Objeciones frecuentes y cómo responderlas</span>
+      </div>
+      <div class="block-body">
+        <div class="obj-grid">
+          <div class="obj-card pain">
+            <div class="obj-label">Objeción</div>
+            <p>"¿Y si quiero usarlo en Semana Santa y está rentado?"</p>
+          </div>
+          <div class="obj-card answer">
+            <div class="obj-label">Respuesta</div>
+            <p>"Tú controlas el calendario. Bloqueas las semanas que son tuyas y la plataforma solo acepta reservas en los días disponibles. En temporada alta tú decides si usarlo o rentar a precios premium — esa noche puede valer el triple."</p>
+          </div>
+          <div class="obj-card pain">
+            <div class="obj-label">Objeción</div>
+            <p>"Mi marido dice que Acapulco sigue siendo inseguro."</p>
+          </div>
+          <div class="obj-card answer">
+            <div class="obj-label">Respuesta</div>
+            <p>"La Zona Diamante es el corredor más vigilado del puerto, con accesos controlados, cámaras y vigilancia privada 24/7. Los hoteles Fairmont, Banyan Tree e Hyatt están a minutos — eso no se instala en zonas inseguras. Te invitamos a conocer el desarrollo en persona."</p>
+          </div>
+          <div class="obj-card pain">
+            <div class="obj-label">Objeción</div>
+            <p>"¿La alberca va a estar llena de gente que no conozco?"</p>
+          </div>
+          <div class="obj-card answer">
+            <div class="obj-label">Respuesta</div>
+            <p>"Aquí la densidad es de 2–3 personas por unidad en la alberca — como si fuera tu casa. Somos 51 unidades en total. No vas a encontrarte con 200 familias desconocidas un domingo. Ese es uno de los grandes diferenciales de Caracol."</p>
+          </div>
+          <div class="obj-card pain">
+            <div class="obj-label">Objeción</div>
+            <p>"No sé nada de rentar por Airbnb — me da miedo el proceso."</p>
+          </div>
+          <div class="obj-card answer">
+            <div class="obj-label">Respuesta</div>
+            <p>"No necesitas saber nada. Existe un operador especializado en renta vacacional de Zona Diamante que gestiona todo: publicación, precios, check-in, limpieza. Tú recibes el reporte y el depósito. Muchos de nuestros propietarios nunca han rentado antes."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-icon" style="background:var(--p2a);">📱</div>
+        <span class="block-title">Canales donde la encontramos</span>
+      </div>
+      <div class="block-body">
+        <div class="channel-grid" style="margin-bottom:1rem;">
+          <span class="channel-pill" style="background:var(--p2a);color:var(--p2);border-color:var(--p2a);">Instagram</span>
+          <span class="channel-pill" style="background:var(--p2a);color:var(--p2);border-color:var(--p2a);">Facebook</span>
+          <span class="channel-pill" style="background:var(--p2a);color:var(--p2);border-color:var(--p2a);">Referidas amigas</span>
+          <span class="channel-pill" style="background:var(--p2a);color:var(--p2);border-color:var(--p2a);">E-book</span>
+          <span class="channel-pill" style="background:var(--p2a);color:var(--p2);border-color:var(--p2a);">YouTube reels</span>
+        </div>
+        <ul class="item-list">
+          <li><div class="item-dot" style="background:var(--p2g);"></div>La convence un video de lifestyle — la alberca, los renders, el estilo de vida</li>
+          <li><div class="item-dot" style="background:var(--p2g);"></div>Le gusta compartir el proyecto con su pareja — envíale material para las dos personas</li>
+          <li><div class="item-dot" style="background:var(--p2g);"></div>El testimonio de otra compradora es más poderoso que cualquier número</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-icon" style="background:var(--p2a);">🗺️</div>
+        <span class="block-title">Su viaje de compra</span>
+      </div>
+      <div class="block-body">
+        <div class="journey">
+          <div class="journey-step">
+            <div class="j-num">1</div>
+            <div class="j-label">Ve reel o post de Instagram</div>
+          </div>
+          <div class="journey-step">
+            <div class="j-num">2</div>
+            <div class="j-label">Manda el link a su pareja</div>
+          </div>
+          <div class="journey-step">
+            <div class="j-num">3</div>
+            <div class="j-label">Agenda sesión en pareja</div>
+          </div>
+          <div class="journey-step">
+            <div class="j-num">4</div>
+            <div class="j-label">Visita el desarrollo en Acapulco</div>
+          </div>
+          <div class="journey-step">
+            <div class="j-num">5</div>
+            <div class="j-label">Aparta tras la visita</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block block-full">
+      <div class="block-header">
+        <div class="block-icon" style="background:var(--p2a);">💬</div>
+        <span class="block-title">Mensaje clave para este perfil</span>
+      </div>
+      <div class="block-body">
+        <div class="script-box">
+          <div class="script-label">Apertura ideal de sesión</div>
+          <p class="script-text">"Sofía, imagina que en Semana Santa llegas directamente a tu departamento — no check-in, no extraños, no esperar por la llave. La alberca es casi solo tuya: somos 51 propietarios en total. Y cuando regresas a la Ciudad, el departamento trabaja para ti: 9 noches al mes cubren tu mensualidad completa. El resto del año, es tuya."</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- PERSONA 3: FRACCIONADO -->
+<!-- ══════════════════════════════════════════ -->
+<div class="persona-panel" id="panel-2">
+  <div class="hero-strip" style="background:#f5f0fa;">
+    <div class="hero-left">
+      <div class="persona-role" style="background:var(--p3a);color:var(--p3);">Propiedad fraccionada · Segmento 3</div>
+      <h2 class="persona-name">Miguel<br><em>Vargas</em></h2>
+      <div class="persona-quote">"Quiero entrar al mercado inmobiliario de playa, pero todavía no tengo el capital completo."</div>
+      <div class="demo-grid">
+        <div class="demo-item"><div class="demo-label">Edad</div><div class="demo-val">28–42 años</div></div>
+        <div class="demo-item"><div class="demo-label">Ciudad</div><div class="demo-val">CDMX, QRO, GDL</div></div>
+        <div class="demo-item"><div class="demo-label">Perfil profesional</div><div class="demo-val">Profesionista / emprendedor</div></div>
+        <div class="demo-item"><div class="demo-label">Capital disponible</div><div class="demo-val">$200K – $800K MXN</div></div>
+        <div class="demo-item"><div class="demo-label">1ª inversión inmobiliaria</div><div class="demo-val">Sí — primer inmueble</div></div>
+        <div class="demo-item"><div class="demo-label">Decide en</div><div class="demo-val">2–4 semanas</div></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="avatar-large" style="background:var(--p3);">MV</div>
+    </div>
+  </div>
+
+  <div class="persona-body">
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-icon" style="background:var(--p3a);">🧠</div>
+        <span class="block-title">Motivaciones principales</span>
+      </div>
+      <div class="block-body">
+        <div class="mot-row">
+          <div class="mot-label"><span>Acceder a propiedad de playa accesible</span><span>90%</span></div>
+          <div class="mot-bar-bg"><div class="mot-bar-fill" style="width:90%;background:var(--p3g);"></div></div>
+        </div>
+        <div class="mot-row">
+          <div class="mot-label"><span>Comenzar a invertir en bienes raíces</span><span>88%</span></div>
+          <div class="mot-bar-bg"><div class="mot-bar-fill" style="width:88%;background:var(--p3g);"></div></div>
+        </div>
+        <div class="mot-row">
+          <div class="mot-label"><span>Uso vacacional (4–8 semanas/año)</span><span>75%</span></div>
+          <div class="mot-bar-bg"><div class="mot-bar-fill" style="width:75%;background:var(--p3g);"></div></div>
+        </div>
+        <div class="mot-row">
+          <div class="mot-label"><span>Escalar a propiedad completa a futuro</span><span>60%</span></div>
+          <div class="mot-bar-bg"><div class="mot-bar-fill" style="width:60%;background:var(--p3g);"></div></div>
+        </div>
+        <div class="mot-row">
+          <div class="mot-label"><span>Estatus / pertenencia a comunidad</span><span>50%</span></div>
+          <div class="mot-bar-bg"><div class="mot-bar-fill" style="width:50%;background:var(--p3g);"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-icon" style="background:var(--p3a);">😤</div>
+        <span class="block-title">Dolores y miedos</span>
+      </div>
+      <div class="block-body">
+        <ul class="item-list">
+          <li><div class="item-dot" style="background:#e24b4b;"></div>No entiende bien cómo funciona la propiedad fraccionada — siente que puede haber letra chica</li>
+          <li><div class="item-dot" style="background:#e24b4b;"></div>Le preocupa que sus "semanas" no estén disponibles cuando él quiera usarlas</li>
+          <li><div class="item-dot" style="background:#e24b4b;"></div>Duda de la plusvalía real en este esquema vs. compra total</li>
+          <li><div class="item-dot" style="background:#e24b4b;"></div>Le da pena admitir que no tiene capital para la compra completa</li>
+          <li><div class="item-dot" style="background:#e24b4b;"></div>No quiere que su fracción quede "atrapada" si quiere vender</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block block-full">
+      <div class="block-header">
+        <div class="block-icon" style="background:var(--p3a);">⚡</div>
+        <span class="block-title">Objeciones frecuentes y cómo responderlas</span>
+      </div>
+      <div class="block-body">
+        <div class="obj-grid">
+          <div class="obj-card pain">
+            <div class="obj-label">Objeción</div>
+            <p>"¿Cómo funciona esto exactamente? ¿Qué tan mío es realmente?"</p>
+          </div>
+          <div class="obj-card answer">
+            <div class="obj-label">Respuesta</div>
+            <p>"Adquieres una fracción legal del inmueble con escritura pública — no es un timeshare, es copropiedad real. Tienes semanas asignadas al año, derecho a rentar tus semanas, y puedes vender tu fracción en el mercado secundario."</p>
+          </div>
+          <div class="obj-card pain">
+            <div class="obj-label">Objeción</div>
+            <p>"¿Y si quiero ir un fin de semana que no es 'mi semana'?"</p>
+          </div>
+          <div class="obj-card answer">
+            <div class="obj-label">Respuesta</div>
+            <p>"Las semanas no asignadas se pueden intercambiar entre copropietarios o se rentan. El sistema de reservas permite ver disponibilidad en tiempo real. Y siempre puedes adquirir semanas adicionales si tu uso crece."</p>
+          </div>
+          <div class="obj-card pain">
+            <div class="obj-label">Objeción</div>
+            <p>"¿No es mejor esperar a tener el dinero para comprarlo completo?"</p>
+          </div>
+          <div class="obj-card answer">
+            <div class="obj-label">Respuesta</div>
+            <p>"El precio de preventa de hoy no va a estar disponible en 2 años. Entrar ahora con una fracción te da plusvalía desde hoy, uso desde la entrega, y la opción de escalar comprando más fracciones o haciendo la portabilidad al inmueble completo."</p>
+          </div>
+          <div class="obj-card pain">
+            <div class="obj-label">Objeción</div>
+            <p>"¿Cómo salgo de la inversión si necesito el dinero?"</p>
+          </div>
+          <div class="obj-card answer">
+            <div class="obj-label">Respuesta</div>
+            <p>"Tu fracción es transferible. Existe un mercado de copropietarios activo. En un desarrollo con la demanda de Caracol, encontrar comprador para una fracción es significativamente más fácil que vender un inmueble completo."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-icon" style="background:var(--p3a);">📱</div>
+        <span class="block-title">Canales donde lo encontramos</span>
+      </div>
+      <div class="block-body">
+        <div class="channel-grid" style="margin-bottom:1rem;">
+          <span class="channel-pill" style="background:var(--p3a);color:var(--p3);border-color:var(--p3a);">Instagram Reels</span>
+          <span class="channel-pill" style="background:var(--p3a);color:var(--p3);border-color:var(--p3a);">TikTok</span>
+          <span class="channel-pill" style="background:var(--p3a);color:var(--p3);border-color:var(--p3a);">Facebook grupos</span>
+          <span class="channel-pill" style="background:var(--p3a);color:var(--p3);border-color:var(--p3a);">Chatbot</span>
+          <span class="channel-pill" style="background:var(--p3a);color:var(--p3);border-color:var(--p3a);">WhatsApp</span>
+        </div>
+        <ul class="item-list">
+          <li><div class="item-dot" style="background:var(--p3g);"></div>Muy activo en redes — responde rápido por WhatsApp, tarda más en el teléfono</li>
+          <li><div class="item-dot" style="background:var(--p3g);"></div>Busca en Google grupos de inversionistas y foros de finanzas personales</li>
+          <li><div class="item-dot" style="background:var(--p3g);"></div>El chatbot n8n es su canal ideal — prefiere explorar solo antes de hablar con alguien</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-icon" style="background:var(--p3a);">🗺️</div>
+        <span class="block-title">Su viaje de compra</span>
+      </div>
+      <div class="block-body">
+        <div class="journey">
+          <div class="journey-step">
+            <div class="j-num">1</div>
+            <div class="j-label">Ve reel de inversión en playa</div>
+          </div>
+          <div class="journey-step">
+            <div class="j-num">2</div>
+            <div class="j-label">Chatea con el bot — explora</div>
+          </div>
+          <div class="journey-step">
+            <div class="j-num">3</div>
+            <div class="j-label">Descarga e-book y calcula</div>
+          </div>
+          <div class="journey-step">
+            <div class="j-num">4</div>
+            <div class="j-label">Sesión por WhatsApp o Meet</div>
+          </div>
+          <div class="journey-step">
+            <div class="j-num">5</div>
+            <div class="j-label">Aparta fracción en días</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block block-full">
+      <div class="block-header">
+        <div class="block-icon" style="background:var(--p3a);">💬</div>
+        <span class="block-title">Mensaje clave para este perfil</span>
+      </div>
+      <div class="block-body">
+        <div class="script-box">
+          <div class="script-label">Apertura ideal de sesión</div>
+          <p class="script-text">"Miguel, lo que más me importa es que entiendas exactamente cómo funciona esto antes de tomar una decisión. La fracción no es un timeshare — es una copropiedad real con escritura. Tienes semanas propias, puedes rentar las que no usas, y puedes vender cuando quieras. El precio de entrada es hoy el más bajo que va a estar. ¿Te explico paso a paso cómo se estructura?"</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- PERSONA 4: CORPORATIVO / PATRIMONIAL -->
+<!-- ══════════════════════════════════════════ -->
+<div class="persona-panel" id="panel-3">
+  <div class="hero-strip" style="background:#fdf5ee;">
+    <div class="hero-left">
+      <div class="persona-role" style="background:var(--p4a);color:var(--p4);">Corporativo / Patrimonial · Segmento 4</div>
+      <h2 class="persona-name">Grupo<br><em>Herrera</em></h2>
+      <div class="persona-quote">"Buscamos un activo real para el portafolio de la empresa y un lugar para los socios. Queremos elegancia y privacidad, no un condominio masivo."</div>
+      <div class="demo-grid">
+        <div class="demo-item"><div class="demo-label">Perfil</div><div class="demo-val">Empresa / Familia empresaria</div></div>
+        <div class="demo-item"><div class="demo-label">Decisor</div><div class="demo-val">Dueño / CFO / Consejo</div></div>
+        <div class="demo-item"><div class="demo-label">Ciudad origen</div><div class="demo-val">CDMX, MTY, GDL</div></div>
+        <div class="demo-item"><div class="demo-label">Capital</div><div class="demo-val">$4M – $15M+ MXN</div></div>
+        <div class="demo-item"><div class="demo-label">Puede comprar</div><div class="demo-val">1–3 unidades</div></div>
+        <div class="demo-item"><div class="demo-label">Decide en</div><div class="demo-val">6–16 semanas</div></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="avatar-large" style="background:var(--p4);">GH</div>
+    </div>
+  </div>
+
+  <div class="persona-body">
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-icon" style="background:var(--p4a);">🧠</div>
+        <span class="block-title">Motivaciones principales</span>
+      </div>
+      <div class="block-body">
+        <div class="mot-row">
+          <div class="mot-label"><span>Diversificación patrimonial de la empresa</span><span>85%</span></div>
+          <div class="mot-bar-bg"><div class="mot-bar-fill" style="width:85%;background:var(--p4g);"></div></div>
+        </div>
+        <div class="mot-row">
+          <div class="mot-label"><span>Inmueble para uso de socios / directivos</span><span>80%</span></div>
+          <div class="mot-bar-bg"><div class="mot-bar-fill" style="width:80%;background:var(--p4g);"></div></div>
+        </div>
+        <div class="mot-row">
+          <div class="mot-label"><span>Activo que aprecie en el tiempo</span><span>90%</span></div>
+          <div class="mot-bar-bg"><div class="mot-bar-fill" style="width:90%;background:var(--p4g);"></div></div>
+        </div>
+        <div class="mot-row">
+          <div class="mot-label"><span>Privacidad y exclusividad del entorno</span><span>88%</span></div>
+          <div class="mot-bar-bg"><div class="mot-bar-fill" style="width:88%;background:var(--p4g);"></div></div>
+        </div>
+        <div class="mot-row">
+          <div class="mot-label"><span>Eficiencia fiscal / estructura corporativa</span><span>70%</span></div>
+          <div class="mot-bar-bg"><div class="mot-bar-fill" style="width:70%;background:var(--p4g);"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-icon" style="background:var(--p4a);">😤</div>
+        <span class="block-title">Dolores y miedos</span>
+      </div>
+      <div class="block-body">
+        <ul class="item-list">
+          <li><div class="item-dot" style="background:#e24b4b;"></div>Ha visto cómo desarrollos "exclusivos" se deterioran cuando la mezcla de propietarios es heterogénea</li>
+          <li><div class="item-dot" style="background:#e24b4b;"></div>Le preocupa la imagen del desarrollo — sus socios deben sentirse cómodos trayendo a sus familias</li>
+          <li><div class="item-dot" style="background:#e24b4b;"></div>Necesita que la transacción sea estructurable a nombre de persona moral</li>
+          <li><div class="item-dot" style="background:#e24b4b;"></div>El proceso de decisión involucra a varias personas — consejo, socios, cónyuge</li>
+          <li><div class="item-dot" style="background:#e24b4b;"></div>No quiere que el activo sea difícil de valuar o transmitir en el futuro</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block block-full">
+      <div class="block-header">
+        <div class="block-icon" style="background:var(--p4a);">⚡</div>
+        <span class="block-title">Objeciones frecuentes y cómo responderlas</span>
+      </div>
+      <div class="block-body">
+        <div class="obj-grid">
+          <div class="obj-card pain">
+            <div class="obj-label">Objeción</div>
+            <p>"Necesitamos comprar a nombre de la empresa. ¿Se puede?"</p>
+          </div>
+          <div class="obj-card answer">
+            <div class="obj-label">Respuesta</div>
+            <p>"Sí. La compra en persona moral es completamente viable. El notario y el equipo legal de Exitus han estructurado operaciones corporativas anteriores. También podemos revisar la conveniencia de fideicomiso según el perfil fiscal de tu empresa."</p>
+          </div>
+          <div class="obj-card pain">
+            <div class="obj-label">Objeción</div>
+            <p>"¿Quién más va a vivir ahí? No quiero que sea un desarrollo de renta vacacional masivo."</p>
+          </div>
+          <div class="obj-card answer">
+            <div class="obj-label">Respuesta</div>
+            <p>"El reglamento establece uso vacacional mínimo de 3 noches. Somos 51 unidades — seleccionamos los perfiles. No vendemos a quien no comparte los valores del desarrollo. Ya tenemos propietarios de nivel directivo en empresas del sector financiero, industrial y de servicios profesionales."</p>
+          </div>
+          <div class="obj-card pain">
+            <div class="obj-label">Objeción</div>
+            <p>"¿Cómo valúan esto en 10 años para efectos contables?"</p>
+          </div>
+          <div class="obj-card answer">
+            <div class="obj-label">Respuesta</div>
+            <p>"El inmueble está escriturado, con avalúo oficial, en una zona con histórico de plusvalía documentada. Para efectos contables se trata como activo fijo inmobiliario. Podemos preparar una carta con los datos para tu área de finanzas."</p>
+          </div>
+          <div class="obj-card pain">
+            <div class="obj-label">Objeción</div>
+            <p>"Mis socios necesitan conocerlo antes de aprobar."</p>
+          </div>
+          <div class="obj-card answer">
+            <div class="obj-label">Respuesta</div>
+            <p>"Organizamos una visita privada al desarrollo — en helicóptero desde CDMX si lo prefieren, o vuelo directo a Acapulco. Una hora en el lugar vale más que diez presentaciones. Coordina las agendas y nosotros nos adaptamos."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-icon" style="background:var(--p4a);">📱</div>
+        <span class="block-title">Canales donde los encontramos</span>
+      </div>
+      <div class="block-body">
+        <div class="channel-grid" style="margin-bottom:1rem;">
+          <span class="channel-pill" style="background:var(--p4a);color:var(--p4);border-color:var(--p4a);">Referidos directos</span>
+          <span class="channel-pill" style="background:var(--p4a);color:var(--p4);border-color:var(--p4a);">LinkedIn</span>
+          <span class="channel-pill" style="background:var(--p4a);color:var(--p4);border-color:var(--p4a);">Clubs de negocios</span>
+          <span class="channel-pill" style="background:var(--p4a);color:var(--p4);border-color:var(--p4a);">Contacto directo</span>
+          <span class="channel-pill" style="background:var(--p4a);color:var(--p4);border-color:var(--p4a);">Contador / asesor</span>
+        </div>
+        <ul class="item-list">
+          <li><div class="item-dot" style="background:var(--p4g);"></div>El canal más efectivo es el referido de un propietario existente o asesor de confianza</li>
+          <li><div class="item-dot" style="background:var(--p4g);"></div>No responde bien a anuncios masivos — prefiere propuesta directa y privada</li>
+          <li><div class="item-dot" style="background:var(--p4g);"></div>La visita presencial al desarrollo es indispensable para cerrar con este perfil</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">
+        <div class="block-icon" style="background:var(--p4a);">🗺️</div>
+        <span class="block-title">Su viaje de compra</span>
+      </div>
+      <div class="block-body">
+        <div class="journey">
+          <div class="journey-step">
+            <div class="j-num">1</div>
+            <div class="j-label">Referido o contacto directo</div>
+          </div>
+          <div class="journey-step">
+            <div class="j-num">2</div>
+            <div class="j-label">Reunión privada presencial</div>
+          </div>
+          <div class="journey-step">
+            <div class="j-num">3</div>
+            <div class="j-label">Due diligence legal y fiscal</div>
+          </div>
+          <div class="journey-step">
+            <div class="j-num">4</div>
+            <div class="j-label">Visita de socios al desarrollo</div>
+          </div>
+          <div class="journey-step">
+            <div class="j-num">5</div>
+            <div class="j-label">Aparta 1–3 unidades</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block block-full">
+      <div class="block-header">
+        <div class="block-icon" style="background:var(--p4a);">💬</div>
+        <span class="block-title">Mensaje clave para este perfil</span>
+      </div>
+      <div class="block-body">
+        <div class="script-box">
+          <div class="script-label">Apertura ideal de reunión</div>
+          <p class="script-text">"Lo que distingue a Caracol Diamante no es el proyecto — es quién lo habita. Somos 51 unidades. Cada propietario ha pasado por un proceso de selección. El reglamento interno garantiza la calidad del entorno para siempre. Para una empresa como la suya, esto no es solo un activo — es el lugar donde sus socios y familias van a descansar. Eso tiene un valor que no aparece en la hoja de cálculo."</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div style="background:var(--navy);padding:2rem 3rem;text-align:center;">
+  <div style="font-family:var(--serif);font-size:13px;color:var(--gold);letter-spacing:.1em;margin-bottom:.5rem;">CARACOL DIAMANTE</div>
+  <div style="font-size:11px;color:rgba(255,255,255,.25);line-height:1.7;">Boulevard de las Naciones, Lote 49 · Zona Diamante, Acapulco, Guerrero<br>Documento interno de uso comercial · 2025</div>
+</div>
+
+<script>
+function switchPersona(idx) {
+  document.querySelectorAll('.persona-tab').forEach((t,i) => t.classList.toggle('active', i===idx));
+  document.querySelectorAll('.persona-panel').forEach((p,i) => p.classList.toggle('active', i===idx));
+}
+</script>
+</body>
+</html>
