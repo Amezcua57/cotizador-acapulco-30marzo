@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chat · Segunda Ingreso en Playa</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--wa-green:#075E54;--wa-light:#DCF8C6;--wa-bg:#ECE5DD;--wa-white:#fff;--wa-gray:#f0f0f0;--wa-dark:#1a1a1a;--wa-text:#303030;--wa-sub:#667781;--gold:#c49a3c;--sans:'Nunito',system-ui,sans-serif;}
+body{font-family:var(--sans);background:var(--wa-bg);min-height:100vh;display:flex;flex-direction:column;max-width:480px;margin:0 auto;position:relative;}
+
+/* HEADER */
+.wa-header{background:var(--wa-green);padding:.875rem 1rem;display:flex;align-items:center;gap:.875rem;position:sticky;top:0;z-index:100;}
+.wa-avatar{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.wa-info{flex:1;}
+.wa-name{font-size:15px;font-weight:600;color:#fff;}
+.wa-status{font-size:12px;color:rgba(255,255,255,.7);}
+.wa-actions{display:flex;gap:1rem;}
+.wa-actions span{font-size:20px;cursor:pointer;color:rgba(255,255,255,.8);}
+
+/* CHAT */
+.chat-body{flex:1;padding:1rem;overflow-y:auto;display:flex;flex-direction:column;gap:.5rem;padding-bottom:80px;}
+
+.msg{max-width:80%;word-wrap:break-word;position:relative;}
+.msg-bot{align-self:flex-start;}
+.msg-user{align-self:flex-end;}
+.msg-bubble{padding:.625rem .875rem;border-radius:8px;font-size:14px;line-height:1.5;position:relative;}
+.msg-bot .msg-bubble{background:var(--wa-white);border-radius:0 8px 8px 8px;color:var(--wa-text);}
+.msg-user .msg-bubble{background:var(--wa-light);border-radius:8px 0 8px 8px;color:var(--wa-text);}
+.msg-time{font-size:10px;color:var(--wa-sub);margin-top:2px;text-align:right;}
+.msg-bot .msg-time{text-align:left;}
+.typing{display:flex;align-items:center;gap:4px;padding:.5rem .875rem;background:var(--wa-white);border-radius:0 8px 8px 8px;width:60px;}
+.typing span{width:7px;height:7px;border-radius:50%;background:#aaa;animation:bounce .9s infinite;}
+.typing span:nth-child(2){animation-delay:.15s;}
+.typing span:nth-child(3){animation-delay:.3s;}
+@keyframes bounce{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-6px);}}
+
+/* OPCIONES */
+.options-wrap{display:flex;flex-direction:column;gap:.375rem;margin-top:.375rem;align-self:flex-start;max-width:90%;}
+.opt-btn{background:var(--wa-white);border:1.5px solid #25D366;border-radius:20px;padding:.5rem 1rem;font-size:13px;color:#075E54;font-weight:600;cursor:pointer;font-family:var(--sans);text-align:left;transition:all .15s;}
+.opt-btn:hover{background:#e8fdf1;}
+.opt-btn:active{transform:scale(.97);}
+
+/* INPUT */
+.wa-input-wrap{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--wa-bg);padding:.75rem 1rem;display:flex;align-items:center;gap:.625rem;border-top:1px solid rgba(0,0,0,.1);}
+.wa-input{flex:1;background:var(--wa-white);border:none;border-radius:25px;padding:.625rem 1rem;font-size:14px;font-family:var(--sans);outline:none;color:var(--wa-text);}
+.wa-send{width:44px;height:44px;border-radius:50%;background:#25D366;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+
+/* DATE DIVIDER */
+.date-divider{text-align:center;font-size:11px;color:var(--wa-sub);background:rgba(0,0,0,.08);padding:3px 10px;border-radius:10px;align-self:center;margin:.5rem 0;}
+</style>
+</head>
+<body>
+
+<div class="wa-header">
+  <div class="wa-avatar">🏖</div>
+  <div class="wa-info">
+    <div class="wa-name">Segundo Ingreso · Playa</div>
+    <div class="wa-status" id="status-txt">en línea</div>
+  </div>
+</div>
+
+<div class="chat-body" id="chat"></div>
+
+<div class="wa-input-wrap">
+  <input class="wa-input" id="user-input" placeholder="Escribe un mensaje..." onkeydown="if(event.key==='Enter')sendText()"/>
+  <button class="wa-send" onclick="sendText()">➤</button>
+</div>
+
+<script>
+var chat = document.getElementById('chat');
+var now = new Date();
+var timeStr = now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0');
+
+// ── 50 PREGUNTAS Y RESPUESTAS ──────────────────────
+var QA = [
+  // PRECIO Y COSTO
+  {k:['cuánto cuesta','cuanto cuesta','precio','precios','costo','vale','valor'],
+   r:'Los precios dependen del tipo de unidad. Hay opciones desde $3,200,000 MXN con enganche desde $320,000 — menos de lo que mucha gente imagina. Pero más importante que el precio es saber si el modelo de negocio tiene sentido para ti. ¿Te cuento cómo funciona?'},
+  {k:['enganche','anticipo','down payment','entrada','apartado'],
+   r:'El enganche es del 10% del valor de la unidad. Para el Condo 2R serían $320,000 MXN. Se puede financiar el resto con tu banco o directamente con el desarrollador. ¿Quieres que veamos tu caso específico en una sesión de 25 min?'},
+  {k:['mensualidad','mensual','pago mensual','crédito','hipoteca'],
+   r:'Con una tasa estimada del 10.5% a 12 años, la mensualidad del Condo 2R es de aproximadamente $34,054 MXN. La parte interesante es que ~14 noches de renta al mes cubren esa mensualidad. Te lo mostramos en vivo en tu sesión. 😊'},
+  {k:['financiamiento','banco','crédito bancario','exitus','institución'],
+   r:'Puedes financiar con tu banco de confianza — BBVA, Santander, Banorte, HSBC — o con financiamiento directo. El cliente elige la opción que más le convenga según su situación fiscal. En tu sesión te orientamos sobre cuál tiene más sentido para ti.'},
+  {k:['metros','m2','tamaño','superficie','grande'],
+   r:'Hay 4 tipos de unidad: Condo 2R (92 m²), Villa Arena Loft (110 m²), Roof Garden 2R (150 m²) y Roof Garden 3R (195 m²). Todas con la misma calidad de construcción. ¿Cuál se adapta más a lo que tienes en mente?'},
+
+  // UBICACIÓN
+  {k:['dónde está','donde esta','ubicación','ubicacion','dirección','direccion'],
+   r:'Está en Zona Diamante, Acapulco — el corredor de mayor plusvalía del Pacífico mexicano. La dirección exacta y el nombre del desarrollo te los compartimos en tu sesión para explicarte bien el contexto. 📍'},
+  {k:['acapulco','guerrero','zona diamante','boulevard','naciones'],
+   r:'Acapulco Zona Diamante es diferente a lo que muchos imaginan. Es el corredor más vigilado y exclusivo del puerto, con hoteles de cadenas internacionales, acceso controlado y una geografía que la protegió del huracán Otis. A 5 min de playa y 12 min del aeropuerto. ¿Te agendamos para que veas todo en detalle?'},
+  {k:['seguridad','seguro','peligroso','otis','huracán','huracan'],
+   r:'Zona Diamante tiene accesos controlados, vigilancia privada 24/7 y cámaras. Cadenas como Fairmont, Banyan Tree e Hyatt están a minutos — eso no se instala en zonas inseguras. Después del huracán Otis, la Zona Diamante tuvo daños menores por su geografía. Te mostramos todo en la sesión. 🔐'},
+  {k:['playa','mar','frente al mar','vista','oceano'],
+   r:'El desarrollo está a 5 minutos de la playa. No es frente al mar directamente, pero tiene acceso fácil y las vistas son excelentes desde los Roof Garden. Eso también significa mejor precio por metro cuadrado. ¿Lo vemos juntos?'},
+  {k:['aeropuerto','vuelo','llegar','distancia'],
+   r:'A solo 12 minutos del Aeropuerto Internacional de Acapulco. Lo que facilita mucho si tienes huéspedes llegando desde otras ciudades — o si tú mismo viajes frecuentemente. 🛫'},
+
+  // EL MODELO DE NEGOCIO
+  {k:['cómo funciona','como funciona','explícame','explicame','negocio','modelo'],
+   r:'El modelo es sencillo: adquieres la propiedad, la rentas cuando no la usas — vía Airbnb o Booking — y con ~14 noches al mes cubres prácticamente tu mensualidad. Las otras 16 noches son tuyas o generan más. Es tu negocio, tú lo operas. ¿Quieres verlo con tus números en 25 minutos?'},
+  {k:['renta','rentar','alquilar','airbnb','booking','huéspedes','huespedes'],
+   r:'La renta vacacional en Zona Diamante funciona muy bien en plataformas como Airbnb y Booking. Los estimados de mercado son de ~$2,500 por noche para el Condo 2R. En temporada alta puede ser 2–3 veces más. Eso sí, tú decides cómo y cuándo rentar. 🏖'},
+  {k:['cuántas noches','cuantas noches','14 noches','noches','ocupación','ocupacion'],
+   r:'Con ~14 noches de renta al mes — menos de la mitad — la mensualidad queda cubierta. Las otras 16 noches son tuyas o siguen generando. No necesitas una ocupación perfecta para que el número funcione. Te lo mostramos en vivo. 📊'},
+  {k:['segundo ingreso','ingreso extra','dinero extra','ingresos','ganar'],
+   r:'Exacto — esa es la idea. No necesitas renunciar a tu trabajo ni mudarte. El depto genera en Acapulco mientras tú estás en tu ciudad. Con un buen operador o manejándolo tú mismo, puede ser un negocio muy sólido para tu familia. 💼'},
+  {k:['quien administra','quién administra','operador','administración','administracion','gestión'],
+   r:'Nosotros no administramos la propiedad — eso es importante dejarlo claro. Tú decides si la operas tú mismo, con un familiar o con un operador local especializado en Zona Diamante. Es tu negocio. Nosotros te vendemos el activo y te orientamos. 🤝'},
+
+  // PLUSVALÍA E INVERSIÓN
+  {k:['plusvalía','plusvalia','valor','aprecia','apreciación','apreciacion','crecer'],
+   r:'La plusvalía proyectada en el corredor es del 8%+ anual para los próximos 15 a 20 años. Es estimada — no garantizada. Pero históricamente Zona Diamante ha sido uno de los corredores con mejor comportamiento del Pacífico mexicano. ¿Lo revisamos juntos?'},
+  {k:['inversión','inversion','roi','retorno','rendimiento','rentabilidad'],
+   r:'En proyecciones conservadoras (8% plusvalía + 5% incremento de renta), el retorno estimado a 5 años supera $1.6M MXN y a 20 años puede llegar a $13.6M. Son estimados — te los mostramos en vivo con un cotizador personalizado. 📈'},
+  {k:['revender','vender','liquidez','salida','venta'],
+   r:'La propiedad tiene escritura individual — es completamente vendible en cualquier momento. La liquidez inmobiliaria en Zona Diamante ha mejorado significativamente en los últimos años. Si necesitas el capital, puedes vender. 🔑'},
+  {k:['patrimonio','herencia','heredar','hijos','familia'],
+   r:'Esa es una de las razones más poderosas para esta compra. Una escritura a tu nombre, transmisible a tus hijos. Un activo que trabaja, que se aprecia y que deja algo tangible para la siguiente generación. 👨‍👩‍👧‍👦'},
+  {k:['dolares','dólares','usd','tipo de cambio'],
+   r:'Los precios están en pesos mexicanos. Si vienes de Texas o California y tienes dólares, el tipo de cambio hace que la entrada sea aún más accesible. En la sesión te mostramos cómo se ve con tu situación específica. 💵'},
+
+  // EL CONSTRUCTOR
+  {k:['altozano','constructor','quién construye','quien construye','desarrollador'],
+   r:'El desarrollo lo construye Grupo Altozano — uno de los desarrolladores con mayor trayectoria en México, con más de 250 casas y unidades entregadas. No son renders bonitos sin historial. Tienen obra entregada y documentada. 🏗️'},
+  {k:['entrega','cuándo entregan','cuando entregan','plazo','tiempo','fecha'],
+   r:'La fecha exacta de entrega te la compartimos en la sesión — porque depende de la fase que elijas. Lo que sí te puedo decir es que el terreno está libre de deuda y la construcción avanza con financiamiento verificado. 📅'},
+  {k:['terreno','deuda','hipoteca del terreno','tierra'],
+   r:'El terreno no tiene deuda — es propiedad de Ismava Construcciones, libre y sin hipoteca. Eso es fundamental: tu dinero no está en riesgo desde el día uno. Es el primer punto que revisamos en nuestra guía de 20 puntos para una buena compra.'},
+  {k:['calidad','materiales','acabados','lujo','nivel'],
+   r:'El estándar de construcción es el mismo para todas las unidades — materiales de primera, acabados de calidad y especificaciones que resisten el ambiente costero. Puedes ver la obra en persona — organizamos visitas al desarrollo. 🏠'},
+  {k:['escritura','escrituración','notario','legal','documentos'],
+   r:'Escritura pública individual a tu nombre — no un fideicomiso colectivo difícil de transmitir. Si eres persona moral, también es posible. El notario y el proceso legal lo revisamos en detalle en tu sesión. 📋'},
+
+  // LAS UNIDADES
+  {k:['tipos','opciones','unidades','cuáles son','cuales son'],
+   r:'Hay 4 tipos: Condo 2R ($3.2M · 92m²), Villa Arena Loft ($3.575M · 110m²), Roof Garden 2R ($3.62M · 150m²) y Roof Garden 3R ($4.58M · 195m²). Cada una tiene su perfil de uso e inversión. ¿Cuál te llama más la atención?'},
+  {k:['roof garden','rooftop','terraza','jardín','jardin'],
+   r:'Los Roof Garden son las unidades premium — con terraza privada, vistas increíbles y mayor potencial de renta en temporada alta. El de 150m² tiene 2 recámaras y el de 195m² tiene 3. Son las más solicitadas. 🌅'},
+  {k:['loft','villa arena','villa','studio'],
+   r:'La Villa Arena Loft es perfecta si buscas algo diferente — 110m², diseño abierto, ideal para parejas o para rentar a huéspedes que buscan algo único. Precio muy competitivo por metro cuadrado. ¿Te interesa ese tipo de espacio?'},
+  {k:['recámaras','recamaras','cuartos','habitaciones','dormitorios'],
+   r:'Tienes opciones de 2 y 3 recámaras — excepto el Loft que es de diseño abierto. Para renta vacacional, las 2 recámaras tienen excelente demanda. Las 3 recámaras son ideales para grupos o familias grandes con renta premium. 🛏'},
+  {k:['cuántas unidades','cuantas unidades','cuántos','total','disponibilidad'],
+   r:'Son 51 unidades en total, en dos fases. 21 familias ya han elegido su lugar. Sin posibilidad de expansión — el tamaño boutique es intencional. La disponibilidad es limitada por diseño. 🏘️'},
+
+  // EL DESARROLLO
+  {k:['alberca','pool','piscina','amenidades','amenities'],
+   r:'Alberca propia del desarrollo. Con solo 21 familias compartiéndola, la densidad es bajísima — nada que ver con las albercas de macro-desarrollos de 200 unidades. Ese es uno de los grandes diferenciales de Caracol. 🏊'},
+  {k:['vecinos','propietarios','quién vive','quien vive','perfil'],
+   r:'Seleccionamos los perfiles. El reglamento establece uso vacacional mínimo de 3 noches. Propietarios de nivel directivo y empresarial. No vendemos a quien no comparte los valores del desarrollo. Eso protege tu inversión. 👥'},
+  {k:['reglamento','reglas','normas','convivencia'],
+   r:'Existe un reglamento de convivencia que protege el valor del desarrollo a largo plazo. Sin ruido excesivo, sin uso comercial masivo, sin deterioro de áreas comunes. Eso no es restricción — es garantía de que tu inversión se cuida sola. 📜'},
+  {k:['mantenimiento','cuotas','gastos comunes','administración del edificio'],
+   r:'Las cuotas de mantenimiento cubren las áreas comunes, seguridad y servicios del desarrollo. El presupuesto anual se presenta a los propietarios con transparencia. Los montos exactos los revisamos en tu sesión. 🔧'},
+  {k:['hoteles','fairmont','banyan tree','hyatt','marriott','cadena'],
+   r:'Exacto — Fairmont, Banyan Tree e Hyatt están a pocos minutos. Esas cadenas no instalan hoteles de lujo en zonas sin futuro. Su presencia es el mejor indicador de que la zona seguirá siendo valorada por los próximos 20 años. 🏨'},
+
+  // PARA QUIÉN ES
+  {k:['para mí','para mi','sirve','aplico','califico','puedo'],
+   r:'Si tienes el enganche disponible y te interesa la idea de generar un segundo ingreso con bienes raíces de playa, es muy probable que apliques. En 25 minutos te ayudamos a evaluar si tiene sentido para tu situación específica. ¿Agendamos?'},
+  {k:['empresa','persona moral','negocio','sociedad','fiscal'],
+   r:'Sí, la compra en persona moral es completamente viable. Puede ser una opción muy eficiente según tu estructura fiscal. El notario y el equipo han trabajado operaciones corporativas anteriores. Lo revisamos en tu sesión. 💼'},
+  {k:['extranjero','texas','california','estados unidos','eeuu','usa','dólares'],
+   r:'Muchos de nuestros compradores son mexicanos viviendo en Texas y California. La compra es completamente posible — y con el tipo de cambio actual, resulta muy conveniente. En la sesión te explicamos el proceso para residentes en el exterior. 🌎'},
+  {k:['primera vez','primera inversión','nunca he','no tengo experiencia'],
+   r:'Perfecto punto de entrada. No necesitas experiencia previa en bienes raíces. Lo que sí necesitas es entender bien el modelo antes de decidir — para eso es exactamente la sesión. Sin presión, tienes mucho que ganar y poco que perders. Solo información. 🙌'},
+  {k:['familia','mis hijos','pareja','esposo','esposa','conyugue'],
+   r:'Muchos de nuestros compradores lo ven como un proyecto familiar — donde los hijos aprenden a operar un negocio real. Es una forma excelente de involucrar a la familia en la construcción del patrimonio. ¿Lo evaluamos juntos con tu pareja?'},
+
+  // PREGUNTAS DE PROCESO
+  {k:['cómo comprar','como comprar','proceso','pasos','qué sigue','que sigue'],
+   r:'El proceso es: 1) Sesión de evaluación de 25–30 min → 2) Si te convence, apartado con enganche → 3) Firma de contrato → 4) Pagos durante construcción → 5) Escrituración y entrega. En la sesión te explicamos cada paso en detalle. 📝'},
+  {k:['sesión','sesion','cita','reunión','reunion','agendar','agenda'],
+   r:'La sesión es gratuita, dura 25–30 minutos por videollamada. Nuestro único compromiso es que nos des ese tiempo. Tienes mucho que ganar y poco que perder. 😊 Revisamos los números de tu unidad en vivo con un cotizador interactivo. ¿Cuándo tienes disponibilidad esta semana? 📅'},
+  {k:['visita','ver','conocer','ir','presencial'],
+   r:'¡Claro! Organizamos visitas presenciales al desarrollo. Una hora en el lugar vale más que diez presentaciones. Si estás en CDMX, Puebla o ciudades cercanas, podemos gestionar el traslado. ¿Cuándo podrías venir? 🚗'},
+  {k:['urgente','pronto','cuándo','cuando','disponible'],
+   r:'Estamos disponibles 24/7 para responder tus preguntas. Para agendar tu sesión de evaluación, podemos hacerlo esta misma semana. ¿Qué día te funciona mejor? ⏰'},
+  {k:['garantía','garantia','riesgo','qué pasa si','que pasa si'],
+   r:'El mayor respaldo es que el terreno no tiene deuda y el constructor es Grupo Altozano con +250 unidades entregadas. Eso no es una garantía total — ninguna inversión lo es. Pero son señales sólidas de seriedad. En la sesión revisamos todos los puntos de seguridad. 🛡'},
+
+  // OBJECIONES
+  {k:['caro','no tengo','no puedo','no alcanza','poco dinero'],
+   r:'Entiendo. El enganche mínimo es $320,000 MXN. Si el monto es un obstáculo ahora, podemos platicar de opciones o de si hay un momento mejor para ti. No hay presión. ¿Me cuentas más de tu situación?'},
+  {k:['pensarlo','necesito pensar','luego','después','despues','más tarde'],
+   r:'Claro, es una decisión importante y merece reflexión. Lo que sí te digo es que la sesión de evaluación es gratuita y tienes mucho que ganar y poco que perder — y te ayuda a tener toda la información para pensar bien. ¿La agendamos para cuando estés listo? 😊'},
+  {k:['competencia','otros desarrollos','comparar','más barato','mas barato'],
+   r:'Hay varias opciones excelentes en Zona Diamante y te invitamos a conocerlas todas. Lo que diferencia a este desarrollo es el tamaño boutique — 21 familias vs 120–240 de la competencia — y el track record de Altozano. ¿Lo comparamos en la sesión?'},
+  {k:['no me interesa','no quiero','gracias','adiós','adios','bye'],
+   r:'Sin problema, gracias por preguntar. Si en algún momento quieres evaluar la idea, aquí estaremos. ¡Que tengas un excelente día! 🌊'},
+  {k:['hablar','asesor','karina','persona','humano','alguien'],
+   r:'¡Claro! Una asesora del equipo puede atenderte en este momento o en el horario que prefieras. Escríbenos directo por WhatsApp y te conectamos de inmediato: wa.me/527441752143 📲'},
+];
+
+// Respuesta por defecto
+var defaultReply = '¡Buena pregunta! Para darte una respuesta precisa y personalizada, lo mejor es que hablemos en tu sesión de evaluación gratuita — 25 minutos, tienes mucho que ganar y poco que perder. ¿La agendamos? 😊';
+
+// Función para encontrar respuesta
+function findAnswer(input) {
+  var lower = input.toLowerCase();
+  for (var i = 0; i < QA.length; i++) {
+    var keys = QA[i].k;
+    for (var j = 0; j < keys.length; j++) {
+      if (lower.includes(keys[j])) return QA[i].r;
+    }
+  }
+  return null;
+}
+
+// Agregar mensaje
+function addMsg(text, type, showOptions) {
+  var t = new Date();
+  var ts = t.getHours().toString().padStart(2,'0')+':'+t.getMinutes().toString().padStart(2,'0');
+  var div = document.createElement('div');
+  div.className = 'msg msg-' + type;
+  div.innerHTML = '<div class="msg-bubble">' + text.replace(/\n/g,'<br>') + '</div><div class="msg-time">' + ts + (type==='bot'?' ✓✓':'') + '</div>';
+  chat.appendChild(div);
+  if (showOptions) addOptions();
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function addOptions() {
+  var opts = [
+    '¿Cuánto cuesta?',
+    '¿Dónde está?',
+    '¿Cómo funciona el negocio?',
+    '¿Cuántas noches necesito rentar?',
+    '¿Quién construye?',
+    '¿Cuándo me entregan?',
+    'Quiero agendar mi sesión',
+    'Hablar con un asesor',
+  ];
+  var wrap = document.createElement('div');
+  wrap.className = 'options-wrap';
+  opts.forEach(function(o) {
+    var btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.textContent = o;
+    btn.onclick = function() {
+      wrap.remove();
+      addMsg(o, 'user');
+      processInput(o);
+    };
+    wrap.appendChild(btn);
+  });
+  chat.appendChild(wrap);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function showTyping(cb) {
+  var t = document.createElement('div');
+  t.className = 'msg msg-bot';
+  t.id = 'typing';
+  t.innerHTML = '<div class="typing"><span></span><span></span><span></span></div>';
+  chat.appendChild(t);
+  chat.scrollTop = chat.scrollHeight;
+  var delay = 800 + Math.random() * 700;
+  setTimeout(function() {
+    t.remove();
+    cb();
+  }, delay);
+}
+
+function processInput(input) {
+  var lower = input.toLowerCase();
+  // Detectar agenda/sesión
+  if (lower.includes('agendar') || lower.includes('sesión') || lower.includes('sesion') || lower.includes('cita') || lower.includes('quiero evaluar')) {
+    showTyping(function() {
+      addMsg('¡Perfecto! 🎉 Para agendar tu sesión gratuita de 25–30 minutos, escríbenos directo por WhatsApp:\n\n👉 wa.me/527441752143\n\nUna asesora te confirmará fecha y hora en minutos. ¡Te esperamos!', 'bot', false);
+    });
+    return;
+  }
+  // Detectar hablar con persona
+  if (lower.includes('hablar') || lower.includes('asesor') || lower.includes('humano') || lower.includes('persona') || lower.includes('karina')) {
+    showTyping(function() {
+      addMsg('¡Claro! Te conectamos de inmediato con una asesora:\n\n👉 wa.me/527441752143\n\nEscríbenos y en minutos alguien del equipo te atiende. 📲', 'bot', false);
+    });
+    return;
+  }
+  var answer = findAnswer(input);
+  showTyping(function() {
+    if (answer) {
+      // Agregar invitación a sesión al final (50% de las veces)
+      var suffix = '';
+      if (Math.random() > 0.5 && !answer.includes('sesión') && !answer.includes('sesion') && !answer.includes('25 min')) {
+        suffix = '\n\n¿Te agendamos una sesión de 25 min para verlo con tus números? 📊';
+      }
+      addMsg(answer + suffix, 'bot', false);
+    } else {
+      addMsg(defaultReply, 'bot', false);
+    }
+    // Mostrar opciones de vez en cuando
+    if (Math.random() > 0.65) {
+      setTimeout(addOptions, 300);
+    }
+  });
+}
+
+function sendText() {
+  var input = document.getElementById('user-input');
+  var val = input.value.trim();
+  if (!val) return;
+  input.value = '';
+  addMsg(val, 'user');
+  processInput(val);
+}
+
+// INICIO DEL CHAT
+window.onload = function() {
+  // Divider de fecha
+  var d = document.createElement('div');
+  d.className = 'date-divider';
+  d.textContent = 'Hoy';
+  chat.appendChild(d);
+
+  // Mensaje de bienvenida
+  setTimeout(function() {
+    showTyping(function() {
+      addMsg('¡Hola! 👋 Gracias por tu interés.', 'bot', false);
+      setTimeout(function() {
+        showTyping(function() {
+          addMsg('Estás a un paso de conocer una idea de negocio que muchas familias en México están desarrollando con bienes raíces de playa en Acapulco. 🏖', 'bot', false);
+          setTimeout(function() {
+            showTyping(function() {
+              addMsg('Puedo responderte preguntas ahora mismo — o si prefieres, en 25–30 minutos te mostramos todo en vivo con números reales. ¿Por dónde empezamos?', 'bot', true);
+            });
+          }, 600);
+        });
+      }, 500);
+    });
+  }, 800);
+};
+</script>
+</body>
+</html>
