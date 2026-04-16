@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRM · Caracol Diamante</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;1,400&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--slate:#3d5166;--gold:#b8923c;--gold-lt:#e0c98a;--cream:#f9f6f1;--sand:#eee9e1;--white:#fff;--tx:#1e1e1e;--txm:#505050;--txl:#909090;--green:#1a7a4a;--green-lt:#e8f5ee;--red:#c0392b;--red-lt:#fdecea;--blue:#1a5fa8;--blue-lt:#e8f0fb;--orange:#d35400;--orange-lt:#fef0e7;--serif:'Lora',Georgia,serif;--sans:'Nunito',system-ui,sans-serif;}
+body{font-family:var(--sans);background:var(--cream);color:var(--tx);min-height:100vh;}
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--slate);}
+.login-box{background:var(--white);border-radius:14px;padding:2.5rem 2rem;width:100%;max-width:380px;text-align:center;}
+.login-logo{font-family:var(--serif);font-size:14px;color:var(--gold);letter-spacing:.1em;margin-bottom:.5rem;}
+.login-title{font-family:var(--serif);font-size:22px;font-weight:400;color:var(--slate);margin-bottom:.4rem;}
+.login-sub{font-size:13px;color:var(--txl);margin-bottom:1.75rem;}
+.login-box input{width:100%;font-family:var(--sans);font-size:14px;padding:12px 14px;border:1.5px solid rgba(0,0,0,.1);border-radius:8px;outline:none;margin-bottom:.75rem;}
+.login-box input:focus{border-color:var(--gold);}
+.login-btn{width:100%;background:var(--slate);color:var(--white);font-family:var(--sans);font-size:14px;font-weight:600;padding:13px;border:none;border-radius:8px;cursor:pointer;}
+.login-err{font-size:12px;color:var(--red);margin-top:.5rem;display:none;}
+.app{display:none;}
+.header{background:var(--slate);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem;}
+.header-logo{font-family:var(--serif);font-size:13px;color:var(--gold);letter-spacing:.1em;}
+.header-title{font-size:13px;font-weight:500;color:rgba(255,255,255,.7);}
+.user-badge{font-size:11px;color:rgba(255,255,255,.5);background:rgba(255,255,255,.08);padding:4px 10px;border-radius:20px;}
+.logout-btn{font-size:11px;color:rgba(255,255,255,.4);background:none;border:none;cursor:pointer;font-family:var(--sans);}
+.stats-bar{background:var(--white);border-bottom:0.5px solid rgba(0,0,0,.06);padding:.75rem 1.5rem;display:flex;gap:1.5rem;flex-wrap:wrap;}
+.stat-item{display:flex;align-items:center;gap:.5rem;}
+.stat-dot{width:7px;height:7px;border-radius:50%;}
+.stat-dot.total{background:var(--slate);}.stat-dot.nuevo{background:var(--gold);}.stat-dot.contactado{background:var(--blue);}.stat-dot.agendado{background:var(--green);}.stat-dot.descartado{background:var(--txl);}
+.stat-label{font-size:12px;color:var(--txm);}.stat-num{font-size:13px;font-weight:600;color:var(--tx);margin-left:3px;}
+.toolbar{padding:.875rem 1.5rem;display:flex;align-items:center;gap:.625rem;flex-wrap:wrap;border-bottom:0.5px solid rgba(0,0,0,.06);}
+.search-input{flex:1;min-width:160px;font-family:var(--sans);font-size:13px;padding:8px 12px;border:1px solid rgba(0,0,0,.1);border-radius:8px;background:var(--white);outline:none;}
+.search-input:focus{border-color:var(--gold);}
+.filter-btn{font-size:11px;font-weight:500;padding:7px 12px;border-radius:20px;border:1px solid rgba(0,0,0,.1);background:var(--white);cursor:pointer;font-family:var(--sans);color:var(--txm);}
+.filter-btn.on{background:var(--slate);color:var(--white);border-color:var(--slate);}
+.add-btn{margin-left:auto;background:var(--gold);color:var(--white);font-family:var(--sans);font-size:12px;font-weight:600;padding:8px 14px;border:none;border-radius:8px;cursor:pointer;}
+.export-btn{font-size:11px;color:var(--txl);background:none;border:1px solid rgba(0,0,0,.1);border-radius:8px;padding:8px 12px;cursor:pointer;font-family:var(--sans);}
+.table-wrap{padding:1.25rem;overflow-x:auto;}
+table{width:100%;border-collapse:collapse;background:var(--white);border-radius:12px;overflow:hidden;border:0.5px solid rgba(0,0,0,.07);font-size:12px;}
+thead tr{background:var(--sand);}
+thead th{padding:9px 12px;text-align:left;font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--txl);border-bottom:0.5px solid rgba(0,0,0,.07);white-space:nowrap;}
+tbody tr{border-bottom:0.5px solid rgba(0,0,0,.04);}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:hover{background:rgba(249,246,241,.5);}
+tbody td{padding:9px 12px;color:var(--txm);vertical-align:top;}
+.lead-name{font-weight:600;color:var(--tx);font-size:13px;}
+.lead-src{font-size:10px;color:var(--txl);margin-top:1px;}
+.phone-row{display:flex;align-items:center;gap:5px;margin-bottom:3px;}
+.phone-num{font-size:12px;font-weight:500;color:var(--tx);}
+.phone-lbl{font-size:9px;color:var(--txl);background:var(--sand);padding:1px 5px;border-radius:8px;}
+.wa-mini{font-size:10px;color:#128c3e;background:#e8fdf1;border:1px solid #c3f0d4;border-radius:5px;padding:2px 6px;text-decoration:none;}
+.call-entry{display:flex;align-items:center;gap:5px;padding:3px 0;border-bottom:0.5px solid rgba(0,0,0,.04);}
+.call-entry:last-child{border-bottom:none;}
+.call-result{font-size:9px;font-weight:600;padding:1px 6px;border-radius:8px;white-space:nowrap;}
+.r-contesto{background:var(--green-lt);color:var(--green);}
+.r-nocontesto{background:var(--orange-lt);color:var(--orange);}
+.r-buzon{background:var(--red-lt);color:var(--red);}
+.r-whatsapp{background:var(--blue-lt);color:var(--blue);}
+.call-time{font-size:10px;color:var(--txl);}
+.status-sel{font-family:var(--sans);font-size:11px;font-weight:500;padding:5px 7px;border-radius:6px;border:1px solid rgba(0,0,0,.1);cursor:pointer;outline:none;width:100%;}
+.s-nuevo{background:#fff8e8;color:#8a6000;border-color:#e8c97a;}
+.s-contactado{background:var(--blue-lt);color:var(--blue);border-color:#a8c8f0;}
+.s-agendado{background:var(--green-lt);color:var(--green);border-color:#9fd4b8;}
+.s-descartado{background:#f5f5f5;color:var(--txl);border-color:#ddd;}
+.action-btns{display:flex;flex-direction:column;gap:4px;}
+.detail-btn{background:var(--slate);color:#fff;border:none;border-radius:6px;padding:5px 10px;cursor:pointer;font-size:11px;font-family:var(--sans);white-space:nowrap;}
+.wa-btn{display:inline-flex;align-items:center;gap:4px;background:#25d366;color:#fff;font-size:11px;font-weight:600;padding:5px 8px;border-radius:6px;text-decoration:none;white-space:nowrap;}
+.del-btn{background:none;border:1px solid rgba(0,0,0,.1);border-radius:6px;padding:4px 8px;cursor:pointer;font-size:11px;color:var(--txl);}
+.empty{text-align:center;padding:3rem 1.5rem;color:var(--txl);}
+.empty-icon{font-size:40px;margin-bottom:.75rem;}
+.empty-title{font-family:var(--serif);font-size:20px;color:var(--slate);margin-bottom:.4rem;}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:flex-start;justify-content:center;overflow-y:auto;padding:1.5rem;}
+.modal-bg.show{display:flex;}
+.modal{background:var(--white);border-radius:14px;padding:1.75rem;width:100%;max-width:500px;margin:auto;}
+.modal-title{font-family:var(--serif);font-size:19px;color:var(--slate);margin-bottom:1.25rem;display:flex;justify-content:space-between;align-items:center;}
+.modal-close{background:none;border:none;font-size:20px;cursor:pointer;color:var(--txl);}
+.flabel{display:block;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--txl);margin-bottom:.3rem;margin-top:.75rem;}
+.finput{width:100%;font-family:var(--sans);font-size:13px;padding:9px 11px;border:1.5px solid rgba(0,0,0,.1);border-radius:7px;outline:none;background:var(--cream);}
+.finput:focus{border-color:var(--gold);}
+.phone-edit-row{display:grid;grid-template-columns:1fr 110px;gap:.5rem;margin-bottom:.4rem;}
+.phone-edit-row input,.phone-edit-row select{font-family:var(--sans);font-size:12px;padding:8px 10px;border:1px solid rgba(0,0,0,.1);border-radius:7px;outline:none;background:var(--cream);}
+.add-phone-btn{font-size:11px;color:var(--gold);background:none;border:1px solid rgba(184,146,60,.3);border-radius:6px;padding:4px 12px;cursor:pointer;font-family:var(--sans);margin-top:.25rem;}
+.modal-btns{display:flex;gap:.75rem;margin-top:1.25rem;}
+.modal-save{flex:1;background:var(--slate);color:#fff;font-family:var(--sans);font-size:13px;font-weight:600;padding:11px;border:none;border-radius:8px;cursor:pointer;}
+.modal-cancel{background:none;border:1px solid rgba(0,0,0,.1);color:var(--txm);font-family:var(--sans);font-size:13px;padding:11px 18px;border-radius:8px;cursor:pointer;}
+.dsection{margin-top:1.1rem;padding-top:1.1rem;border-top:0.5px solid rgba(0,0,0,.08);}
+.dsection-title{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:.625rem;}
+.call-log-entry{background:var(--cream);border-radius:8px;padding:.625rem .875rem;margin-bottom:.4rem;display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem;}
+.call-log-result{font-size:12px;font-weight:600;margin-bottom:2px;}
+.call-log-meta{font-size:11px;color:var(--txl);}
+.call-log-note{font-size:11px;color:var(--txm);margin-top:3px;font-style:italic;}
+.del-call{background:none;border:none;cursor:pointer;font-size:13px;color:var(--txl);padding:2px 4px;}
+.add-call-form{background:var(--sand);border-radius:8px;padding:.875rem;margin-top:.625rem;}
+.add-call-title{font-size:12px;font-weight:600;color:var(--slate);margin-bottom:.5rem;}
+.call-form-row{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.4rem;}
+.call-form-row select,.call-form-row input{font-family:var(--sans);font-size:12px;padding:8px 9px;border:1px solid rgba(0,0,0,.1);border-radius:6px;outline:none;background:var(--white);}
+.add-call-btn{width:100%;background:var(--slate);color:#fff;font-family:var(--sans);font-size:12px;font-weight:600;padding:9px;border:none;border-radius:6px;cursor:pointer;margin-top:.5rem;}
+</style>
+</head>
+<body>
+
+<div class="login-wrap" id="login-wrap">
+  <div class="login-box">
+    <div class="login-logo">Caracol Diamante</div>
+    <h2 class="login-title">CRM · Panel de leads</h2>
+    <p class="login-sub">Equipo de ventas · Acceso exclusivo</p>
+    <input type="text" id="l-user" placeholder="Tu nombre (Francisco / Karina)" />
+    <input type="password" id="l-pass" placeholder="Contraseña" />
+    <button class="login-btn" onclick="doLogin()">Entrar</button>
+    <p class="login-err" id="l-err">Contraseña incorrecta</p>
+  </div>
+</div>
+
+<div class="app" id="app">
+  <div class="header">
+    <div><div class="header-logo">Caracol Diamante · CRM</div><div class="header-title">Leads y seguimiento de llamadas</div></div>
+    <div style="display:flex;align-items:center;gap:.75rem;"><span class="user-badge" id="user-badge">—</span><button class="logout-btn" onclick="doLogout()">Salir</button></div>
+  </div>
+  <div class="stats-bar" id="stats-bar"></div>
+  <div class="toolbar">
+    <input class="search-input" type="text" id="search" placeholder="Buscar nombre o teléfono..." oninput="render()"/>
+    <button class="filter-btn on" data-f="todos" onclick="setFilter(this)">Todos</button>
+    <button class="filter-btn" data-f="nuevo" onclick="setFilter(this)">Nuevos</button>
+    <button class="filter-btn" data-f="contactado" onclick="setFilter(this)">Contactados</button>
+    <button class="filter-btn" data-f="agendado" onclick="setFilter(this)">Agendados</button>
+    <button class="filter-btn" data-f="descartado" onclick="setFilter(this)">Descartados</button>
+    <button class="export-btn" onclick="exportCSV()">⬇ CSV</button>
+    <button class="add-btn" onclick="openAddModal()">+ Agregar lead</button>
+  </div>
+  <div class="table-wrap">
+    <table id="leads-table">
+      <thead><tr><th>#</th><th>Nombre · Fuente</th><th>Teléfonos</th><th>Últimas llamadas</th><th>Fecha</th><th>Estado</th><th>Acciones</th></tr></thead>
+      <tbody id="leads-body"></tbody>
+    </table>
+    <div class="empty" id="empty-state" style="display:none;">
+      <div class="empty-icon">📋</div>
+      <div class="empty-title">Sin leads todavía</div>
+      <p style="font-size:13px;">Cuando alguien llene la landing aparecerá aquí automáticamente.</p>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL AGREGAR -->
+<div class="modal-bg" id="add-modal">
+  <div class="modal">
+    <div class="modal-title">Agregar lead<button class="modal-close" onclick="closeModal('add-modal')">×</button></div>
+    <span class="flabel">Nombre completo</span><input type="text" id="m-nombre" class="finput" placeholder="Nombre del prospecto"/>
+    <span class="flabel">Teléfonos (hasta 3)</span>
+    <div id="phones-wrap"></div>
+    <button class="add-phone-btn" onclick="addPhone()">+ Otro teléfono</button>
+    <span class="flabel">Fuente</span>
+    <select id="m-fuente" class="finput"><option>Landing Diagnóstico</option><option>Landing V2</option><option>Referido</option><option>WhatsApp directo</option><option>Facebook</option><option>Instagram</option><option>Manual</option></select>
+    <span class="flabel">Estado</span>
+    <select id="m-status" class="finput"><option value="nuevo">Nuevo</option><option value="contactado">Contactado</option><option value="agendado">Agendado</option><option value="descartado">Descartado</option></select>
+    <div class="modal-btns"><button class="modal-cancel" onclick="closeModal('add-modal')">Cancelar</button><button class="modal-save" onclick="saveLead()">Guardar</button></div>
+  </div>
+</div>
+
+<!-- MODAL DETALLE -->
+<div class="modal-bg" id="detail-modal">
+  <div class="modal">
+    <div class="modal-title"><span id="dm-title">Detalle</span><button class="modal-close" onclick="closeModal('detail-modal')">×</button></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;">
+      <div><span class="flabel">Nombre</span><input type="text" id="dm-nombre" class="finput"/></div>
+      <div><span class="flabel">Estado</span><select id="dm-status" class="finput"><option value="nuevo">Nuevo</option><option value="contactado">Contactado</option><option value="agendado">Agendado</option><option value="descartado">Descartado</option></select></div>
+    </div>
+    <div class="dsection">
+      <div class="dsection-title">Teléfonos</div>
+      <div id="dm-phones"></div>
+      <button class="add-phone-btn" onclick="addPhoneDetail()" style="margin-top:.4rem;">+ Agregar teléfono</button>
+    </div>
+    <div class="dsection">
+      <div class="dsection-title">Historial de llamadas</div>
+      <div id="dm-calls"></div>
+      <div class="add-call-form">
+        <div class="add-call-title">Registrar llamada</div>
+        <div class="call-form-row">
+          <select id="nc-phone"><option value="">Teléfono marcado</option></select>
+          <select id="nc-result"><option value="contesto">✅ Contestó</option><option value="nocontesto">📵 No contestó</option><option value="buzon">📭 Buzón</option><option value="whatsapp">💬 WhatsApp</option></select>
+        </div>
+        <div class="call-form-row">
+          <input type="datetime-local" id="nc-fecha"/>
+          <input type="text" id="nc-nota" placeholder="Nota (opcional)"/>
+        </div>
+        <button class="add-call-btn" onclick="saveCall()">Registrar</button>
+      </div>
+    </div>
+    <div class="modal-btns"><button class="modal-cancel" onclick="closeModal('detail-modal')">Cerrar</button><button class="modal-save" onclick="saveDetail()">Guardar cambios</button></div>
+  </div>
+</div>
+
+<script>
+var PASS='caracol2024',activeFilter='todos',currentId=null,phoneCount=0;
+var RL={contesto:'✅ Contestó',nocontesto:'📵 No contestó',buzon:'📭 Buzón',whatsapp:'💬 WhatsApp'};
+var RC={contesto:'r-contesto',nocontesto:'r-nocontesto',buzon:'r-buzon',whatsapp:'r-whatsapp'};
+var RCL={contesto:'#1a7a4a',nocontesto:'#d35400',buzon:'#c0392b',whatsapp:'#1a5fa8'};
+
+function doLogin(){
+  var u=document.getElementById('l-user').value.trim(),p=document.getElementById('l-pass').value;
+  if(!u){alert('Escribe tu nombre');return;}
+  if(p!==PASS){document.getElementById('l-err').style.display='block';return;}
+  localStorage.setItem('crm_user',u);localStorage.setItem('crm_auth','1');showApp(u);
+}
+function doLogout(){localStorage.removeItem('crm_auth');localStorage.removeItem('crm_user');document.getElementById('app').style.display='none';document.getElementById('login-wrap').style.display='flex';}
+function showApp(u){document.getElementById('login-wrap').style.display='none';document.getElementById('app').style.display='block';document.getElementById('user-badge').textContent=u;render();}
+function getLeads(){try{return JSON.parse(localStorage.getItem('crm_leads')||'[]');}catch(e){return[];}}
+function saveLeads(l){localStorage.setItem('crm_leads',JSON.stringify(l));}
+
+function render(){
+  var leads=getLeads(),q=document.getElementById('search').value.toLowerCase();
+  var filtered=leads.filter(function(l){
+    var mf=activeFilter==='todos'||l.status===activeFilter;
+    var allP=(l.phones||[]).map(function(p){return p.num;}).join(' ');
+    var mq=!q||l.nombre.toLowerCase().includes(q)||allP.includes(q);
+    return mf&&mq;
+  });
+  var t=leads.length,nv=0,co=0,ag=0,de=0;
+  leads.forEach(function(l){if(l.status==='nuevo')nv++;else if(l.status==='contactado')co++;else if(l.status==='agendado')ag++;else de++;});
+  document.getElementById('stats-bar').innerHTML='<div class="stat-item"><div class="stat-dot total"></div><span class="stat-label">Total</span><span class="stat-num">'+t+'</span></div><div class="stat-item"><div class="stat-dot nuevo"></div><span class="stat-label">Nuevos</span><span class="stat-num">'+nv+'</span></div><div class="stat-item"><div class="stat-dot contactado"></div><span class="stat-label">Contactados</span><span class="stat-num">'+co+'</span></div><div class="stat-item"><div class="stat-dot agendado"></div><span class="stat-label">Agendados</span><span class="stat-num">'+ag+'</span></div><div class="stat-item"><div class="stat-dot descartado"></div><span class="stat-label">Descartados</span><span class="stat-num">'+de+'</span></div>';
+  if(!filtered.length){document.getElementById('leads-table').style.display='none';document.getElementById('empty-state').style.display='block';return;}
+  document.getElementById('leads-table').style.display='table';document.getElementById('empty-state').style.display='none';
+  var waMsg=encodeURIComponent('Hola, te contactamos de Caracol Diamante · Zona Diamante, Acapulco. ¿Tienes un momento?');
+  document.getElementById('leads-body').innerHTML=filtered.map(function(l,i){
+    var phones=l.phones||[{num:l.wa||'',label:'Principal'}];
+    var calls=l.calls||[];
+    var phonesHtml=phones.map(function(p){return '<div class="phone-row"><span class="phone-num">'+p.num+'</span><span class="phone-lbl">'+p.label+'</span><a href="https://wa.me/52'+p.num+'?text='+waMsg+'" target="_blank" class="wa-mini">💬</a></div>';}).join('');
+    var callsHtml=calls.length?calls.slice(-3).map(function(c){return '<div class="call-entry"><span class="call-result '+RC[c.result]+'">'+RL[c.result]+'</span><span class="call-time">'+c.fecha+(c.phone?' · '+c.phone:'')+'</span></div>';}).join(''):'<span style="font-size:10px;color:var(--txl);">Sin llamadas</span>';
+    var mainWa='52'+(phones[0]?phones[0].num:'');
+    return '<tr><td style="color:var(--txl);font-size:11px;">'+(i+1)+'</td><td><div class="lead-name">'+l.nombre+'</div><div class="lead-src">'+l.fuente+'</div></td><td>'+phonesHtml+'</td><td>'+callsHtml+'</td><td style="font-size:11px;color:var(--txl);">'+l.fecha+'<br>'+l.hora+'</td><td><select class="status-sel s-'+l.status+'" onchange="changeStatus('+l.id+',this)"><option value="nuevo"'+(l.status==='nuevo'?' selected':'')+'>Nuevo</option><option value="contactado"'+(l.status==='contactado'?' selected':'')+'>Contactado</option><option value="agendado"'+(l.status==='agendado'?' selected':'')+'>Agendado</option><option value="descartado"'+(l.status==='descartado'?' selected':'')+'>Descartado</option></select></td><td><div class="action-btns"><button class="detail-btn" onclick="openDetail('+l.id+')">📋 Llamadas</button><a href="https://wa.me/'+mainWa+'?text='+waMsg+'" target="_blank" class="wa-btn">💬 WA</a><button class="del-btn" onclick="deleteLead('+l.id+')">✕</button></div></td></tr>';
+  }).join('');
+}
+
+function changeStatus(id,sel){var leads=getLeads().map(function(l){if(l.id===id){l.status=sel.value;sel.className='status-sel s-'+sel.value;}return l;});saveLeads(leads);render();}
+function deleteLead(id){if(!confirm('¿Eliminar?'))return;saveLeads(getLeads().filter(function(l){return l.id!==id;}));render();}
+function setFilter(btn){document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('on');});btn.classList.add('on');activeFilter=btn.getAttribute('data-f');render();}
+
+function phoneRowHtml(i,num,lbl){return '<div class="phone-edit-row" id="pr-'+i+'"><input type="tel" value="'+(num||'')+'" maxlength="10" id="pn-'+i+'" placeholder="10 dígitos"/><select id="pl-'+i+'"><option'+(lbl==='Principal'?' selected':'')+'>Principal</option><option'+(lbl==='Trabajo'?' selected':'')+'>Trabajo</option><option'+(lbl==='Casa'?' selected':'')+'>Casa</option><option'+(lbl==='WhatsApp'?' selected':'')+'>WhatsApp</option></select></div>';}
+
+function openAddModal(){
+  phoneCount=1;document.getElementById('phones-wrap').innerHTML=phoneRowHtml(0,'','Principal');
+  document.getElementById('m-nombre').value='';
+  document.getElementById('add-modal').classList.add('show');document.getElementById('m-nombre').focus();
+}
+function addPhone(){if(phoneCount>=3){alert('Máx 3 teléfonos');return;}document.getElementById('phones-wrap').insertAdjacentHTML('beforeend',phoneRowHtml(phoneCount,'','Principal'));phoneCount++;}
+function getPhones(prefix,count){
+  var phones=[];
+  for(var i=0;i<count;i++){var n=document.getElementById(prefix+'n-'+i);var l=document.getElementById(prefix+'l-'+i);if(n&&n.value.trim().length>=10)phones.push({num:n.value.trim(),label:l?l.value:'Principal'});}
+  return phones;
+}
+function saveLead(){
+  var nombre=document.getElementById('m-nombre').value.trim();
+  var fuente=document.getElementById('m-fuente').value,status=document.getElementById('m-status').value;
+  var phones=getPhones('p',phoneCount);
+  if(!nombre||!phones.length){alert('Nombre y al menos un teléfono de 10 dígitos');return;}
+  var leads=getLeads();
+  leads.unshift({id:Date.now(),nombre:nombre,phones:phones,wa:phones[0].num,fuente:fuente,status:status,calls:[],
+    fecha:new Date().toLocaleDateString('es-MX',{day:'2-digit',month:'short',year:'numeric'}),
+    hora:new Date().toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'})});
+  saveLeads(leads);closeModal('add-modal');render();
+}
+
+var detailPhoneCount=0;
+function openDetail(id){
+  var l=getLeads().find(function(x){return x.id===id;});if(!l)return;
+  currentId=id;document.getElementById('dm-title').textContent=l.nombre;
+  document.getElementById('dm-nombre').value=l.nombre;document.getElementById('dm-status').value=l.status;
+  var phones=l.phones||[{num:l.wa||'',label:'Principal'}];
+  detailPhoneCount=phones.length;
+  document.getElementById('dm-phones').innerHTML=phones.map(function(p,i){return phoneRowHtml(i,p.num,p.label).replace(/id="pr-/g,'id="dp-').replace(/id="pn-/g,'id="dpn-').replace(/id="pl-/g,'id="dpl-');}).join('');
+  renderCalls(l.calls||[]);
+  var sel=document.getElementById('nc-phone');
+  sel.innerHTML='<option value="">Teléfono marcado</option>'+phones.map(function(p){return '<option value="'+p.num+'">'+p.num+' ('+p.label+')</option>';}).join('');
+  var now=new Date(),pad=function(n){return n<10?'0'+n:n;};
+  document.getElementById('nc-fecha').value=now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate())+'T'+pad(now.getHours())+':'+pad(now.getMinutes());
+  document.getElementById('nc-nota').value='';
+  document.getElementById('detail-modal').classList.add('show');
+}
+function addPhoneDetail(){
+  if(detailPhoneCount>=3){alert('Máx 3 teléfonos');return;}
+  var row=phoneRowHtml(detailPhoneCount,'','Principal').replace(/id="pr-/g,'id="dp-').replace(/id="pn-/g,'id="dpn-').replace(/id="pl-/g,'id="dpl-');
+  document.getElementById('dm-phones').insertAdjacentHTML('beforeend',row);detailPhoneCount++;
+}
+function getDetailPhones(){
+  var phones=[];for(var i=0;i<detailPhoneCount;i++){var n=document.getElementById('dpn-'+i);var l=document.getElementById('dpl-'+i);if(n&&n.value.trim().length>=10)phones.push({num:n.value.trim(),label:l?l.value:'Principal'});}return phones;
+}
+function renderCalls(calls){
+  if(!calls.length){document.getElementById('dm-calls').innerHTML='<p style="font-size:12px;color:var(--txl);margin-bottom:.625rem;">Sin llamadas registradas.</p>';return;}
+  document.getElementById('dm-calls').innerHTML=calls.slice().reverse().map(function(c,i){
+    var ri=calls.length-1-i;
+    return '<div class="call-log-entry"><div style="flex:1"><div class="call-log-result" style="color:'+RCL[c.result]+'">'+RL[c.result]+'</div><div class="call-log-meta">'+(c.phone?c.phone+' · ':'')+c.fecha+'</div>'+(c.nota?'<div class="call-log-note">'+c.nota+'</div>':'')+'</div><button class="del-call" onclick="deleteCall('+ri+')" title="Eliminar">🗑</button></div>';
+  }).join('');
+}
+function saveCall(){
+  var result=document.getElementById('nc-result').value,fecha=document.getElementById('nc-fecha').value;
+  var nota=document.getElementById('nc-nota').value.trim(),phone=document.getElementById('nc-phone').value;
+  if(!fecha){alert('Selecciona fecha y hora');return;}
+  var dt=new Date(fecha),pad=function(n){return n<10?'0'+n:n;};
+  var fs=pad(dt.getDate())+'/'+pad(dt.getMonth()+1)+' '+pad(dt.getHours())+':'+pad(dt.getMinutes());
+  var leads=getLeads(),idx=leads.findIndex(function(l){return l.id===currentId;});if(idx===-1)return;
+  if(!leads[idx].calls)leads[idx].calls=[];
+  leads[idx].calls.push({result:result,fecha:fs,phone:phone,nota:nota});
+  if(result==='contesto'&&leads[idx].status==='nuevo')leads[idx].status='contactado';
+  saveLeads(leads);renderCalls(leads[idx].calls);document.getElementById('nc-nota').value='';render();
+}
+function deleteCall(idx){
+  if(!confirm('¿Eliminar este registro?'))return;
+  var leads=getLeads(),li=leads.findIndex(function(l){return l.id===currentId;});if(li===-1)return;
+  leads[li].calls.splice(idx,1);saveLeads(leads);renderCalls(leads[li].calls);render();
+}
+function saveDetail(){
+  var nombre=document.getElementById('dm-nombre').value.trim(),status=document.getElementById('dm-status').value;
+  var phones=getDetailPhones();if(!nombre){alert('El nombre no puede estar vacío');return;}
+  var leads=getLeads(),idx=leads.findIndex(function(l){return l.id===currentId;});if(idx===-1)return;
+  leads[idx].nombre=nombre;leads[idx].status=status;if(phones.length)leads[idx].phones=phones;
+  saveLeads(leads);closeModal('detail-modal');render();
+}
+function closeModal(id){document.getElementById(id).classList.remove('show');}
+function exportCSV(){
+  var leads=getLeads();if(!leads.length){alert('Sin leads');return;}
+  var rows=[['#','Nombre','Tel1','Tel2','Tel3','Fecha','Fuente','Estado','Llamadas']];
+  leads.forEach(function(l,i){var p=(l.phones||[]).map(function(x){return x.num;});rows.push([i+1,l.nombre,p[0]||'',p[1]||'',p[2]||'',l.fecha,l.fuente,l.status,(l.calls||[]).length]);});
+  var a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(rows.map(function(r){return r.join(',');}).join('\n'));
+  a.download='leads_caracol_'+new Date().toISOString().slice(0,10)+'.csv';a.click();
+}
+(function(){
+  // Datos de demo — borrar en producción
+  if(!localStorage.getItem('crm_leads')){
+    localStorage.setItem('crm_leads','[{"id": 1000001, "nombre": "Ricardo Montoya", "phones": [{"num": "5512348901", "label": "Principal"}, {"num": "5598761234", "label": "Trabajo"}], "wa": "5512348901", "fuente": "Landing V2", "status": "agendado", "fecha": "02 abr 2026", "hora": "10:15", "calls": [{"result": "nocontesto", "fecha": "02/04 11:00", "phone": "5512348901", "nota": ""}, {"result": "contesto", "fecha": "03/04 09:30", "phone": "5598761234", "nota": "Muy interesado en Roof Garden 3R, pide proyecci\u00f3n a 20 a\u00f1os"}]}, {"id": 1000002, "nombre": "Sof\u00eda Fuentes", "phones": [{"num": "2221567890", "label": "Principal"}], "wa": "2221567890", "fuente": "Landing Diagn\u00f3stico", "status": "contactado", "fecha": "03 abr 2026", "hora": "14:22", "calls": [{"result": "whatsapp", "fecha": "03/04 14:30", "phone": "2221567890", "nota": "Le mand\u00e9 e-book y cotizador"}, {"result": "contesto", "fecha": "04/04 10:00", "phone": "2221567890", "nota": "Quiere agendar con su esposo presente"}]}, {"id": 1000003, "nombre": "Carlos Herrera V\u00e1zquez", "phones": [{"num": "5591234567", "label": "Principal"}, {"num": "7771234567", "label": "Casa"}, {"num": "5599887766", "label": "WhatsApp"}], "wa": "5591234567", "fuente": "Referido", "status": "agendado", "fecha": "03 abr 2026", "hora": "09:05", "calls": [{"result": "buzon", "fecha": "03/04 09:10", "phone": "5591234567", "nota": ""}, {"result": "buzon", "fecha": "03/04 12:00", "phone": "5591234567", "nota": ""}, {"result": "contesto", "fecha": "04/04 08:45", "phone": "5599887766", "nota": "Prefiere WhatsApp. Sesi\u00f3n agendada viernes 4pm"}]}, {"id": 1000004, "nombre": "Ana Luc\u00eda Ram\u00edrez", "phones": [{"num": "7224567890", "label": "Principal"}], "wa": "7224567890", "fuente": "Facebook", "status": "nuevo", "fecha": "04 abr 2026", "hora": "16:40", "calls": []}, {"id": 1000005, "nombre": "Miguel Vargas Torres", "phones": [{"num": "5534567891", "label": "Principal"}], "wa": "5534567891", "fuente": "Landing Diagn\u00f3stico", "status": "descartado", "fecha": "04 abr 2026", "hora": "11:15", "calls": [{"result": "contesto", "fecha": "05/04 10:00", "phone": "5534567891", "nota": "Capital disponible menos de $1.5M \u2014 redirigido a Caracol Reserva"}]}, {"id": 1000006, "nombre": "Grupo Herrera Construcciones", "phones": [{"num": "8181234567", "label": "Principal"}, {"num": "8189876543", "label": "CFO"}], "wa": "8181234567", "fuente": "Referido", "status": "contactado", "fecha": "05 abr 2026", "hora": "13:00", "calls": [{"result": "contesto", "fecha": "05/04 13:15", "phone": "8181234567", "nota": "Inter\u00e9s en 2 unidades a nombre de persona moral. Solicitan propuesta formal"}]}, {"id": 1000007, "nombre": "Laura Mendoza R\u00edos", "phones": [{"num": "5545678901", "label": "Principal"}], "wa": "5545678901", "fuente": "Instagram", "status": "nuevo", "fecha": "05 abr 2026", "hora": "18:30", "calls": []}, {"id": 1000008, "nombre": "Jorge Alberto Soto", "phones": [{"num": "7773456789", "label": "Principal"}, {"num": "5523456789", "label": "WhatsApp"}], "wa": "7773456789", "fuente": "Landing V2", "status": "contactado", "fecha": "06 abr 2026", "hora": "09:12", "calls": [{"result": "nocontesto", "fecha": "06/04 09:20", "phone": "7773456789", "nota": ""}, {"result": "whatsapp", "fecha": "06/04 09:25", "phone": "5523456789", "nota": "Le mand\u00e9 cotizador personalizado Condo 2R"}, {"result": "contesto", "fecha": "06/04 16:00", "phone": "5523456789", "nota": "Revis\u00f3 el cotizador, le interesa. Pide cita para esta semana"}]}, {"id": 1000009, "nombre": "Patricia Guerrero", "phones": [{"num": "2224567890", "label": "Principal"}], "wa": "2224567890", "fuente": "Landing Diagn\u00f3stico", "status": "agendado", "fecha": "06 abr 2026", "hora": "11:50", "calls": [{"result": "contesto", "fecha": "06/04 12:00", "phone": "2224567890", "nota": "Sesi\u00f3n agendada lunes 10am. Le mand\u00e9 e-book y link Meet"}]}, {"id": 1000010, "nombre": "Fernando Castillo Mora", "phones": [{"num": "5556781234", "label": "Principal"}], "wa": "5556781234", "fuente": "WhatsApp directo", "status": "nuevo", "fecha": "07 abr 2026", "hora": "08:30", "calls": []}, {"id": 1000011, "nombre": "Alejandra Vega Sol\u00eds", "phones": [{"num": "4421234567", "label": "Principal"}, {"num": "4429876543", "label": "Trabajo"}], "wa": "4421234567", "fuente": "Facebook", "status": "contactado", "fecha": "07 abr 2026", "hora": "15:20", "calls": [{"result": "buzon", "fecha": "07/04 15:30", "phone": "4421234567", "nota": ""}, {"result": "contesto", "fecha": "08/04 10:30", "phone": "4429876543", "nota": "Muy interesada en Villa Arena Loft. Quiere visitar el desarrollo en mayo"}]}, {"id": 1000012, "nombre": "Roberto Jim\u00e9nez King", "phones": [{"num": "5587654321", "label": "Principal"}], "wa": "5587654321", "fuente": "Referido", "status": "descartado", "fecha": "08 abr 2026", "hora": "10:00", "calls": [{"result": "contesto", "fecha": "08/04 10:10", "phone": "5587654321", "nota": "Ya compr\u00f3 en otro desarrollo. Mantener en lista para futuras fases"}]}, {"id": 1000013, "nombre": "Daniela Morales Fuentes", "phones": [{"num": "5578901234", "label": "Principal"}], "wa": "5578901234", "fuente": "Landing V2", "status": "nuevo", "fecha": "08 abr 2026", "hora": "19:45", "calls": []}, {"id": 1000014, "nombre": "Ignacio del Valle", "phones": [{"num": "3312345678", "label": "Principal"}, {"num": "5512340987", "label": "WhatsApp"}], "wa": "3312345678", "fuente": "Instagram", "status": "contactado", "fecha": "09 abr 2026", "hora": "12:10", "calls": [{"result": "nocontesto", "fecha": "09/04 12:20", "phone": "3312345678", "nota": ""}, {"result": "nocontesto", "fecha": "09/04 17:00", "phone": "3312345678", "nota": ""}, {"result": "whatsapp", "fecha": "09/04 17:05", "phone": "5512340987", "nota": "Le mand\u00e9 mensaje de WhatsApp con e-book"}]}, {"id": 1000015, "nombre": "Claudia Romero Pe\u00f1a", "phones": [{"num": "5598765432", "label": "Principal"}], "wa": "5598765432", "fuente": "Landing Diagn\u00f3stico", "status": "agendado", "fecha": "10 abr 2026", "hora": "08:55", "calls": [{"result": "contesto", "fecha": "10/04 09:00", "phone": "5598765432", "nota": "Sesi\u00f3n confirmada ma\u00f1ana 11am. Interesada en Roof Garden 2R para uso vacacional + renta"}]}]');
+  }
+  var p=new URLSearchParams(window.location.search);
+  if(p.get('nombre')&&p.get('wa')){
+    var leads=getLeads();
+    leads.unshift({id:Date.now(),nombre:p.get('nombre'),phones:[{num:p.get('wa'),label:'WhatsApp'}],wa:p.get('wa'),fuente:p.get('fuente')||'Landing',status:'nuevo',calls:[],
+      fecha:new Date().toLocaleDateString('es-MX',{day:'2-digit',month:'short',year:'numeric'}),hora:new Date().toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'})});
+    saveLeads(leads);window.history.replaceState({},'',window.location.pathname);
+  }
+  if(localStorage.getItem('crm_auth')==='1')showApp(localStorage.getItem('crm_user')||'Usuario');
+})();
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeModal('add-modal');closeModal('detail-modal');}});
+</script>
+</body>
+</html>
