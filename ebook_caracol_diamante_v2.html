@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invertir en Acapulco 2025 · Caracol Diamante</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Nunito:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --slate:#3d5166;
+  --slate-mid:#4e6478;
+  --slate-lt:#5e7488;
+  --gold:#b8923c;
+  --gold-lt:#e0c98a;
+  --gold-pale:#f5edd8;
+  --cream:#f9f6f1;
+  --sand:#eee9e1;
+  --white:#fff;
+  --tx:#1e1e1e;
+  --txm:#505050;
+  --txl:#909090;
+  --serif:'Lora',Georgia,serif;
+  --sans:'Nunito',system-ui,sans-serif;
+}
+body{font-family:var(--sans);background:var(--cream);color:var(--tx);line-height:1.75;font-size:15px;}
+
+/* NAV */
+.nav{background:var(--slate);padding:.875rem 1.5rem;display:flex;gap:4px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:100;}
+.nav-logo{font-family:var(--serif);font-size:13px;color:var(--gold);letter-spacing:.1em;margin-right:auto;}
+.nav-link{font-size:11px;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 9px;border-radius:20px;cursor:pointer;transition:all .15s;}
+.nav-link:hover,.nav-link.on{color:var(--gold-lt);background:rgba(255,255,255,.08);}
+
+/* COVER */
+.cover{background:var(--slate);padding:4rem 3rem 3.5rem;min-height:92vh;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;}
+.cover-pattern{position:absolute;inset:0;opacity:.03;background:repeating-linear-gradient(45deg,#fff,#fff 1px,transparent 1px,transparent 12px);}
+.ctag{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem;font-weight:500;position:relative;}
+.ctitle{font-family:var(--serif);font-size:clamp(38px,6vw,66px);font-weight:400;color:var(--white);line-height:1.05;margin-bottom:.875rem;position:relative;}
+.ctitle em{color:var(--gold);font-style:italic;}
+.csub{font-size:15px;font-weight:300;color:rgba(255,255,255,.58);max-width:500px;margin-bottom:2rem;line-height:1.75;position:relative;}
+.cline{width:48px;height:1px;background:var(--gold);margin-bottom:1.1rem;position:relative;}
+.cmeta{font-size:11px;color:rgba(255,255,255,.28);position:relative;}
+
+/* SECTIONS */
+.sec{max-width:700px;margin:0 auto;padding:4rem 2rem;}
+.bg-sand{background:var(--sand);}
+.bg-sand .sec{max-width:100%;}
+.bg-sand-inner{max-width:700px;margin:0 auto;padding:4rem 2rem;}
+.bg-dark{background:var(--slate);}
+.bg-dark-inner{max-width:700px;margin:0 auto;padding:4rem 2rem;}
+.bg-mid{background:var(--slate-mid);}
+.bg-mid-inner{max-width:700px;margin:0 auto;padding:4rem 2rem;}
+.bg-gold{background:var(--gold-pale);}
+.bg-gold-inner{max-width:700px;margin:0 auto;padding:4rem 2rem;}
+
+/* TYPE */
+.lbl{font-size:10px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.875rem;display:flex;align-items:center;gap:10px;}
+.lbl::before{content:'';width:22px;height:1px;background:var(--gold);flex-shrink:0;}
+.h2{font-family:var(--serif);font-size:clamp(28px,4vw,42px);font-weight:400;line-height:1.15;margin-bottom:1.35rem;color:var(--tx);}
+.h2 em{font-style:italic;color:var(--gold);}
+.h2-lt{color:var(--white);}
+.h3{font-family:var(--serif);font-size:21px;font-weight:400;margin:2rem 0 .75rem;color:var(--tx);}
+.h3-lt{color:var(--gold-lt);}
+.p{font-size:14px;font-weight:300;line-height:1.85;color:var(--txm);margin-bottom:1.1rem;}
+.p-lt{color:rgba(255,255,255,.7);}
+.p-dk{color:var(--slate);}
+.div{width:38px;height:1px;background:var(--gold);margin:1.75rem 0;}
+.div-lt{background:rgba(184,146,60,.4);}
+.fn{font-size:11px;color:var(--txl);font-style:italic;line-height:1.55;margin-top:.75rem;}
+.fn-lt{color:rgba(255,255,255,.3);}
+
+/* PULL QUOTE */
+.quote{border-left:2px solid var(--gold);padding:1rem 1.35rem;margin:2rem 0;background:rgba(184,146,60,.05);border-radius:0 8px 8px 0;}
+.quote p{font-family:var(--serif);font-size:18px;font-style:italic;color:var(--slate);line-height:1.55;}
+.quote-lt p{color:var(--gold-lt);}
+.quote-gold{background:rgba(184,146,60,.1);border-left-color:var(--gold);}
+.quote-gold p{color:var(--slate);}
+
+/* STAT CARDS */
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:.875rem;margin:1.75rem 0;}
+.sgrid2{grid-template-columns:repeat(2,1fr);}
+.sc{background:var(--white);border:0.5px solid rgba(0,0,0,.07);border-radius:10px;padding:1.1rem 1.25rem;}
+.sc-dk{background:rgba(255,255,255,.07);border:0.5px solid rgba(255,255,255,.1);border-radius:10px;padding:1.1rem 1.25rem;}
+.sc-gold{background:rgba(184,146,60,.1);border:0.5px solid rgba(184,146,60,.25);border-radius:10px;padding:1.1rem 1.25rem;}
+.sn{font-family:var(--serif);font-size:32px;color:var(--gold);line-height:1;margin-bottom:.25rem;}
+.sl{font-size:10px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--txl);margin-bottom:.4rem;}
+.sl-lt{color:rgba(255,255,255,.4);}
+.sl-dk{color:var(--slate-lt);}
+.sd{font-size:12px;color:var(--txm);line-height:1.5;}
+.sd-lt{color:rgba(255,255,255,.55);}
+.sd-dk{color:var(--slate);}
+
+/* 20 PUNTOS */
+.puntos-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem;margin:1.75rem 0;}
+.punto{background:var(--white);border:0.5px solid rgba(0,0,0,.07);border-radius:10px;padding:1rem 1.1rem;display:flex;gap:.875rem;align-items:flex-start;}
+.punto.cumple{border-color:rgba(184,146,60,.3);background:rgba(184,146,60,.04);}
+.p-num{font-family:var(--serif);font-size:22px;color:var(--gold-lt);flex-shrink:0;line-height:1;margin-top:2px;min-width:28px;}
+.p-text h4{font-size:13px;font-weight:500;color:var(--tx);margin-bottom:3px;line-height:1.35;}
+.p-text p{font-size:12px;color:var(--txm);line-height:1.5;}
+.check-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:500;color:#1e6b2e;background:#e6f4ea;border-radius:10px;padding:2px 8px;margin-top:5px;}
+
+/* LINKS DE ZONA */
+.zona-links{display:grid;grid-template-columns:repeat(2,1fr);gap:.875rem;margin:1.75rem 0;}
+.zlink{background:var(--white);border:0.5px solid rgba(0,0,0,.07);border-radius:10px;padding:1rem 1.1rem;text-decoration:none;transition:border-color .15s;}
+.zlink:hover{border-color:rgba(184,146,60,.4);}
+.zlink-name{font-size:13px;font-weight:500;color:var(--slate);margin-bottom:2px;}
+.zlink-desc{font-size:11px;color:var(--txl);line-height:1.45;margin-bottom:.5rem;}
+.zlink-url{font-size:10px;color:var(--gold);display:flex;align-items:center;gap:4px;}
+
+/* UNIDADES */
+.ugrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.875rem;margin:1.75rem 0;}
+.uc{border:0.5px solid rgba(0,0,0,.08);border-radius:10px;overflow:hidden;background:var(--white);}
+.utop{background:var(--slate);padding:1.1rem 1.25rem;}
+.utp{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:3px;}
+.unm{font-family:var(--serif);font-size:17px;font-weight:400;color:var(--white);margin-bottom:6px;}
+.upr{font-family:var(--serif);font-size:21px;color:var(--gold);}
+.ubd{padding:.875rem 1.1rem;}
+.ur{display:flex;justify-content:space-between;font-size:12px;padding:5px 0;border-bottom:0.5px solid rgba(0,0,0,.04);color:var(--txm);}
+.ur:last-child{border-bottom:none;}
+.ur strong{color:var(--tx);font-weight:500;}
+
+/* TABLA FINANCIERA */
+.tbl-wrap{overflow-x:auto;border-radius:10px;overflow:hidden;border:0.5px solid rgba(255,255,255,.12);margin:1.5rem 0;}
+table{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:13px;}
+thead tr{background:rgba(255,255,255,.1);}
+thead th{padding:10px 14px;text-align:left;font-size:10px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.6);border-bottom:1px solid rgba(255,255,255,.1);white-space:nowrap;}
+thead th.hl{background:var(--gold);color:#2a3a48;font-weight:600;}
+tbody tr{border-bottom:1px solid rgba(255,255,255,.07);}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:nth-child(even){background:rgba(255,255,255,.04);}
+tbody td{padding:10px 14px;color:#d0d8e0;background:transparent;vertical-align:middle;line-height:1.4;}
+tbody td:first-child{color:#e8edf2;}
+tbody td.hl-c{background:rgba(184,146,60,.18);color:#f0d898;font-weight:500;}
+
+/* RENT BARS */
+.rbar-r{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.rbar-lb{font-size:12px;color:rgba(255,255,255,.5);min-width:72px;}
+.rbar-bg{flex:1;height:5px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden;}
+.rbar-fi{height:100%;border-radius:3px;background:var(--gold);}
+.rbar-pc{font-size:12px;font-weight:500;color:var(--gold);min-width:32px;text-align:right;}
+
+/* CHECKLIST */
+.ck{list-style:none;margin:1.25rem 0;}
+.ck li{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:0.5px solid rgba(0,0,0,.05);font-size:13px;color:var(--txm);line-height:1.5;}
+.ck li:last-child{border-bottom:none;}
+.ck-lt li{border-bottom-color:rgba(255,255,255,.07);color:rgba(255,255,255,.72);}
+.ck-ic{width:17px;height:17px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;font-size:9px;color:var(--slate);font-weight:700;}
+
+/* STEPS */
+.steps{margin:1.75rem 0;}
+.step{display:flex;gap:1.1rem;margin-bottom:1.25rem;align-items:flex-start;}
+.step-n{width:32px;height:32px;border-radius:50%;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:14px;color:var(--gold);flex-shrink:0;}
+.step h4{font-family:var(--serif);font-size:16px;font-weight:400;color:var(--tx);margin-bottom:3px;}
+.step p{font-size:13px;color:var(--txm);line-height:1.6;}
+
+/* HBOX */
+.hbox{background:rgba(184,146,60,.07);border:0.5px solid rgba(184,146,60,.22);border-radius:9px;padding:1.1rem 1.35rem;margin:1.35rem 0;}
+.hbox h4{font-family:var(--serif);font-size:15px;color:var(--slate);margin-bottom:.4rem;}
+.hbox p{font-size:13px;color:var(--txm);line-height:1.6;}
+.hbox-lt h4{color:var(--gold-lt);}
+.hbox-lt p{color:rgba(255,255,255,.6);}
+
+/* CIERRE ESPECTACULAR */
+.cierre{background:var(--slate);padding:5rem 2rem;}
+.cierre-inner{max-width:700px;margin:0 auto;}
+.cierre-vida{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:2rem 0;}
+.cv-card{border-radius:12px;padding:1.5rem;border:0.5px solid rgba(255,255,255,.1);}
+.cv-card.vida{background:rgba(255,255,255,.06);}
+.cv-card.dinero{background:rgba(184,146,60,.12);border-color:rgba(184,146,60,.25);}
+.cv-icon{font-size:28px;margin-bottom:.875rem;}
+.cv-title{font-family:var(--serif);font-size:18px;font-weight:400;color:var(--white);margin-bottom:.6rem;}
+.cv-card.dinero .cv-title{color:var(--gold-lt);}
+.cv-items{list-style:none;}
+.cv-items li{font-size:13px;color:rgba(255,255,255,.65);padding:5px 0;border-bottom:0.5px solid rgba(255,255,255,.06);line-height:1.5;display:flex;gap:7px;}
+.cv-items li:last-child{border-bottom:none;}
+.cv-items li::before{content:'·';color:var(--gold);flex-shrink:0;}
+.cv-card.dinero .cv-items li{color:rgba(255,255,255,.7);}
+
+.cta-box{text-align:center;padding:3rem 2rem;background:rgba(255,255,255,.04);border-radius:14px;border:0.5px solid rgba(184,146,60,.2);margin:2.5rem 0;}
+.cta-orn{font-family:var(--serif);font-size:44px;color:var(--gold);opacity:.25;margin-bottom:.875rem;}
+.cta-title{font-family:var(--serif);font-size:30px;font-weight:400;color:var(--white);margin-bottom:.875rem;line-height:1.2;}
+.cta-title em{font-style:italic;color:var(--gold);}
+.cta-sub{font-size:14px;color:rgba(255,255,255,.5);margin-bottom:2rem;line-height:1.75;max-width:440px;margin-left:auto;margin-right:auto;}
+.cta-btn{display:inline-block;background:var(--gold);color:var(--slate);font-size:13px;font-weight:500;padding:13px 32px;border-radius:5px;text-decoration:none;letter-spacing:.06em;}
+.cta-legal{font-size:10px;color:rgba(255,255,255,.18);margin-top:2.5rem;line-height:1.8;}
+
+@media(max-width:600px){
+  .sgrid,.puntos-grid,.zona-links,.ugrid,.cierre-vida{grid-template-columns:1fr;}
+  .sec,.bg-sand-inner,.bg-dark-inner,.bg-mid-inner,.bg-gold-inner,.cierre{padding:2.5rem 1.25rem;}
+  .cover{padding:2.5rem 1.5rem;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <span class="nav-logo">Caracol Diamante</span>
+  <a class="nav-link on" onclick="ir('portada',this)">Inicio</a>
+  <a class="nav-link" onclick="ir('oportunidad',this)">Oportunidad</a>
+  <a class="nav-link" onclick="ir('guia',this)">20 puntos</a>
+  <a class="nav-link" onclick="ir('zona',this)">La zona</a>
+  <a class="nav-link" onclick="ir('unidades',this)">Unidades</a>
+  <a class="nav-link" onclick="ir('financiero',this)">Financiero</a>
+  <a class="nav-link" onclick="ir('cierre',this)">Caracol</a>
+</nav>
+
+<!-- PORTADA -->
+<section id="portada" class="cover">
+  <div class="cover-pattern"></div>
+  <div class="ctag">Guía de inversión inmobiliaria · Edición 2025</div>
+  <h1 class="ctitle">Cómo comprar<br>inteligente en<br><em>Acapulco.</em></h1>
+  <p class="csub">Todo lo que necesitas saber antes de invertir en la Zona Diamante — los 20 puntos que separan una buena compra de un error costoso.</p>
+  <div class="cline"></div>
+  <p class="cmeta">Una guía de Caracol Diamante · Boulevard de las Naciones, Lote 49 · Acapulco, Guerrero</p>
+</section>
+
+<!-- 01. LA OPORTUNIDAD -->
+<section id="oportunidad" class="bg-sand">
+<div class="bg-sand-inner">
+  <div class="lbl">01 · Por qué ahora</div>
+  <h2 class="h2">Acapulco regresa.<br><em>El precio todavía no.</em></h2>
+  <div class="div"></div>
+  <p class="p">Acapulco es el único destino de playa de la zona metropolitana más grande del mundo accesible en automóvil. Su área de influencia directa abarca CDMX, Cuernavaca, Puebla y Toluca — más de 25 millones de personas con playa a 4 horas.</p>
+  <p class="p">Tras el huracán Otis en 2023, la percepción mediática comprimió los precios del metro cuadrado. La Zona Diamante, por su geografía y elevación, sufrió daños menores. La inversión pública en reconstrucción ha sido inédita. El precio todavía no lo refleja.</p>
+  <div class="quote">
+    <p>"Los inversionistas que capturan la mayor ganancia son los que compran cuando la percepción es negativa pero los fundamentos son sólidos."</p>
+  </div>
+  <div class="sgrid">
+    <div class="sc"><div class="sl">Mercado potencial</div><div class="sn">25M</div><div class="sd">personas a menos de 4 horas en auto desde las principales ciudades del centro del país</div></div>
+    <div class="sc"><div class="sl">Desarrollos activos 2025</div><div class="sn">+40</div><div class="sd">proyectos activos en el corredor del Boulevard de las Naciones</div></div>
+    <div class="sc"><div class="sl">Ventana de precio</div><div class="sn">2025</div><div class="sd">precios de preventa aún no han regresado a niveles pre-Otis — la oportunidad es transitoria</div></div>
+  </div>
+  <p class="fn">Fuentes: Real Estate Market México · Expansión · registros de desarrollos activos Zona Diamante 2024–2025</p>
+</div>
+</section>
+
+<!-- 02. LOS 20 PUNTOS -->
+<section id="guia">
+<div class="sec">
+  <div class="lbl">02 · La guía</div>
+  <h2 class="h2">Los 20 puntos que definen<br><em>una buena compra.</em></h2>
+  <div class="div"></div>
+  <p class="p">Antes de firmar cualquier cosa — con nosotros o con quien sea — asegúrate de que el desarrollo que elijas responda estas preguntas. Son los criterios que separan una inversión sólida de un dolor de cabeza de años.</p>
+
+  <div class="puntos-grid">
+    <div class="punto"><div class="p-num">01</div><div class="p-text"><h4>¿El terreno está libre de deuda?</h4><p>El desarrollo no debe comenzar con deuda de tierra. Si el terreno está hipotecado, tu dinero está en riesgo desde el día uno.</p></div></div>
+    <div class="punto"><div class="p-num">02</div><div class="p-text"><h4>¿Quién financia la construcción?</h4><p>Verifica que exista un esquema claro de financiamiento de obra — con avance verificado, no con tu enganche en efectivo libre.</p></div></div>
+    <div class="punto"><div class="p-num">03</div><div class="p-text"><h4>¿Cuál es el historial del constructor?</h4><p>Pide referencias de obra entregada. Un constructor sin proyectos terminados es un riesgo que no vale la pena tomar.</p></div></div>
+    <div class="punto"><div class="p-num">04</div><div class="p-text"><h4>¿Cuántas unidades tiene el desarrollo?</h4><p>A más unidades, más gente compartiendo amenidades. Define cuántas familias quieres como vecinos — es una decisión de estilo de vida.</p></div></div>
+    <div class="punto"><div class="p-num">05</div><div class="p-text"><h4>¿Cuántas personas comparten la alberca?</h4><p>Calcula m² de alberca entre número de unidades. La norma técnica mexicana establece 2 m² por usuario como referencia de confort.</p></div></div>
+    <div class="punto"><div class="p-num">06</div><div class="p-text"><h4>¿Existe reglamento de convivencia?</h4><p>Un desarrollo sin reglamento se deteriora con el tiempo. El reglamento protege tu inversión y la calidad de vida de todos.</p></div></div>
+    <div class="punto"><div class="p-num">07</div><div class="p-text"><h4>¿Se puede comprar en persona moral?</h4><p>Si compras como empresa, verifica que el notario y el esquema legal permitan la operación corporativa o vía fideicomiso.</p></div></div>
+    <div class="punto"><div class="p-num">08</div><div class="p-text"><h4>¿Cuál es el precio/m² vs. la zona?</h4><p>Compara el precio por metro cuadrado con otros desarrollos del corredor. Pagar por encima sin diferencial claro es un riesgo.</p></div></div>
+    <div class="punto"><div class="p-num">09</div><div class="p-text"><h4>¿Qué plusvalía histórica tiene el corredor?</h4><p>Investiga el comportamiento del precio por metro cuadrado en la zona en los últimos 5 a 10 años antes de comprometerte.</p></div></div>
+    <div class="punto"><div class="p-num">10</div><div class="p-text"><h4>¿Cuántas noches de renta cubren tu mensualidad?</h4><p>Este cálculo te dice si la inversión se sostiene sola. Menos de 12 noches al mes para cubrir la mensualidad es un indicador positivo.</p></div></div>
+    <div class="punto"><div class="p-num">11</div><div class="p-text"><h4>¿Hay operador de renta vacacional disponible?</h4><p>Si no quieres operar tú mismo, verifica que exista un administrador especializado en la zona antes de comprar.</p></div></div>
+    <div class="punto"><div class="p-num">12</div><div class="p-text"><h4>¿Puedes rentar cuando no la usas?</h4><p>Algunos desarrollos restringen la renta. Lee el reglamento antes de asumir que tu propiedad puede generar ingresos.</p></div></div>
+    <div class="punto"><div class="p-num">13</div><div class="p-text"><h4>¿Cuál es la política de renta mínima?</h4><p>Desarrollos con renta mínima de 3 noches evitan la rotación excesiva de visitantes que deteriora las amenidades.</p></div></div>
+    <div class="punto"><div class="p-num">14</div><div class="p-text"><h4>¿Las escrituras son individuales?</h4><p>Exige escritura pública a tu nombre, no participación en un fideicomiso colectivo difícil de transmitir o vender.</p></div></div>
+    <div class="punto"><div class="p-num">15</div><div class="p-text"><h4>¿Qué pasa si el desarrollo se retrasa?</h4><p>Pide cláusulas de penalización por retraso. Si no existen, tu capital queda inmovilizado sin compensación.</p></div></div>
+    <div class="punto"><div class="p-num">16</div><div class="p-text"><h4>¿Cómo se administran las cuotas de mantenimiento?</h4><p>Pide ver el presupuesto anual de mantenimiento y si existe auditoría de cuentas. Fondos sin transparencia generan conflictos.</p></div></div>
+    <div class="punto"><div class="p-num">17</div><div class="p-text"><h4>¿A qué distancia está de playa, aeropuerto y servicios?</h4><p>La ubicación determina tu ocupación en renta y tu calidad de uso personal. Verifica tiempos reales, no distancias en papel.</p></div></div>
+    <div class="punto"><div class="p-num">18</div><div class="p-text"><h4>¿Qué perfil tienen los otros propietarios?</h4><p>Pregunta directamente. Los desarrollos con propietarios de perfil heterogéneo tienden a deteriorarse más rápido.</p></div></div>
+    <div class="punto"><div class="p-num">19</div><div class="p-text"><h4>¿Puedes revender fácilmente?</h4><p>Investiga la liquidez del mercado en esa zona. Una propiedad que no se puede vender no es un activo — es un compromiso.</p></div></div>
+    <div class="punto"><div class="p-num">20</div><div class="p-text"><h4>¿El entorno valida la zona?</h4><p>La presencia de marcas hoteleras de nivel internacional cerca es el mejor indicador de que la zona seguirá siendo valorada.</p></div></div>
+  </div>
+
+  <div class="hbox" style="margin-top:2rem;">
+    <h4>Caracol Diamante responde sí a los 20.</h4>
+    <p>Terreno libre de deuda · Constructor con obra entregada · 51 unidades · Reglamento de convivencia · Escritura individual · Alberca propia · Operador de renta disponible · A 5 min de playa y 12 min del aeropuerto · Hoteles de cadenas internacionales en el corredor.</p>
+  </div>
+</div>
+</section>
+
+<!-- 03. CONOCE LA ZONA -->
+<section id="zona" class="bg-sand">
+<div class="bg-sand-inner">
+  <div class="lbl">03 · La zona</div>
+  <h2 class="h2">Investiga por<br><em>tu cuenta.</em></h2>
+  <div class="div"></div>
+  <p class="p">La Zona Diamante tiene varios desarrollos activos en el corredor del Boulevard de las Naciones. Te invitamos a conocerlos directamente — cada uno tiene sus propias características, precios y público objetivo. Una buena decisión de inversión incluye ver todas las opciones.</p>
+  <p class="p">Aquí tienes los principales proyectos del corredor para que los explores a tu ritmo:</p>
+
+  <div class="zona-links">
+    <a href="https://palmdiamante.mx" target="_blank" class="zlink">
+      <div class="zlink-name">Palm Diamante</div>
+      <div class="zlink-desc">Desarrollo de gran escala sobre Av. Costera de las Palmas. 12 torres en dos secciones, departamentos desde 76 m².</div>
+      <div class="zlink-url">↗ palmdiamante.mx</div>
+    </a>
+    <a href="https://www.century21lol.com.mx/Desarrollos" target="_blank" class="zlink">
+      <div class="zlink-name">Maralago y otros</div>
+      <div class="zlink-desc">Directorio de desarrollos en Playa Diamante con frente de playa, amenidades y diferentes esquemas de financiamiento.</div>
+      <div class="zlink-url">↗ century21lol.com.mx</div>
+    </a>
+    <a href="https://departamentosacapulco.com" target="_blank" class="zlink">
+      <div class="zlink-name">Live Aqua Private Residences</div>
+      <div class="zlink-desc">Desarrollo de lujo respaldado por la marca Live Aqua. Residencias de alto nivel con amenidades de resort.</div>
+      <div class="zlink-url">↗ departamentosacapulco.com</div>
+    </a>
+    <a href="https://www.vivanuncios.com.mx/s-venta-inmuebles/acapulco-de-juarez/desarrollo/v1c1097l10367a1dgp1" target="_blank" class="zlink">
+      <div class="zlink-name">Explorar más desarrollos</div>
+      <div class="zlink-desc">Directorio completo de desarrollos en preventa y entrega inmediata en Acapulco Diamante con precios y características.</div>
+      <div class="zlink-url">↗ vivanuncios.com.mx</div>
+    </a>
+  </div>
+
+  <div class="hbox">
+    <h4>Nuestra recomendación</h4>
+    <p>Visita cada desarrollo en persona antes de decidir. Los renders son siempre optimistas — lo que importa es caminar el espacio, conocer las amenidades reales y hablar con propietarios existentes. Nosotros hacemos eso con gusto en Caracol Diamante.</p>
+  </div>
+</div>
+</section>
+
+<!-- 04. LAS UNIDADES -->
+<section id="unidades" class="sec">
+  <div class="lbl">04 · El portafolio</div>
+  <h2 class="h2">Caracol Diamante:<br><em>cuatro unidades, un estándar.</em></h2>
+  <div class="div"></div>
+  <p class="p">51 unidades en dos fases. Cada tipo de unidad está diseñada para un perfil específico de uso e inversión — todas comparten el mismo estándar de construcción, materiales y amenidades.</p>
+
+  <div class="ugrid">
+    <div class="uc">
+      <div class="utop"><div class="utp">Condo · Nivel 1 y 2</div><div class="unm">Condo 2 recámaras</div><div class="upr">$3,200,000</div></div>
+      <div class="ubd">
+        <div class="ur"><span>Superficie</span><strong>92 m²</strong></div>
+        <div class="ur"><span>Precio / m²</span><strong>$34,782 MXN</strong></div>
+        <div class="ur"><span>Renta / noche est.</span><strong>$2,500</strong></div>
+        <div class="ur"><span>9 noches cubren</span><strong>$22,500 / mes</strong></div>
+        <div class="ur"><span>Enganche (10%)</span><strong>$320,000</strong></div>
+      </div>
+    </div>
+    <div class="uc">
+      <div class="utop" style="background:#455f72;"><div class="utp">Condo Roof Garden</div><div class="unm">Roof Garden 2 rec.</div><div class="upr">$3,620,000</div></div>
+      <div class="ubd">
+        <div class="ur"><span>Superficie</span><strong>150 m²</strong></div>
+        <div class="ur"><span>Precio / m²</span><strong>$24,133 MXN</strong></div>
+        <div class="ur"><span>Renta / noche est.</span><strong>$2,800</strong></div>
+        <div class="ur"><span>9 noches cubren</span><strong>$25,200 / mes</strong></div>
+        <div class="ur"><span>Enganche (10%)</span><strong>$362,000</strong></div>
+      </div>
+    </div>
+    <div class="uc">
+      <div class="utop" style="background:#3a5060;"><div class="utp">Condo Roof Garden</div><div class="unm">Roof Garden 3 rec.</div><div class="upr">$4,580,000</div></div>
+      <div class="ubd">
+        <div class="ur"><span>Superficie</span><strong>195 m²</strong></div>
+        <div class="ur"><span>Precio / m²</span><strong>$23,487 MXN</strong></div>
+        <div class="ur"><span>Renta / noche est.</span><strong>$3,600</strong></div>
+        <div class="ur"><span>9 noches cubren</span><strong>$32,400 / mes</strong></div>
+        <div class="ur"><span>Enganche (10%)</span><strong>$458,000</strong></div>
+      </div>
+    </div>
+    <div class="uc">
+      <div class="utop" style="background:#3e5545;"><div class="utp">Villa Arena · Loft</div><div class="unm">Villa Arena Loft</div><div class="upr">$3,575,000</div></div>
+      <div class="ubd">
+        <div class="ur"><span>Superficie</span><strong>110 m²</strong></div>
+        <div class="ur"><span>Precio / m²</span><strong>$32,500 MXN</strong></div>
+        <div class="ur"><span>Renta / noche est.</span><strong>$2,800</strong></div>
+        <div class="ur"><span>9 noches cubren</span><strong>$25,200 / mes</strong></div>
+        <div class="ur"><span>Enganche (10%)</span><strong>$357,500</strong></div>
+      </div>
+    </div>
+  </div>
+  <p class="fn">Rentas nocturnas estimadas con base en comparables de Airbnb y Booking para la Zona Diamante, temporada media 2024. Temporada alta puede ser hasta 2.5× superior.</p>
+</section>
+
+<!-- 05. FINANCIERO -->
+<section id="financiero" class="bg-dark">
+<div class="bg-dark-inner">
+  <div class="lbl">05 · Los números</div>
+  <h2 class="h2 h2-lt">9 noches al mes.<br><em>El depto se paga solo.</em></h2>
+  <div class="div div-lt"></div>
+  <p class="p p-lt">El argumento financiero central de Caracol Diamante no es complejo. Con solo 9 noches de ocupación mensual — el 30% del mes — la renta vacacional cubre la mensualidad. Las otras 21 noches son tuyas: para uso propio o para seguir generando.</p>
+
+  <div class="h3 h3-lt">Cobertura de mensualidad por unidad</div>
+  <div style="margin:1rem 0 1.75rem;">
+    <div class="rbar-r"><span class="rbar-lb">Condo 2R</span><div class="rbar-bg"><div class="rbar-fi" style="width:100%"></div></div><span class="rbar-pc">100%</span></div>
+    <div class="rbar-r"><span class="rbar-lb">Roof 2R</span><div class="rbar-bg"><div class="rbar-fi" style="width:100%"></div></div><span class="rbar-pc">100%</span></div>
+    <div class="rbar-r"><span class="rbar-lb">Roof 3R</span><div class="rbar-bg"><div class="rbar-fi" style="width:100%"></div></div><span class="rbar-pc">100%</span></div>
+    <div class="rbar-r"><span class="rbar-lb">Villa Loft</span><div class="rbar-bg"><div class="rbar-fi" style="width:100%"></div></div><span class="rbar-pc">100%</span></div>
+  </div>
+
+  <div class="sgrid">
+    <div class="sc-dk"><div class="sl sl-lt">Noches para cubrir</div><div class="sn">9</div><div class="sd sd-lt">de 30 noches disponibles al mes — el 70% restante genera adicional o es tuyo</div></div>
+    <div class="sc-dk"><div class="sl sl-lt">Plusvalía proyectada</div><div class="sn">8%+</div><div class="sd sd-lt">anual en periodos de estabilidad, históricamente documentado en el corredor</div></div>
+    <div class="sc-dk"><div class="sl sl-lt">Entrada mínima</div><div class="sn">$320K</div><div class="sd sd-lt">MXN con financiamiento bancario o directo · el cliente elige la institución</div></div>
+  </div>
+
+  <div class="h3 h3-lt">Proyección a 5 años · Condo 2 recámaras</div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Concepto</th><th>Año 1</th><th>Año 3</th><th class="hl">Año 5</th></tr></thead>
+      <tbody>
+        <tr><td>Valor estimado del inmueble</td><td>$3,200,000</td><td>$3,732,480</td><td class="hl-c">$4,352,000</td></tr>
+        <tr><td>Ingreso anual por renta (9 noc/mes)</td><td>$270,000</td><td>$283,500</td><td class="hl-c">$297,675</td></tr>
+        <tr><td>Plusvalía acumulada</td><td>$256,000</td><td>$532,480</td><td class="hl-c">$1,152,000</td></tr>
+        <tr><td>Retorno total acumulado</td><td>$526,000</td><td>$1,382,480</td><td class="hl-c"><strong style="font-size:15px;color:#f5e0a0;">$2,633,675</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="fn fn-lt">Supuestos conservadores: plusvalía 8% anual · incremento de renta 5% anual · ocupación 9 noches/mes. No incluye gastos de mantenimiento. Los rendimientos pasados no garantizan resultados futuros.</p>
+
+  <div class="h3 h3-lt" style="margin-top:2rem;">Cómo financiarlo</div>
+  <p class="p p-lt">El cliente elige el esquema que mejor se adapta a su situación. Las opciones más utilizadas:</p>
+  <ul class="ck ck-lt">
+    <li><div class="ck-ic">·</div><span><strong style="color:var(--gold-lt);">Crédito bancario hipotecario</strong> — BBVA, Santander, HSBC, Banorte u otras instituciones. El cliente tramita directamente con su banco de confianza.</span></li>
+    <li><div class="ck-ic">·</div><span><strong style="color:var(--gold-lt);">Financiamiento directo con el desarrollador</strong> — plan de pagos durante construcción, saldo a escrituración.</span></li>
+    <li><div class="ck-ic">·</div><span><strong style="color:var(--gold-lt);">Recursos propios</strong> — para inversionistas que prefieren no apalancar y maximizar el rendimiento neto.</span></li>
+    <li><div class="ck-ic">·</div><span><strong style="color:var(--gold-lt);">Combinación</strong> — enganche propio + crédito para el saldo, o preventa con pagos parciales.</span></li>
+  </ul>
+</div>
+</section>
+
+<!-- 06. CIERRE ESPECTACULAR -->
+<section id="cierre" class="cierre">
+<div class="cierre-inner">
+  <div class="lbl">06 · Por qué Caracol</div>
+  <h2 class="h2 h2-lt" style="font-size:clamp(30px,4.5vw,48px);margin-bottom:1rem;">Aquí no solo<br>compras un<br><em>departamento.</em></h2>
+  <p class="p p-lt" style="font-size:15px;max-width:520px;">Compras el derecho a decidir cómo vives tus vacaciones, con quién las compartes y cuánto patrimonio dejas a quienes vienen después de ti.</p>
+
+  <div class="cierre-vida">
+    <div class="cv-card vida">
+      <div style="font-size:24px;margin-bottom:.875rem;">🌊</div>
+      <div class="cv-title">La vida que te espera</div>
+      <ul class="cv-items">
+        <li>Llegar en Semana Santa y que sea tuyo — sin check-in, sin extraños</li>
+        <li>La alberca casi vacía un domingo. Tus hijos con espacio real</li>
+        <li>Vecinos que cuidan el lugar como tú — porque también es de ellos</li>
+        <li>Playa a 5 minutos. Golf a 10. La Isla a 10</li>
+        <li>51 familias que se conocen por nombre</li>
+        <li>Un lugar que se hereda con orgullo</li>
+      </ul>
+    </div>
+    <div class="cv-card dinero">
+      <div style="font-size:24px;margin-bottom:.875rem;">📈</div>
+      <div class="cv-title">El patrimonio que construyes</div>
+      <ul class="cv-items">
+        <li>9 noches al mes y la mensualidad está cubierta</li>
+        <li>Las otras 21 noches: tuyas o generando más</li>
+        <li>+8% de plusvalía anual proyectada en el corredor</li>
+        <li>$2.6M de retorno acumulado a 5 años en el Condo 2R</li>
+        <li>Activo escriturado, vendible y heredable</li>
+        <li>El precio de entrada más bajo que va a estar — hoy</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="quote quote-lt" style="margin:2rem 0;">
+    <p>"No son los metros cuadrados los que protegen tu inversión. Es el número de familias que comparten el proyecto contigo — y el estándar que todas acuerdan mantener."</p>
+  </div>
+
+  <div class="cta-box">
+    <div class="cta-orn">◇</div>
+    <h2 class="cta-title">¿Listo para ver<br>tu <em>unidad</em>?</h2>
+    <p class="cta-sub">La disponibilidad en Caracol Diamante es limitada por diseño. 51 unidades en total — sin posibilidad de expansión. Si estás leyendo esto, el momento correcto para conversar es ahora.</p>
+    <a href="#" class="cta-btn">Agenda tu sesión gratuita · 20 min</a>
+    <p class="cta-legal">
+      Caracol Diamante · Boulevard de las Naciones, Lote 49 · Zona Diamante, Acapulco, Guerrero<br>
+      Este documento es material informativo. Las proyecciones son estimativas y no constituyen garantía de rendimientos.<br>
+      Las rentas nocturnas son estimaciones de mercado basadas en comparables de la zona a 2024.<br>
+      Los links a otros desarrollos se incluyen como referencia — Caracol Diamante no hace comparaciones ni juicios sobre proyectos de terceros.
+    </p>
+  </div>
+</div>
+</section>
+
+<script>
+function ir(id, el){
+  document.getElementById(id).scrollIntoView({behavior:'smooth'});
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('on'));
+  if(el) el.classList.add('on');
+}
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const id=e.target.id;
+      document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('on'));
+      const match=document.querySelector(`.nav-link[onclick*="${id}"]`);
+      if(match) match.classList.add('on');
+    }
+  });
+},{threshold:.3});
+['portada','oportunidad','guia','zona','unidades','financiero','cierre'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el) obs.observe(el);
+});
+</script>
+</body>
+</html>
