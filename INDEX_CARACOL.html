@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caracol Diamante · Panel Central</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--navy:#0a1628;--gold:#c9a84c;--gold2:#e8c96a;--white:#fff;--sans:'Nunito',sans-serif;--serif:'Playfair Display',serif;}
+body{font-family:var(--sans);background:var(--navy);color:var(--white);min-height:100vh;padding:2rem 1.5rem;}
+.header{text-align:center;margin-bottom:3rem;padding-top:1rem;}
+.logo-text{font-family:var(--serif);font-size:1.8rem;color:var(--gold2);margin-bottom:.3rem;}
+.logo-sub{font-size:.75rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.35);}
+.divider{width:60px;height:2px;background:var(--gold);margin:1rem auto;}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.2rem;max-width:1000px;margin:0 auto;}
+.card{
+  background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.15);
+  border-radius:14px;padding:1.6rem;text-decoration:none;color:var(--white);
+  transition:transform .2s,border-color .2s,background .2s;cursor:pointer;
+  display:block;
+}
+.card:hover{transform:translateY(-3px);border-color:rgba(201,168,76,.5);background:rgba(255,255,255,.07);}
+.card-icon{font-size:2rem;margin-bottom:.9rem;}
+.card h3{font-size:1rem;font-weight:700;color:var(--gold2);margin-bottom:.5rem;}
+.card p{font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.5;}
+.badge{
+  display:inline-block;font-size:.65rem;font-weight:700;letter-spacing:1px;
+  padding:.2rem .6rem;border-radius:10px;margin-top:.75rem;text-transform:uppercase;
+}
+.badge-green{background:rgba(37,211,102,.15);color:#25D366;}
+.badge-gold{background:rgba(201,168,76,.15);color:var(--gold2);}
+.badge-red{background:rgba(255,80,80,.15);color:#ff8080;}
+.section-label{
+  font-size:.65rem;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(255,255,255,.25);margin:2rem 0 .8rem;max-width:1000px;margin-left:auto;margin-right:auto;
+}
+footer{text-align:center;margin-top:3rem;padding-top:2rem;border-top:1px solid rgba(201,168,76,.1);}
+footer p{font-size:.75rem;color:rgba(255,255,255,.2);}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo-text">Caracol Diamante</div>
+  <div class="logo-sub">Panel Central · Sistema de Marketing</div>
+  <div class="divider"></div>
+  <p style="font-size:.85rem;color:rgba(255,255,255,.4);">Acceso interno · Caracol Ideas Marketing · Abril 2026</p>
+</div>
+
+<p class="section-label">🌐 LANDINGS Y CAPTACIÓN</p>
+<div class="grid">
+  <a class="card" href="landing_se_paga_sola.html">
+    <div class="card-icon">🏖</div>
+    <h3>Landing · Se Paga Sola</h3>
+    <p>Landing principal con chatbot integrado. Para anuncios de Facebook. No menciona el nombre del desarrollo.</p>
+    <span class="badge badge-gold">⭐ Principal</span>
+  </a>
+  <a class="card" href="landing_segundo_ingreso.html">
+    <div class="card-icon">💼</div>
+    <h3>Landing · Segundo Ingreso</h3>
+    <p>Landing de idea de negocio. Honesta, directa. Para leads que buscan independencia económica.</p>
+    <span class="badge badge-green">Activa</span>
+  </a>
+  <a class="card" href="landing_diagnostico_caracol.html">
+    <div class="card-icon">🎯</div>
+    <h3>Landing · Diagnóstico 6 pasos</h3>
+    <p>Para leads fríos. Proceso de 6 pasos con auto-eliminación de no calificados.</p>
+    <span class="badge badge-green">Activa</span>
+  </a>
+  <a class="card" href="landing_v2_caracol.html">
+    <div class="card-icon">⚡</div>
+    <h3>Landing v2 · Alta Conversión</h3>
+    <p>Una sola pantalla. CTA directo. Para tráfico caliente.</p>
+    <span class="badge badge-green">Activa</span>
+  </a>
+</div>
+
+<p class="section-label">🛠 HERRAMIENTAS DE VENTA</p>
+<div class="grid">
+  <a class="card" href="index.html">
+    <div class="card-icon">📊</div>
+    <h3>Cotizador de Inversión</h3>
+    <p>Cotizador personalizado en vivo. Para usar en sesiones de 25 minutos con prospectos.</p>
+    <span class="badge badge-green">En GitHub Pages</span>
+  </a>
+  <a class="card" href="proyeccion_caracol_diamante.html">
+    <div class="card-icon">📈</div>
+    <h3>Proyección 5/10/20 años</h3>
+    <p>Tabla interactiva de plusvalía y retorno a largo plazo. Para mostrar en sesión.</p>
+    <span class="badge badge-green">Activa</span>
+  </a>
+  <a class="card" href="comparador-inversiones.jsx" target="_blank">
+    <div class="card-icon">⚖️</div>
+    <h3>Comparador de Inversiones</h3>
+    <p>Compara el rendimiento de Caracol vs. CETES, bolsa y banco. Argumento visual.</p>
+    <span class="badge badge-gold">JSX</span>
+  </a>
+  <a class="card" href="preview-comparador.html">
+    <div class="card-icon">👁</div>
+    <h3>Preview Comparador</h3>
+    <p>Vista previa del comparador de inversiones en HTML.</p>
+    <span class="badge badge-green">Activa</span>
+  </a>
+</div>
+
+<p class="section-label">📚 CONTENIDO Y EDUCACIÓN</p>
+<div class="grid">
+  <a class="card" href="ebook_caracol_diamante_v2.html">
+    <div class="card-icon">📖</div>
+    <h3>E-book · 19 Puntos</h3>
+    <p>Guía completa de la inversión. Competidores, proyecciones, diferenciadores. Para prospectos calificados.</p>
+    <span class="badge badge-green">v2 · Activo</span>
+  </a>
+  <a class="card" href="buyer_personas_caracol_diamante.html">
+    <div class="card-icon">👥</div>
+    <h3>Los 4 Perfiles</h3>
+    <p>Ricardo, Sofía, La Familia y el Corporativo. Scripts de venta para cada perfil.</p>
+    <span class="badge badge-green">Activa</span>
+  </a>
+  <a class="card" href="chatbot_segundo_ingreso.html">
+    <div class="card-icon">💬</div>
+    <h3>Chatbot · 50 Preguntas</h3>
+    <p>Chatbot estilo WhatsApp con 50 preguntas y respuestas. Disponible 24/7.</p>
+    <span class="badge badge-green">Activa</span>
+  </a>
+  <a class="card" href="preview_emails_sistema.html">
+    <div class="card-icon">📧</div>
+    <h3>Preview · 5 Emails</h3>
+    <p>Vista previa de los emails automáticos días 0, 3, 10, 21 y 45. Con instrucciones de Apps Script.</p>
+    <span class="badge badge-gold">Ver instrucciones</span>
+  </a>
+</div>
+
+<p class="section-label">⚙️ SISTEMA CRM Y AUTOMATIZACIÓN</p>
+<div class="grid">
+  <a class="card" href="crm_caracol.html">
+    <div class="card-icon">🗃</div>
+    <h3>CRM Caracol</h3>
+    <p>Historial de llamadas, estados de leads, hasta 3 teléfonos por prospecto. Contraseña: caracol2024</p>
+    <span class="badge badge-green">Activo</span>
+  </a>
+  <a class="card" href="Generador_Cotizadores.html">
+    <div class="card-icon">⚙️</div>
+    <h3>Generador de Cotizadores</h3>
+    <p>Genera cotizadores personalizados para cada prospecto. Para sesiones de seguimiento.</p>
+    <span class="badge badge-green">Activo</span>
+  </a>
+</div>
+
+<p class="section-label">📋 ESTADO DEL SISTEMA · PENDIENTES</p>
+<div class="grid">
+  <div class="card" style="cursor:default;">
+    <div class="card-icon">🔴</div>
+    <h3>Apps Script · Emails</h3>
+    <p>CaracolDiamante_AppsScript.js — ejecutar setupInicial() y publicar como Web App. Pegar URL en CRM.</p>
+    <span class="badge badge-red">Pendiente</span>
+  </div>
+  <div class="card" style="cursor:default;">
+    <div class="card-icon">🔴</div>
+    <h3>Google Calendar · Karina</h3>
+    <p>Reemplazar link genérico de agenda con el link real de Google Calendar de Karina.</p>
+    <span class="badge badge-red">Pendiente</span>
+  </div>
+  <div class="card" style="cursor:default;">
+    <div class="card-icon">🟡</div>
+    <h3>Subir a GitHub Pages</h3>
+    <p>Repositorio: amezcua57/cotizador — subir todos los archivos HTML de 01_WEB_PRODUCCION.</p>
+    <span class="badge badge-gold">En proceso</span>
+  </div>
+  <div class="card" style="cursor:default;">
+    <div class="card-icon">🟡</div>
+    <h3>Caracol Diamante Premier</h3>
+    <p>El sitio existe pero el producto no está definido. Prioridad: definir qué es antes de publicar.</p>
+    <span class="badge badge-gold">En proceso</span>
+  </div>
+</div>
+
+<footer>
+  <p>Caracol Diamante · Caracol Ideas Marketing · Abril 2026<br>
+  Preparado con Claude (Anthropia) · Documento de uso interno</p>
+</footer>
+
+</body>
+</html>
