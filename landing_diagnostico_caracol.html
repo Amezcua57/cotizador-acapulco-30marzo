@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico de Inversión · Zona Diamante, Acapulco</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#0c1c2c;
+  --navy2:#152638;
+  --slate:#2d4a63;
+  --gold:#c49a3c;
+  --gold2:#e8c97a;
+  --gold-pale:#f7f0e0;
+  --cream:#faf7f2;
+  --white:#fff;
+  --tx:#0c1c2c;
+  --txm:#3a4a5a;
+  --txl:#7a8a9a;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Jost',system-ui,sans-serif;
+}
+
+body{font-family:var(--sans);background:var(--cream);color:var(--tx);min-height:100vh;}
+
+/* ── HERO ── */
+.hero{
+  background:var(--navy);
+  padding:0;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  position:relative;
+  overflow:hidden;
+}
+.hero-pattern{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(196,154,60,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(196,154,60,.04) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+.hero-glow{
+  position:absolute;
+  top:-200px;right:-200px;
+  width:700px;height:700px;
+  background:radial-gradient(circle,rgba(196,154,60,.08) 0%,transparent 65%);
+}
+.hero-nav{
+  position:relative;z-index:2;
+  padding:1.5rem 2.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.nav-logo{
+  font-family:var(--serif);
+  font-size:14px;letter-spacing:.12em;
+  color:var(--gold2);
+}
+.nav-badge{
+  font-size:11px;font-weight:500;
+  color:rgba(255,255,255,.4);
+  letter-spacing:.08em;
+}
+.hero-body{
+  flex:1;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  padding:4rem 2rem;
+  position:relative;z-index:2;
+}
+.hero-tag{
+  font-size:11px;font-weight:500;letter-spacing:.25em;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:12px;
+}
+.hero-tag::before,.hero-tag::after{
+  content:'';width:32px;height:1px;background:var(--gold);opacity:.5;
+}
+.hero-title{
+  font-family:var(--serif);
+  font-size:clamp(42px,7vw,80px);
+  font-weight:300;
+  color:var(--white);
+  line-height:1.05;
+  margin-bottom:1.25rem;
+}
+.hero-title em{color:var(--gold2);font-style:italic;}
+.hero-sub{
+  font-size:16px;font-weight:300;
+  color:rgba(255,255,255,.6);
+  max-width:520px;
+  line-height:1.75;
+  margin-bottom:2.5rem;
+}
+.hero-cta{
+  background:var(--gold);
+  color:var(--navy);
+  font-size:14px;font-weight:600;
+  padding:16px 40px;
+  border-radius:3px;
+  border:none;cursor:pointer;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  transition:all .2s;
+}
+.hero-cta:hover{background:var(--gold2);}
+.hero-stats{
+  display:flex;gap:3rem;
+  margin-top:4rem;
+  padding-top:2.5rem;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+.hstat-n{
+  font-family:var(--serif);
+  font-size:36px;font-weight:300;
+  color:var(--gold2);line-height:1;
+  margin-bottom:.25rem;
+}
+.hstat-l{
+  font-size:11px;font-weight:400;
+  color:rgba(255,255,255,.4);
+  letter-spacing:.06em;
+  line-height:1.4;
+}
+.scroll-hint{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  color:rgba(255,255,255,.25);font-size:10px;letter-spacing:.1em;
+  animation:bounce 2s infinite;
+}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(6px);}}
+.scroll-arrow{width:16px;height:16px;border-right:1px solid rgba(255,255,255,.25);border-bottom:1px solid rgba(255,255,255,.25);transform:rotate(45deg);}
+
+/* ── DIAGNÓSTICO ── */
+.diag-section{
+  background:var(--cream);
+  padding:5rem 1.5rem;
+  position:relative;
+}
+.diag-inner{max-width:680px;margin:0 auto;}
+.diag-header{text-align:center;margin-bottom:3.5rem;}
+.diag-tag{
+  font-size:10px;font-weight:600;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:1rem;
+}
+.diag-title{
+  font-family:var(--serif);
+  font-size:clamp(28px,4vw,42px);
+  font-weight:300;color:var(--navy);
+  line-height:1.15;margin-bottom:1rem;
+}
+.diag-title em{font-style:italic;color:var(--gold);}
+.diag-desc{
+  font-size:14px;font-weight:300;
+  color:var(--txm);line-height:1.75;
+  max-width:480px;margin:0 auto;
+}
+
+/* PROGRESS BAR */
+.progress-wrap{margin-bottom:2.5rem;}
+.progress-top{
+  display:flex;justify-content:space-between;
+  font-size:11px;font-weight:500;
+  color:var(--txl);margin-bottom:.5rem;
+}
+.progress-bar{
+  height:3px;background:rgba(0,0,0,.08);
+  border-radius:2px;overflow:hidden;
+}
+.progress-fill{
+  height:100%;background:var(--gold);
+  border-radius:2px;
+  transition:width .5s ease;
+  width:0%;
+}
+
+/* STEP CARDS */
+.step-card{
+  display:none;
+  animation:slideIn .35s ease;
+}
+.step-card.active{display:block;}
+@keyframes slideIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+
+.step-num{
+  font-size:11px;font-weight:600;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:.75rem;
+}
+.step-q{
+  font-family:var(--serif);
+  font-size:clamp(22px,3vw,30px);
+  font-weight:400;color:var(--navy);
+  line-height:1.25;margin-bottom:.75rem;
+}
+.step-hint{
+  font-size:13px;color:var(--txl);
+  margin-bottom:2rem;line-height:1.5;
+}
+
+/* OPCIONES */
+.opts{display:flex;flex-direction:column;gap:.75rem;margin-bottom:2rem;}
+.opt{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:1.1rem 1.35rem;
+  background:var(--white);
+  border:1.5px solid rgba(0,0,0,.08);
+  border-radius:10px;
+  cursor:pointer;
+  transition:all .2s;
+  text-align:left;
+  width:100%;
+  font-family:var(--sans);
+}
+.opt:hover{border-color:var(--gold);background:var(--gold-pale);}
+.opt.selected{border-color:var(--gold);background:var(--gold-pale);}
+.opt-icon{
+  width:20px;height:20px;
+  border-radius:50%;
+  border:1.5px solid rgba(0,0,0,.15);
+  flex-shrink:0;margin-top:1px;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;
+}
+.opt.selected .opt-icon{
+  background:var(--gold);border-color:var(--gold);
+}
+.opt.selected .opt-icon::after{
+  content:'';width:6px;height:6px;
+  border-radius:50%;background:#fff;
+}
+.opt-text{font-size:14px;font-weight:400;color:var(--txm);line-height:1.45;}
+.opt-sub{font-size:12px;color:var(--txl);margin-top:2px;}
+
+/* NEXT BTN */
+.next-btn{
+  width:100%;
+  background:var(--navy);
+  color:var(--white);
+  font-size:14px;font-weight:500;
+  padding:16px;border:none;
+  border-radius:8px;cursor:pointer;
+  letter-spacing:.06em;
+  transition:all .2s;
+  font-family:var(--sans);
+  opacity:.4;
+  pointer-events:none;
+}
+.next-btn.ready{opacity:1;pointer-events:auto;}
+.next-btn.ready:hover{background:var(--slate);}
+
+/* ── PANTALLAS ESPECIALES ── */
+.screen{display:none;text-align:center;padding:2rem 0;}
+.screen.active{display:block;}
+
+/* ELIMINADO */
+.elim-icon{font-size:48px;margin-bottom:1.25rem;}
+.elim-title{
+  font-family:var(--serif);
+  font-size:28px;font-weight:300;color:var(--navy);
+  margin-bottom:.75rem;
+}
+.elim-body{
+  font-size:14px;color:var(--txm);
+  line-height:1.75;max-width:440px;
+  margin:0 auto 2rem;
+}
+.elim-box{
+  background:var(--white);border:1px solid rgba(0,0,0,.08);
+  border-radius:12px;padding:1.5rem;
+  text-align:left;margin-bottom:1.5rem;
+}
+.elim-box h4{
+  font-family:var(--serif);font-size:17px;color:var(--navy);
+  margin-bottom:.5rem;
+}
+.elim-box p{font-size:13px;color:var(--txm);line-height:1.6;}
+.elim-link{
+  font-size:13px;color:var(--gold);
+  font-weight:500;text-decoration:none;
+}
+
+/* CALIFICADO */
+.cal-badge{
+  display:inline-block;
+  background:var(--gold-pale);
+  border:1px solid rgba(196,154,60,.3);
+  color:var(--gold);
+  font-size:11px;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;
+  padding:6px 16px;border-radius:20px;
+  margin-bottom:1.25rem;
+}
+.cal-title{
+  font-family:var(--serif);
+  font-size:clamp(26px,4vw,38px);
+  font-weight:300;color:var(--navy);
+  line-height:1.15;margin-bottom:.75rem;
+}
+.cal-title em{font-style:italic;color:var(--gold);}
+.cal-sub{
+  font-size:14px;color:var(--txm);
+  line-height:1.7;max-width:440px;
+  margin:0 auto 2rem;
+}
+
+/* FORMULARIO FINAL */
+.form-final{
+  background:var(--white);
+  border:1px solid rgba(0,0,0,.08);
+  border-radius:14px;
+  padding:2rem;
+  text-align:left;
+  margin-bottom:1.5rem;
+}
+.form-final label{
+  display:block;
+  font-size:11px;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:var(--txl);margin-bottom:.4rem;
+}
+.form-final input{
+  width:100%;
+  font-family:var(--sans);
+  font-size:14px;font-weight:400;
+  padding:12px 14px;
+  border:1.5px solid rgba(0,0,0,.1);
+  border-radius:8px;
+  background:var(--cream);
+  color:var(--tx);
+  margin-bottom:1rem;
+  outline:none;
+  transition:border-color .2s;
+}
+.form-final input:focus{border-color:var(--gold);}
+.form-final input:last-child{margin-bottom:0;}
+
+.contact-opts{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:.75rem;margin-bottom:1.5rem;
+}
+.copt{
+  display:flex;align-items:center;gap:10px;
+  padding:.875rem 1rem;
+  border:1.5px solid rgba(0,0,0,.08);
+  border-radius:8px;cursor:pointer;
+  transition:all .15s;background:var(--white);
+  font-family:var(--sans);width:100%;
+}
+.copt:hover,.copt.on{border-color:var(--gold);background:var(--gold-pale);}
+.copt-icon{font-size:18px;}
+.copt-text{font-size:13px;font-weight:500;color:var(--txm);}
+
+.submit-btn{
+  width:100%;
+  background:var(--gold);
+  color:var(--navy);
+  font-size:15px;font-weight:600;
+  padding:18px;border:none;
+  border-radius:8px;cursor:pointer;
+  letter-spacing:.06em;font-family:var(--sans);
+  transition:all .2s;
+  text-transform:uppercase;
+}
+.submit-btn:hover{background:var(--gold2);}
+.form-legal{
+  font-size:10px;color:var(--txl);
+  text-align:center;margin-top:.875rem;
+  line-height:1.6;
+}
+
+/* ── FOOTER ── */
+.footer{
+  background:var(--navy);
+  padding:2rem;text-align:center;
+}
+.footer p{font-size:11px;color:rgba(255,255,255,.25);line-height:1.7;}
+
+@media(max-width:600px){
+  .hero-stats{gap:1.5rem;flex-wrap:wrap;justify-content:center;}
+  .hero-nav{padding:1.25rem;}
+  .contact-opts{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-pattern"></div>
+  <div class="hero-glow"></div>
+  <nav class="hero-nav">
+    <div class="nav-logo">Zona Diamante · Acapulco</div>
+    <div class="nav-badge">Sesión de Diagnóstico · Gratuita</div>
+  </nav>
+  <div class="hero-body">
+    <div class="hero-tag">Inversión inmobiliaria · 2025</div>
+    <h1 class="hero-title">¿Es Acapulco<br>la inversión<br><em>correcta para ti?</em></h1>
+    <p class="hero-sub">Responde 6 preguntas y descubre si el momento, el capital y el perfil se alinean para que una propiedad de playa se convierta en tu <strong style="color:var(--gold2);">segundo ingreso</strong> — sin cambiar tu vida.</p>
+    <div style="margin-top:1.5rem;margin-bottom:1.5rem;text-align:left;max-width:480px;background:rgba(255,255,255,.05);border:0.5px solid rgba(196,154,60,.2);border-radius:12px;padding:1.25rem 1.5rem;">
+      <div style="font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(196,154,60,.7);margin-bottom:.875rem;text-align:center;">¿Qué obtienes en tu sesión gratuita?</div>
+      <div style="display:flex;flex-direction:column;gap:.5rem;">
+        <div style="display:flex;gap:10px;"><span style="color:#e8c97a;flex-shrink:0;">→</span><span style="font-size:13px;color:rgba(255,255,255,.65);line-height:1.5;">Un panorama real del mercado en Acapulco Diamante — opciones, precios y zonas</span></div>
+        <div style="display:flex;gap:10px;"><span style="color:#e8c97a;flex-shrink:0;">→</span><span style="font-size:13px;color:rgba(255,255,255,.65);line-height:1.5;">Las principales opciones disponibles en tu rango de inversión</span></div>
+        <div style="display:flex;gap:10px;"><span style="color:#e8c97a;flex-shrink:0;">→</span><span style="font-size:13px;color:rgba(255,255,255,.65);line-height:1.5;">Te presentamos nuestra opción — con números reales — nuestro único compromiso es que nos des 25 minutos</span></div>
+        <div style="display:flex;gap:10px;"><span style="color:#e8c97a;flex-shrink:0;">→</span><span style="font-size:13px;color:rgba(255,255,255,.65);line-height:1.5;">Cuántas noches necesitas rentar para que se pague prácticamente sola</span></div>
+        <div style="display:flex;gap:10px;"><span style="color:#e8c97a;flex-shrink:0;">→</span><span style="font-size:13px;color:rgba(255,255,255,.65);line-height:1.5;">Proyección personalizada de tu patrimonio a 5, 10 y 20 años</span></div>
+      </div>
+    </div>
+    <button class="hero-cta" onclick="scrollToDiag()">Iniciar diagnóstico gratuito</button>
+    <div class="hero-stats">
+      <div>
+        <div class="hstat-n">21</div>
+        <div class="hstat-l">familias<br>selectas</div>
+      </div>
+      <div>
+        <div class="hstat-n">14</div>
+        <div class="hstat-l">noches para<br>cubrir mensualidad</div>
+      </div>
+      <div>
+        <div class="hstat-n">8%+</div>
+        <div class="hstat-l">plusvalía anual<br>proy. 15–20 años</div>
+      </div>
+      <div>
+        <div class="hstat-n">25–30</div>
+        <div class="hstat-l">sesión de asesoría<br>sin costo</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-arrow"></div>
+    DIAGNÓSTICO
+  </div>
+</section>
+
+
+<!-- PANORAMA DE MERCADO -->
+<section id="mercado" style="background:#f9f6f1;padding:4rem 1.5rem;">
+<div style="max-width:680px;margin:0 auto;">
+  <div style="font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#b8923c;margin-bottom:.875rem;display:flex;align-items:center;gap:8px;"><span style="width:20px;height:1px;background:#b8923c;display:inline-block;"></span>Antes de decidir</div>
+  <h2 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(26px,4vw,38px);font-weight:400;color:#0c1c2c;line-height:1.2;margin-bottom:1rem;">Esto es lo que existe hoy<br><em style="font-style:italic;color:#b8923c;">en Acapulco Diamante.</em></h2>
+  <p style="font-size:14px;font-weight:300;color:#505050;line-height:1.8;margin-bottom:.75rem;">En la Zona Diamante hay más de 40 desarrollos activos. En el rango de <strong style="color:#0c1c2c;">$3 a $5 millones de pesos</strong>, estos son los proyectos principales que puedes considerar.</p>
+  <p style="font-size:13px;color:#909090;line-height:1.6;margin-bottom:2rem;padding:1rem 1.25rem;background:rgba(184,146,60,.06);border-left:3px solid #b8923c;border-radius:0 8px 8px 0;"><strong style="color:#3d5166;">Nota importante:</strong> No representamos ninguno de estos proyectos. Te compartimos esta información para que tengas un panorama completo antes de tomar cualquier decisión. La información proviene de sus propios sitios oficiales y portales públicos.</p>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem;margin-bottom:2rem;">
+    <a href="https://ara.com.mx/desarrollos/guerrero/dream-diamante" target="_blank" style="background:#fff;border:0.5px solid rgba(0,0,0,.08);border-radius:10px;padding:1rem 1.1rem;text-decoration:none;display:block;"><div style="font-size:13px;font-weight:500;color:#3d5166;margin-bottom:3px;">Dream Diamante</div><div style="font-size:11px;color:#909090;line-height:1.5;margin-bottom:.5rem;">Casas ARA · Desde $3.4M · 3-4 rec · Club de playa · Acepta Infonavit</div><div style="font-size:10px;color:#b8923c;">&#8599; ara.com.mx</div></a>
+    <a href="https://palmdiamante.mx" target="_blank" style="background:#fff;border:0.5px solid rgba(0,0,0,.08);border-radius:10px;padding:1rem 1.1rem;text-decoration:none;display:block;"><div style="font-size:13px;font-weight:500;color:#3d5166;margin-bottom:3px;">Palm Diamante</div><div style="font-size:11px;color:#909090;line-height:1.5;margin-bottom:.5rem;">AYYA · Desde $4.9M · 12 torres · 200m playa · Alberca 4,500 m2</div><div style="font-size:10px;color:#b8923c;">&#8599; palmdiamante.mx</div></a>
+    <a href="https://www.peninsula.mx/desarrollos/maroa-diamante-residences" target="_blank" style="background:#fff;border:0.5px solid rgba(0,0,0,.08);border-radius:10px;padding:1rem 1.1rem;text-decoration:none;display:block;"><div style="font-size:13px;font-weight:500;color:#3d5166;margin-bottom:3px;">Maroa Diamante</div><div style="font-size:11px;color:#909090;line-height:1.5;margin-bottom:.5rem;">Grupo Peninsula · Desde $3.5M · 240 unidades · Club de playa · Golf Mayan</div><div style="font-size:10px;color:#b8923c;">&#8599; peninsula.mx</div></a>
+    <a href="https://www.olympiaresidencial.com" target="_blank" style="background:#fff;border:0.5px solid rgba(0,0,0,.08);border-radius:10px;padding:1rem 1.1rem;text-decoration:none;display:block;"><div style="font-size:13px;font-weight:500;color:#3d5166;margin-bottom:3px;">Olympia Residencial</div><div style="font-size:11px;color:#909090;line-height:1.5;margin-bottom:.5rem;">Desde $4.1M · 36 unidades boutique · Domotica · Entrega inmediata</div><div style="font-size:10px;color:#b8923c;">&#8599; olympiaresidencial.com</div></a>
+    <a href="https://vidamarresidencial.com" target="_blank" style="background:#fff;border:0.5px solid rgba(0,0,0,.08);border-radius:10px;padding:1rem 1.1rem;text-decoration:none;display:block;"><div style="font-size:13px;font-weight:500;color:#3d5166;margin-bottom:3px;">Vidamar Residencial</div><div style="font-size:11px;color:#909090;line-height:1.5;margin-bottom:.5rem;">SISOL · Desde $4.6M · Club de playa privado · Tenis · Padel</div><div style="font-size:10px;color:#b8923c;">&#8599; vidamarresidencial.com</div></a>
+    <a href="https://www.vivanuncios.com.mx/s-venta-inmuebles/acapulco-de-juarez/desarrollo/v1c1097l10367a1dgp1" target="_blank" style="background:#fff;border:0.5px solid rgba(0,0,0,.08);border-radius:10px;padding:1rem 1.1rem;text-decoration:none;display:block;"><div style="font-size:13px;font-weight:500;color:#3d5166;margin-bottom:3px;">Ver mas desarrollos</div><div style="font-size:11px;color:#909090;line-height:1.5;margin-bottom:.5rem;">Directorio completo de proyectos en preventa y entrega inmediata</div><div style="font-size:10px;color:#b8923c;">&#8599; vivanuncios.com.mx</div></a>
+  </div>
+  <div style="background:rgba(184,146,60,.07);border:0.5px solid rgba(184,146,60,.22);border-radius:9px;padding:1.1rem 1.35rem;margin-bottom:1.5rem;"><p style="font-size:13px;color:#505050;line-height:1.6;"><strong style="color:#3d5166;">Como elegir bien:</strong> Mas alla del precio por metro cuadrado, hay 19 preguntas clave que debes hacerle a cualquier desarrollo antes de firmar. El diagnostico que sigue te ayuda a entender que perfil de inversion tienes y que proyecto se alinea mejor con el.</p></div>
+  <div style="text-align:center;"><button onclick="scrollToDiag()" style="background:#0c1c2c;color:#fff;font-family:'Jost',sans-serif;font-size:13px;font-weight:500;padding:14px 32px;border:none;border-radius:6px;cursor:pointer;letter-spacing:.06em;">Continuar al diagnostico gratuito &#8594;</button></div>
+</div>
+</section>
+
+<!-- DIAGNÓSTICO -->
+<section class="diag-section" id="diagnostico">
+  <div class="diag-inner">
+    <div class="diag-header">
+      <div class="diag-tag">Diagnóstico de inversión</div>
+      <h2 class="diag-title">6 preguntas que<br><em>lo dicen todo.</em></h2>
+      <p class="diag-desc">No hay respuestas correctas. Solo hay respuestas tuyas — y con ellas te decimos si este es tu momento o no.</p>
+    </div>
+
+    <!-- PROGRESS -->
+    <div class="progress-wrap" id="progress-wrap">
+      <div class="progress-top">
+        <span id="prog-label">Paso 1 de 6</span>
+        <span id="prog-pct">0%</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="prog-fill"></div></div>
+    </div>
+
+    <!-- PASO 1 -->
+    <div class="step-card active" id="step-1">
+      <div class="step-num">Paso 01/06 · Motivación</div>
+      <h3 class="step-q">¿Qué es lo que más le preocupa de invertir hoy en el nuevo Acapulco?</h3>
+      <p class="step-hint">Elige la opción que más se acerque a tu situación actual.</p>
+      <div class="opts" id="opts-1">
+        <button class="opt" data-val="3" onclick="pick(this,1)">
+          <div class="opt-icon"></div>
+          <div><div class="opt-text">La seguridad jurídica — escrituras, contratos y respaldo legal</div></div>
+        </button>
+        <button class="opt" data-val="3" onclick="pick(this,1)">
+          <div class="opt-icon"></div>
+          <div><div class="opt-text">La resistencia de la estructura ante huracanes u otros eventos</div></div>
+        </button>
+        <button class="opt" data-val="3" onclick="pick(this,1)">
+          <div class="opt-icon"></div>
+          <div><div class="opt-text">La plusvalía real en los próximos 2 a 5 años</div></div>
+        </button>
+      </div>
+      <button class="next-btn" id="next-1" onclick="nextStep(1)">Continuar →</button>
+    </div>
+
+    <!-- PASO 2 -->
+    <div class="step-card" id="step-2">
+      <div class="step-num">Paso 02/06 · El Producto</div>
+      <h3 class="step-q">Si decidiera avanzar, ¿qué formato se adapta más a su estilo de vida?</h3>
+      <p class="step-hint">Piensa en cómo imaginas usarlo — o rentarlo.</p>
+      <div class="opts" id="opts-2">
+        <button class="opt" data-val="3" onclick="pick(this,2)">
+          <div class="opt-icon"></div>
+          <div>
+            <div class="opt-text">Condo Inteligente · 92 m²</div>
+            <div class="opt-sub">Inversión accesible · excelente rendimiento por noche</div>
+          </div>
+        </button>
+        <button class="opt" data-val="3" onclick="pick(this,2)">
+          <div class="opt-icon"></div>
+          <div>
+            <div class="opt-text">Villa Arena Tipo Loft · 110 m²</div>
+            <div class="opt-sub">Diseño y exclusividad · 2 recámaras + sala de TV</div>
+          </div>
+        </button>
+        <button class="opt" data-val="3" onclick="pick(this,2)">
+          <div class="opt-icon"></div>
+          <div>
+            <div class="opt-text">Penthouse / Roof Garden · hasta 195 m²</div>
+            <div class="opt-sub">Máximo espacio · terraza privada · mayor renta por noche</div>
+          </div>
+        </button>
+      </div>
+      <button class="next-btn" id="next-2" onclick="nextStep(2)">Continuar →</button>
+    </div>
+
+    <!-- PASO 3 -->
+    <div class="step-card" id="step-3">
+      <div class="step-num">Paso 03/06 · Capital disponible</div>
+      <h3 class="step-q">¿Cuál es el rango de inversión que tiene destinado para este activo?</h3>
+      <p class="step-hint">No se trata de cuánto tienes — sino de cuánto quieres destinar a este activo específico.</p>
+      <div class="opts" id="opts-3">
+        <button class="opt" data-val="5" onclick="pick(this,3)">
+          <div class="opt-icon"></div>
+          <div>
+            <div class="opt-text">Más de $5,000,000 MXN</div>
+            <div class="opt-sub">Capital para una o más unidades de contado o con crédito</div>
+          </div>
+        </button>
+        <button class="opt" data-val="4" onclick="pick(this,3)">
+          <div class="opt-icon"></div>
+          <div>
+            <div class="opt-text">Entre $3,200,000 y $5,000,000 MXN</div>
+            <div class="opt-sub">Rango de preventa · todas las unidades disponibles</div>
+          </div>
+        </button>
+        <button class="opt" data-val="2" onclick="pick(this,3)">
+          <div class="opt-icon"></div>
+          <div>
+            <div class="opt-text">Entre $2,000,000 y $3,200,000 MXN</div>
+            <div class="opt-sub">Factible con enganche + financiamiento bancario</div>
+          </div>
+        </button>
+        <button class="opt" data-val="0" data-elim="capital" onclick="pick(this,3)">
+          <div class="opt-icon"></div>
+          <div>
+            <div class="opt-text">Menos de $2,000,000 MXN</div>
+            <div class="opt-sub">Podría interesarte nuestra opción fraccionada</div>
+          </div>
+        </button>
+      </div>
+      <button class="next-btn" id="next-3" onclick="nextStep(3)">Continuar →</button>
+    </div>
+
+    <!-- PASO 4 -->
+    <div class="step-card" id="step-4">
+      <div class="step-num">Paso 04/06 · Tiempo de decisión</div>
+      <h3 class="step-q">Para aprovechar el precio de preventa, ¿en qué tiempo planea tomar la decisión?</h3>
+      <p class="step-hint">Los precios de preventa cambian conforme avanza la obra. La ventana actual es limitada.</p>
+      <div class="opts" id="opts-4">
+        <button class="opt" data-val="5" onclick="pick(this,4)">
+          <div class="opt-icon"></div>
+          <div>
+            <div class="opt-text">Inmediato — este mes o el siguiente</div>
+            <div class="opt-sub">Listo para agendar y avanzar en los próximos días</div>
+          </div>
+        </button>
+        <button class="opt" data-val="3" onclick="pick(this,4)">
+          <div class="opt-icon"></div>
+          <div>
+            <div class="opt-text">Próximos 3 meses</div>
+            <div class="opt-sub">Evaluando, pero con decisión real en puerta</div>
+          </div>
+        </button>
+        <button class="opt" data-val="0" data-elim="timing" onclick="pick(this,4)">
+          <div class="opt-icon"></div>
+          <div>
+            <div class="opt-text">Solo estoy investigando por ahora</div>
+            <div class="opt-sub">Sin plazo definido todavía</div>
+          </div>
+        </button>
+      </div>
+      <button class="next-btn" id="next-4" onclick="nextStep(4)">Continuar →</button>
+    </div>
+
+    <!-- PASO 5 -->
+    <div class="step-card" id="step-5">
+      <div class="step-num">Paso 05/06 · Decisión</div>
+      <h3 class="step-q">¿Alguien más influye en su decisión de inversión?</h3>
+      <p class="step-hint">Esto nos ayuda a preparar el material correcto para la sesión.</p>
+      <div class="opts" id="opts-5">
+        <button class="opt" data-val="3" onclick="pick(this,5)">
+          <div class="opt-icon"></div>
+          <div>
+            <div class="opt-text">Soy el único tomador de decisión</div>
+            <div class="opt-sub">Decido solo y puedo comprometer en la sesión</div>
+          </div>
+        </button>
+        <button class="opt" data-val="2" onclick="pick(this,5)">
+          <div class="opt-icon"></div>
+          <div>
+            <div class="opt-text">Decido en conjunto con mi pareja o socio</div>
+            <div class="opt-sub">Ideal invitarlos a la sesión — preparamos material para ambos</div>
+          </div>
+        </button>
+      </div>
+      <button class="next-btn" id="next-5" onclick="nextStep(5)">Continuar →</button>
+    </div>
+
+    <!-- PASO 6 -->
+    <div class="step-card" id="step-6">
+      <div class="step-num">Paso 06/06 · Uso del inmueble</div>
+      <h3 class="step-q">¿Qué espera principalmente de esta propiedad?</h3>
+      <p class="step-hint">No hay respuesta incorrecta — cada perfil tiene su estrategia.</p>
+      <div class="opts" id="opts-6">
+        <button class="opt" data-val="4" onclick="pick(this,6)">
+          <div class="opt-icon"></div>
+          <div>
+            <div class="opt-text">Que se pague sola con la renta vacacional</div>
+            <div class="opt-sub">14 noches al mes cubren el 100% de la mensualidad — las otras 16 son tuyas</div>
+          </div>
+        </button>
+        <button class="opt" data-val="3" onclick="pick(this,6)">
+          <div class="opt-icon"></div>
+          <div>
+            <div class="opt-text">Uso personal con renta cuando no la utilizo</div>
+            <div class="opt-sub">Vacaciones propias + ingresos complementarios</div>
+          </div>
+        </button>
+        <button class="opt" data-val="3" onclick="pick(this,6)">
+          <div class="opt-icon"></div>
+          <div>
+            <div class="opt-text">Patrimonio familiar y plusvalía a largo plazo</div>
+            <div class="opt-sub">Activo que aprecie y se pueda heredar</div>
+          </div>
+        </button>
+      </div>
+      <button class="next-btn" id="next-6" onclick="nextStep(6)">Ver mi resultado →</button>
+    </div>
+
+    <!-- PANTALLA: ELIMINADO POR CAPITAL -->
+    <div class="screen" id="screen-capital">
+      <div class="elim-icon">🌊</div>
+      <h3 class="elim-title">Hay otra opción para ti</h3>
+      <p class="elim-body">El programa principal de Caracol Diamante parte de $3,200,000 MXN. Sin embargo, tenemos una alternativa diseñada exactamente para tu situación.</p>
+      <div class="elim-box">
+        <h4>Caracol Reserva · Propiedad Fraccionada</h4>
+        <p>Accede a una fracción legal de una unidad en Zona Diamante desde menor capital. Escritura real, semanas propias al año, derecho a renta y opción de escalar a propiedad completa.</p>
+      </div>
+      <p style="font-size:14px;color:var(--txm);margin-bottom:1.5rem;">¿Te interesa conocer esta opción?</p>
+      <a href="https://wa.me/527441752143?text=Hola,%20me%20interesa%20conocer%20Caracol%20Reserva%20(opci%C3%B3n%20fraccionada)" target="_blank" style="display:inline-block;background:var(--gold);color:var(--navy);font-size:14px;font-weight:600;padding:14px 32px;border-radius:6px;text-decoration:none;letter-spacing:.06em;">Quiero saber más sobre Caracol Reserva</a>
+    </div>
+
+    <!-- PANTALLA: ELIMINADO POR TIMING -->
+    <div class="screen" id="screen-timing">
+      <div class="elim-icon">📖</div>
+      <h3 class="elim-title">Perfecto — investiga con calma</h3>
+      <p class="elim-body">No es el momento correcto y lo respetamos. La mejor inversión es la que se toma con información completa. Te dejamos el material que necesitas.</p>
+      <div class="elim-box">
+        <h4>Guía gratuita: Cómo comprar inteligente en Acapulco</h4>
+        <p>Los 19 puntos que separan una buena compra de un error costoso. Léela antes de tomar cualquier decisión en la Zona Diamante.</p>
+      </div>
+      <a href="#" style="display:inline-block;background:var(--navy);color:var(--white);font-size:14px;font-weight:600;padding:14px 32px;border-radius:6px;text-decoration:none;letter-spacing:.06em;margin-bottom:1rem;">Descargar guía gratuita</a>
+      <br>
+      <p style="font-size:13px;color:var(--txl);margin-top:1rem;">Cuando estés listo, esta página sigue aquí.</p>
+    </div>
+
+    <!-- PANTALLA: CALIFICADO -->
+    <div class="screen" id="screen-cal">
+      <div class="cal-badge">Perfil calificado</div>
+      <h3 class="cal-title">Tu perfil encaja<br><em>con Caracol Diamante.</em></h3>
+      <p class="cal-sub">Basado en tus respuestas, tienes el capital, la motivación y el horizonte de inversión correctos. El siguiente paso es una sesión de 25–30 minutos donde revisamos tu unidad ideal y la proyección financiera personalizada.</p>
+
+      <div class="form-final">
+        <label>Tu nombre completo</label>
+        <input type="text" id="f-nombre" placeholder="Nombre y apellido" />
+        <label>WhatsApp (10 dígitos)</label>
+        <input type="tel" id="f-wa" placeholder="55 1234 5678" maxlength="10" />
+        <label>¿Cómo prefieres que te contactemos?</label>
+        <div class="contact-opts">
+          <button class="copt on" id="copt-wa" onclick="setCopt('wa')">
+            <span class="copt-icon">💬</span>
+            <span class="copt-text">Por WhatsApp</span>
+          </button>
+          <button class="copt" id="copt-ll" onclick="setCopt('ll')">
+            <span class="copt-icon">📞</span>
+            <span class="copt-text">Por llamada</span>
+          </button>
+        </div>
+        <button class="submit-btn" onclick="submitForm()">Agendar mi sesión gratuita · 25–30 min</button>
+        <p class="form-legal">Tu información es privada y no se comparte con terceros.<br>Solo te contactamos para la sesión de asesoría.</p>
+      </div>
+    </div>
+
+    <!-- PANTALLA: GRACIAS -->
+    <div class="screen" id="screen-gracias">
+      <div style="font-size:52px;margin-bottom:1rem;">✓</div>
+      <h3 class="cal-title"><em>¡Listo!</em> Tu sesión está confirmada.</h3>
+      <p class="cal-sub">En los próximos minutos recibirás un mensaje de WhatsApp con la confirmación y el link de la videollamada. También puedes agendar directo en tu calendario.</p>
+      <div style="display:flex;flex-direction:column;gap:.75rem;align-items:center;width:100%;max-width:360px;margin:1.5rem auto 0;">
+        <a href="https://wa.me/527441752143?text=Hola%2C%20acabo%20de%20completar%20el%20diagn%C3%B3stico%20de%20inversi%C3%B3n%20en%20Zona%20Diamante" target="_blank" style="width:100%;display:flex;align-items:center;justify-content:center;gap:10px;background:#25d366;color:#fff;font-family:var(--sans);font-size:14px;font-weight:600;padding:14px 28px;border-radius:8px;text-decoration:none;letter-spacing:.04em;">
+          💬 Escríbenos por WhatsApp
+        </a>
+        <a href="https://wa.me/527441752143?text=Hola%20Karina%2C%20quiero%20agendar%20mi%20sesión%20de%20evaluación" target="_blank" style="width:100%;display:flex;align-items:center;justify-content:center;gap:10px;background:rgba(184,146,60,.1);border:1px solid rgba(184,146,60,.3);color:var(--gold);font-family:var(--sans);font-size:14px;font-weight:600;padding:14px 28px;border-radius:8px;text-decoration:none;letter-spacing:.04em;">
+          📅 Agendar en Google Calendar
+        </a>
+      </div>
+      <p style="font-size:11px;color:var(--txl);margin-top:1.25rem;">Sesión de 25–30 minutos · Sin costo · Por videollamada</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>Zona Diamante · Acapulco, Guerrero · Boulevard de las Naciones, Lote 49<br>
+  Material informativo. Proyecciones estimativas — no constituyen garantía de rendimientos.</p>
+</div>
+
+<script>
+var scores={};
+var elimFlag=null;
+var contactPref='wa';
+var TOTAL_STEPS=6;
+
+function scrollToDiag(){
+  document.getElementById('diagnostico').scrollIntoView({behavior:'smooth'});
+}
+
+function updateProgress(step){
+  var pct=Math.round(((step-1)/TOTAL_STEPS)*100);
+  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('prog-label').textContent='Paso '+step+' de '+TOTAL_STEPS;
+  document.getElementById('prog-pct').textContent=pct+'%';
+}
+
+function pick(btn,step){
+  var opts=document.querySelectorAll('#opts-'+step+' .opt');
+  opts.forEach(function(o){o.classList.remove('selected');});
+  btn.classList.add('selected');
+  scores[step]=parseInt(btn.getAttribute('data-val'));
+  elimFlag=btn.getAttribute('data-elim')||null;
+  var nb=document.getElementById('next-'+step);
+  if(nb){nb.classList.add('ready');}
+}
+
+function nextStep(current){
+  // Check elimination
+  if(elimFlag){
+    hideAll();
+    var sc=document.getElementById('screen-'+elimFlag);
+    if(sc){sc.classList.add('active');}
+    document.getElementById('progress-wrap').style.display='none';
+    return;
+  }
+
+  // Hide current
+  document.getElementById('step-'+current).classList.remove('active');
+  elimFlag=null;
+
+  var next=current+1;
+  if(next>TOTAL_STEPS){
+    // Show result
+    showResult();
+    return;
+  }
+
+  document.getElementById('step-'+next).classList.add('active');
+  updateProgress(next);
+  window.scrollTo({top:document.getElementById('diagnostico').offsetTop-20,behavior:'smooth'});
+}
+
+function showResult(){
+  document.getElementById('progress-wrap').style.display='none';
+  var total=0;
+  for(var k in scores) total+=scores[k];
+  hideAll();
+  if(total>=16){
+    document.getElementById('screen-cal').classList.add('active');
+  } else {
+    document.getElementById('screen-timing').classList.add('active');
+  }
+  window.scrollTo({top:document.getElementById('diagnostico').offsetTop-20,behavior:'smooth'});
+}
+
+function hideAll(){
+  document.querySelectorAll('.step-card').forEach(function(s){s.classList.remove('active');});
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
+}
+
+function setCopt(v){
+  contactPref=v;
+  document.getElementById('copt-wa').classList.toggle('on',v==='wa');
+  document.getElementById('copt-ll').classList.toggle('on',v==='ll');
+}
+
+function submitForm(){
+  var nombre=document.getElementById('f-nombre').value.trim();
+  var wa=document.getElementById('f-wa').value.trim();
+  if(!nombre||!wa||wa.length<10){
+    alert('Por favor completa tu nombre y WhatsApp para continuar.');
+    return;
+  }
+  var score=0;for(var k in scores) score+=scores[k];
+  var msg='Hola, completé el diagnóstico de inversión.\n\nNombre: '+nombre+'\nWhatsApp: '+wa+'\nScore: '+score+'/23\nContacto preferido: '+(contactPref==='wa'?'WhatsApp':'Llamada');
+  var waNum='527441752143';
+  // Registrar en CRM
+  var crmUrl='crm_caracol.html?nombre='+encodeURIComponent(nombre)+'&wa='+encodeURIComponent(wa)+'&fuente=Landing+Diagnostico';
+  var iframe=document.createElement('iframe');
+  iframe.style.display='none';
+  iframe.src=crmUrl;
+  document.body.appendChild(iframe);
+  setTimeout(function(){document.body.removeChild(iframe);},3000);
+  // Abrir WhatsApp
+  window.open('https://wa.me/'+waNum+'?text='+encodeURIComponent(msg),'_blank');
+  hideAll();
+  document.getElementById('screen-gracias').classList.add('active');
+}
+
+// Init
+updateProgress(1);
+</script>
+</body>
+</html>
