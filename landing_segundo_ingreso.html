@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Cómo generar un segundo ingreso con bienes raíces de playa?</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--navy:#0a1628;--slate:#1e3a52;--gold:#c49a3c;--gold2:#f0c96a;--cream:#faf7f2;--sand:#f0ece6;--white:#fff;--tx:#0c1c2c;--txm:#3a4a5a;--txl:#7a8a9a;--green:#1a7a4a;--serif:'Cormorant Garamond',Georgia,serif;--sans:'Jost',system-ui,sans-serif;}
+html,body{font-family:var(--sans);color:var(--tx);overflow-x:hidden;}
+.hero{background:var(--navy);min-height:100vh;display:flex;flex-direction:column;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(196,154,60,.14) 0%,transparent 60%),linear-gradient(180deg,#0a1628 0%,#071020 100%);}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(196,154,60,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(196,154,60,.025) 1px,transparent 1px);background-size:60px 60px;}
+.nav{position:relative;z-index:10;padding:1.25rem 2.5rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.05);}
+.nav-logo{font-size:12px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.3);}
+.nav-cta{background:var(--gold);color:var(--navy);font-size:12px;font-weight:700;padding:9px 20px;border-radius:6px;text-decoration:none;letter-spacing:.06em;text-transform:uppercase;}
+.hero-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:5rem 2rem 3rem;position:relative;z-index:2;}
+.hero-tag{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;display:flex;align-items:center;gap:12px;}
+.hero-tag::before,.hero-tag::after{content:'';width:28px;height:1px;background:var(--gold);opacity:.5;}
+.hero-title{font-family:var(--serif);font-size:clamp(38px,6.5vw,74px);font-weight:300;color:var(--white);line-height:1.08;margin-bottom:1.25rem;}
+.hero-title em{font-style:italic;color:var(--gold2);}
+.hero-sub{font-size:16px;font-weight:300;color:rgba(255,255,255,.6);max-width:560px;line-height:1.75;margin-bottom:2.5rem;}
+.hero-sub b{color:var(--gold2);font-weight:500;}
+.hero-cta-wrap{display:flex;gap:.875rem;flex-wrap:wrap;justify-content:center;margin-bottom:2.5rem;}
+.btn-primary{background:var(--gold);color:var(--navy);font-size:14px;font-weight:700;padding:16px 36px;border-radius:6px;text-decoration:none;letter-spacing:.06em;text-transform:uppercase;border:none;cursor:pointer;font-family:var(--sans);}
+.btn-ghost{background:rgba(255,255,255,.06);color:rgba(255,255,255,.75);font-size:14px;padding:16px 28px;border-radius:6px;text-decoration:none;border:1px solid rgba(255,255,255,.12);}
+.hero-trust{display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap;}
+.trust-item{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.4);}
+.trust-dot{width:4px;height:4px;border-radius:50%;background:var(--gold);}
+.trust-num{font-family:var(--serif);font-size:20px;color:var(--gold2);margin-right:3px;}
+.cities-bar{position:relative;z-index:2;background:rgba(255,255,255,.03);border-top:1px solid rgba(255,255,255,.05);padding:1rem 2rem;display:flex;align-items:center;justify-content:center;gap:.625rem;flex-wrap:wrap;}
+.city-label{font-size:10px;color:rgba(255,255,255,.25);letter-spacing:.1em;text-transform:uppercase;margin-right:.25rem;}
+.city-pill{font-size:11px;font-weight:500;color:rgba(255,255,255,.45);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:3px 11px;}
+.sec{padding:5rem 2rem;}
+.sec-inner{max-width:960px;margin:0 auto;}
+.sec-dark{background:var(--navy);}
+.sec-cream{background:var(--cream);}
+.sec-sand{background:var(--sand);}
+.sec-slate{background:#152638;}
+.lbl{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.875rem;display:flex;align-items:center;gap:8px;}
+.lbl::before{content:'';width:20px;height:1px;background:var(--gold);}
+.lbl-c{justify-content:center;}
+.lbl-c::before{display:none;}
+.h2{font-family:var(--serif);font-size:clamp(28px,4vw,46px);font-weight:300;line-height:1.15;margin-bottom:1.25rem;color:var(--tx);}
+.h2 em{font-style:italic;color:var(--gold);}
+.h2-lt{color:var(--white);}
+.h2-c{text-align:center;}
+.body-txt{font-size:15px;font-weight:300;color:var(--txm);line-height:1.85;max-width:640px;}
+.body-txt-lt{color:rgba(255,255,255,.6);}
+.dg{width:40px;height:2px;background:var(--gold);margin:1.5rem 0;}
+.dg-lt{background:rgba(196,154,60,.4);}
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem;}
+.step-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:2rem 1.75rem;}
+.step-num{font-family:var(--serif);font-size:48px;font-weight:300;color:rgba(196,154,60,.2);line-height:1;margin-bottom:.875rem;}
+.step-title{font-size:15px;font-weight:600;color:var(--white);margin-bottom:.5rem;}
+.step-desc{font-size:13px;color:rgba(255,255,255,.5);line-height:1.65;}
+.step-note{font-size:11px;color:var(--gold);margin-top:.875rem;font-style:italic;}
+.honesty-box{background:rgba(196,154,60,.06);border:1px solid rgba(196,154,60,.18);border-radius:14px;padding:2rem 2.25rem;margin-top:3rem;}
+.honesty-title{font-family:var(--serif);font-size:22px;color:var(--white);margin-bottom:.875rem;}
+.hi{display:flex;gap:12px;align-items:flex-start;margin-bottom:.75rem;}
+.hi:last-child{margin-bottom:0;}
+.hi-arr{color:var(--gold2);flex-shrink:0;font-size:14px;margin-top:1px;}
+.hi-txt{font-size:13px;color:rgba(255,255,255,.65);line-height:1.55;}
+.hi-txt strong{color:var(--white);}
+.track-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2.5rem;}
+.track-card{background:var(--white);border:0.5px solid rgba(0,0,0,.07);border-radius:12px;padding:1.5rem;text-align:center;}
+.track-num{font-family:var(--serif);font-size:36px;font-weight:300;color:var(--gold);line-height:1;margin-bottom:.3rem;}
+.track-label{font-size:11px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--txl);line-height:1.4;}
+.implica-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:start;margin-top:2.5rem;}
+.implica-col-title{font-family:var(--serif);font-size:20px;color:var(--white);margin-bottom:1.25rem;padding-bottom:.875rem;border-bottom:1px solid rgba(255,255,255,.08);}
+.ii{display:flex;gap:12px;align-items:flex-start;margin-bottom:.875rem;}
+.ii-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
+.ii-txt{font-size:13px;color:rgba(255,255,255,.6);line-height:1.55;}
+.ii-txt strong{color:var(--white);}
+.cta-band{background:var(--gold);padding:4rem 2rem;text-align:center;}
+.cta-band-title{font-family:var(--serif);font-size:clamp(26px,4vw,42px);font-weight:300;color:var(--navy);margin-bottom:.875rem;line-height:1.2;}
+.cta-band-title em{font-style:italic;}
+.cta-band-sub{font-size:15px;color:rgba(10,22,40,.6);margin-bottom:2rem;line-height:1.7;max-width:480px;margin-left:auto;margin-right:auto;}
+.btn-navy{background:var(--navy);color:var(--white);font-size:14px;font-weight:700;padding:16px 36px;border-radius:6px;text-decoration:none;letter-spacing:.06em;text-transform:uppercase;display:inline-block;}
+.caracol-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem;margin-top:2rem;}
+.c-card{background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.08);border-radius:14px;padding:1.75rem;display:flex;gap:14px;align-items:flex-start;}
+.c-icon{width:40px;height:40px;border-radius:10px;background:rgba(196,154,60,.12);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.c-title{font-size:14px;font-weight:600;color:var(--white);margin-bottom:4px;}
+.c-desc{font-size:12px;color:rgba(255,255,255,.5);line-height:1.6;}
+.units-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:2rem;}
+.unit-card{background:var(--white);border:0.5px solid rgba(0,0,0,.08);border-radius:12px;overflow:hidden;}
+.unit-top{background:var(--slate);padding:1rem 1.25rem;}
+.unit-tag{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:2px;}
+.unit-name{font-family:var(--serif);font-size:16px;color:var(--white);margin-bottom:4px;}
+.unit-price{font-family:var(--serif);font-size:20px;color:var(--gold2);}
+.unit-body{padding:.875rem 1.1rem;}
+.unit-row{display:flex;justify-content:space-between;font-size:12px;padding:4px 0;border-bottom:0.5px solid rgba(0,0,0,.04);color:var(--txm);}
+.unit-row:last-child{border-bottom:none;}
+.unit-row strong{color:var(--tx);font-weight:500;}
+.unit-note{font-size:10px;color:var(--txl);font-style:italic;margin-top:.5rem;line-height:1.5;}
+.est-box{background:rgba(196,154,60,.05);border:1px solid rgba(196,154,60,.15);border-radius:10px;padding:1rem 1.25rem;margin-top:1.5rem;font-size:12px;color:var(--txm);line-height:1.65;}
+.est-box strong{color:var(--tx);}
+.perfiles-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem;margin-top:2.5rem;}
+.perfil-card{border-radius:14px;padding:1.75rem;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.03);position:relative;overflow:hidden;}
+.perfil-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--gold);}
+.p-tag{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem;}
+.p-name{font-family:var(--serif);font-size:19px;color:var(--white);margin-bottom:.25rem;}
+.p-rol{font-size:12px;color:rgba(255,255,255,.35);margin-bottom:.75rem;}
+.p-quote{font-family:var(--serif);font-size:14px;font-style:italic;color:rgba(255,255,255,.65);line-height:1.55;margin-bottom:.75rem;padding-left:.875rem;border-left:1px solid rgba(196,154,60,.3);}
+.p-meta{font-size:11px;color:rgba(255,255,255,.3);}
+.market-note{background:rgba(0,0,0,.03);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:1rem 1.25rem;margin-bottom:1.75rem;font-size:12px;color:var(--txm);line-height:1.6;}
+.market-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.875rem;}
+.mkt-card{background:var(--white);border:0.5px solid rgba(0,0,0,.08);border-radius:10px;padding:1rem 1.1rem;text-decoration:none;transition:border-color .15s;display:block;}
+.mkt-card:hover{border-color:rgba(196,154,60,.35);}
+.mkt-name{font-size:13px;font-weight:600;color:var(--tx);margin-bottom:2px;}
+.mkt-info{font-size:11px;color:var(--txl);line-height:1.5;margin-bottom:.4rem;}
+.mkt-url{font-size:10px;color:var(--gold);}
+.form-layout{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+.sl-item{display:flex;gap:14px;align-items:flex-start;margin-bottom:1rem;}
+.sl-num{width:28px;height:28px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--navy);flex-shrink:0;}
+.sl-title{font-size:14px;font-weight:600;color:var(--white);margin-bottom:2px;}
+.sl-desc{font-size:12px;color:rgba(255,255,255,.5);line-height:1.5;}
+.sl-note{font-size:11px;color:var(--gold);margin-top:2px;font-style:italic;}
+.form-box{background:rgba(255,255,255,.04);border:1px solid rgba(196,154,60,.2);border-radius:16px;padding:2.25rem 2rem;}
+.form-title{font-family:var(--serif);font-size:24px;font-weight:300;color:var(--white);margin-bottom:.375rem;text-align:center;}
+.form-title em{font-style:italic;color:var(--gold2);}
+.form-sub{font-size:12px;color:rgba(255,255,255,.4);text-align:center;margin-bottom:1.5rem;line-height:1.6;}
+.finput{width:100%;font-family:var(--sans);font-size:14px;padding:13px 15px;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:8px;color:var(--white);outline:none;margin-bottom:.75rem;}
+.finput:focus{border-color:var(--gold);}
+.finput::placeholder{color:rgba(255,255,255,.3);}
+.submit-btn{width:100%;background:var(--gold);color:var(--navy);font-family:var(--sans);font-size:14px;font-weight:700;padding:16px;border:none;border-radius:8px;cursor:pointer;letter-spacing:.06em;text-transform:uppercase;}
+.form-trust{text-align:center;font-size:11px;color:rgba(255,255,255,.25);margin-top:.75rem;}
+.form-cierre{font-family:var(--serif);font-size:14px;font-style:italic;color:rgba(255,255,255,.4);text-align:center;margin-top:1.25rem;line-height:1.6;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,.06);}
+.wa-float{position:fixed;bottom:1.5rem;right:1.5rem;z-index:999;background:#25d366;color:#fff;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;text-decoration:none;box-shadow:0 4px 16px rgba(37,211,102,.4);}
+.footer{background:#060e1a;padding:2rem;text-align:center;border-top:1px solid rgba(255,255,255,.05);}
+.footer p{font-size:10px;color:rgba(255,255,255,.18);line-height:1.8;}
+@media(max-width:768px){.steps-grid,.track-grid,.caracol-grid,.units-grid,.perfiles-grid,.market-grid,.form-layout,.implica-grid{grid-template-columns:1fr;}.sec{padding:3.5rem 1.25rem;}.nav{padding:1rem 1.25rem;}.form-layout{gap:2rem;}}
+</style>
+</head>
+<body>
+
+<section class="hero" id="main-content">
+  <div class="hero-bg"></div><div class="hero-grid"></div>
+  <nav class="nav">
+    <div class="nav-logo">Bienes raíces · Zona Diamante</div>
+    <a href="#form-final" class="nav-cta">Sesión gratuita →</a>
+  </nav>
+  <div class="hero-body">
+    <div class="hero-tag">Idea de negocio · Inversión en playa</div>
+    <h1 class="hero-title">¿Cómo generar un<br><em>segundo ingreso</em><br>con bienes raíces de playa?</h1>
+    <p class="hero-sub">En <b>25–30 minutos</b> te damos toda la información para que evalúes si esta idea de negocio tiene sentido para ti — tienes mucho que ganar y poco que perders, con números reales. Nuestro único compromiso: darnos 25 minutos. Tienes mucho que ganar y poco que perder.</p>
+    <div class="hero-cta-wrap">
+      <a href="#form-final" class="btn-primary">Quiero evaluar esta idea →</a>
+      <a href="#como-funciona" class="btn-ghost">¿Cómo funciona? ↓</a>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-item"><div class="trust-dot"></div><span>Desarrollado con <span class="trust-num">Grupo Altozano</span></span></div>
+      <div class="trust-item"><div class="trust-dot"></div><span><span class="trust-num">+250</span> casas entregadas</span></div>
+      <div class="trust-item"><div class="trust-dot"></div><span>Zona Diamante · Acapulco</span></div>
+    </div>
+  </div>
+  <div class="cities-bar">
+    <span class="city-label">Compradores de</span>
+    <span class="city-pill">CDMX</span><span class="city-pill">Puebla</span><span class="city-pill">Morelos</span><span class="city-pill">Toluca</span><span class="city-pill">Chilpancingo</span><span class="city-pill">Texas</span><span class="city-pill">California</span><span class="city-pill">+ donde estés tú</span>
+  </div>
+</section>
+
+<!-- CÓMO FUNCIONA -->
+<section class="sec sec-dark" id="como-funciona">
+<div class="sec-inner">
+  <div class="lbl">La idea de negocio</div>
+  <h2 class="h2 h2-lt">Un modelo que tú<br><em>tendrás que desarrollar.</em></h2>
+  <div class="dg dg-lt"></div>
+  <p class="body-txt body-txt-lt">Esta no es una inversión pasiva donde alguien más lo hace todo. Es una idea de negocio que tú — o tu familia — tendrán que construir y operar. Lo que te ofrecemos es la información, el activo y el marco. El resto es tuyo.</p>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">01</div>
+      <div class="step-title">Adquieres el activo</div>
+      <div class="step-desc">Compras una propiedad en Zona Diamante, Acapulco — una de las zonas con mayor plusvalía documentada del Pacífico mexicano. Con financiamiento o recursos propios.</div>
+      <div class="step-note">→ Aquí es donde participamos nosotros</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">02</div>
+      <div class="step-title">Desarrollas tu modelo de renta</div>
+      <div class="step-desc">Tú decides cómo operar: lo administras tú mismo, lo operan tus hijos, tu pareja o un operador local. El negocio es tuyo — la propiedad también.</div>
+      <div class="step-note">→ Esta parte la desarrollas tú</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">03</div>
+      <div class="step-title">El activo trabaja para ti</div>
+      <div class="step-desc">Con los estimados de mercado, ~14 noches de renta al mes cubren prácticamente la mensualidad. Las otras 16 noches son tuyas o generan más. A largo plazo, la plusvalía construye patrimonio.</div>
+      <div class="step-note">→ Proyecciones estimadas — tú las validas</div>
+    </div>
+  </div>
+  <div class="honesty-box">
+    <div class="honesty-title">Lo que hay que tener claro desde el principio</div>
+    <div class="hi"><div class="hi-arr">→</div><div class="hi-txt"><strong>Nosotros no administramos tu propiedad.</strong> Te presentamos la oportunidad de inversión — la operación del negocio de renta la decides y desarrollas tú.</div></div>
+    <div class="hi"><div class="hi-arr">→</div><div class="hi-txt"><strong>Los números que verás son estimados de mercado.</strong> Basados en comparables de Zona Diamante. No son una garantía. Valídalos con tu asesor financiero.</div></div>
+    <div class="hi"><div class="hi-arr">→</div><div class="hi-txt"><strong>Es una idea de negocio, no un producto terminado.</strong> Tendrás que tomar decisiones: quién opera, cómo fijar precios, cómo conseguir huéspedes. Nosotros te damos el activo y el marco.</div></div>
+    <div class="hi"><div class="hi-arr">→</div><div class="hi-txt"><strong>Al final de la sesión te presentamos nuestra propuesta concreta.</strong> Un desarrollo en Zona Diamante construido por Grupo Altozano — como vehículo para desarrollar esta idea.</div></div>
+  </div>
+</div>
+</section>
+
+<!-- TRACK RECORD -->
+<section class="sec sec-cream">
+<div class="sec-inner">
+  <div class="lbl">¿Por qué confiar en esta propuesta?</div>
+  <h2 class="h2">Grupo Altozano.<br><em>Obra entregada, no promesas.</em></h2>
+  <div class="dg"></div>
+  <p class="body-txt">El desarrollo que te vamos a presentar está construido por Grupo Altozano — trayectoria documentada, no solo renders. Terreno libre de deuda desde el día uno.</p>
+  <div class="track-grid">
+    <div class="track-card"><div class="track-num">+250</div><div class="track-label">Casas y unidades<br>entregadas</div></div>
+    <div class="track-card"><div class="track-num">51</div><div class="track-label">Unidades en<br>Zona Diamante</div></div>
+    <div class="track-card"><div class="track-num">21</div><div class="track-label">Familias selectas<br>en el desarrollo</div></div>
+    <div class="track-card"><div class="track-num">$0</div><div class="track-label">Deuda sobre<br>el terreno</div></div>
+  </div>
+</div>
+</section>
+
+<!-- CTA 1 -->
+<div class="cta-band">
+  <h2 class="cta-band-title">¿Esta idea de negocio<br><em>tiene sentido para ti?</em></h2>
+  <p class="cta-band-sub">En 25–30 minutos te damos toda la información para evaluarlo. Nuestro único compromiso es que nos des 25 minutos. Tienes mucho que ganar y poco que perder. Al final decides si quieres conocer nuestra propuesta concreta.</p>
+  <a href="#form-final" class="btn-navy">Agendar sesión de evaluación →</a>
+</div>
+
+<!-- LO QUE IMPLICA -->
+<section class="sec sec-slate">
+<div class="sec-inner">
+  <div class="lbl">Antes de decidir</div>
+  <h2 class="h2 h2-lt">Lo que sí implica<br><em>y lo que no.</em></h2>
+  <div class="dg dg-lt"></div>
+  <div class="implica-grid">
+    <div>
+      <div class="implica-col-title">✅ Lo que sí es este negocio</div>
+      <div class="ii"><div class="ii-icon">🏖</div><div class="ii-txt"><strong>Un activo real con escritura.</strong> Propiedad tuya, a tu nombre o a nombre de tu empresa. Vendible y heredable.</div></div>
+      <div class="ii"><div class="ii-icon">📈</div><div class="ii-txt"><strong>Un segundo ingreso que tú construyes.</strong> Renta vacacional como negocio familiar o con apoyo de un operador local.</div></div>
+      <div class="ii"><div class="ii-icon">🌊</div><div class="ii-txt"><strong>Un lugar tuyo en la playa.</strong> Que usas cuando quieres y que trabaja cuando no estás — tú controlas el calendario.</div></div>
+      <div class="ii"><div class="ii-icon">💼</div><div class="ii-txt"><strong>Un activo que se hereda.</strong> Con plusvalía proyectada del 8% anual en el corredor de los próximos 15 a 20 años.</div></div>
+    </div>
+    <div>
+      <div class="implica-col-title">❌ Lo que no es este negocio</div>
+      <div class="ii"><div class="ii-icon">🚫</div><div class="ii-txt"><strong>No es administración delegada automática.</strong> Nosotros no operamos tu propiedad. Tú decides quién lo hace y cómo.</div></div>
+      <div class="ii"><div class="ii-icon">🚫</div><div class="ii-txt"><strong>No son rendimientos garantizados.</strong> Las proyecciones son estimados de mercado. No hay garantía de ocupación ni de precio.</div></div>
+      <div class="ii"><div class="ii-icon">🚫</div><div class="ii-txt"><strong>No es un negocio que se opera solo.</strong> Requiere tus decisiones y tu compromiso para funcionar bien.</div></div>
+      <div class="ii"><div class="ii-icon">🚫</div><div class="ii-txt"><strong>No es para todo el mundo.</strong> Si buscas algo completamente pasivo sin involucrarte, este modelo no es para ti.</div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- LA PROPUESTA -->
+<section class="sec sec-dark">
+<div class="sec-inner">
+  <div class="lbl">La propuesta concreta</div>
+  <h2 class="h2 h2-lt">El vehículo para<br><em>desarrollar esta idea.</em></h2>
+  <div class="dg dg-lt"></div>
+  <p class="body-txt body-txt-lt">Si después de la sesión decides que esta idea es para ti, te presentamos una propuesta concreta: un desarrollo boutique en Zona Diamante, Acapulco, construido por uno de los grupos inmobiliarios con mayor trayectoria en México.<br><br>El nombre, la ubicación exacta, los precios y la disponibilidad te los compartimos en tu sesión — para poder explicarte el contexto completo antes de que evalúes.</p>
+  <div class="caracol-grid">
+    <div class="c-card"><div class="c-icon">🏗️</div><div><div class="c-title">Constructor Grupo Altozano</div><div class="c-desc">Obra entregada, trayectoria documentada, terreno libre de deuda desde el día uno.</div></div></div>
+    <div class="c-card"><div class="c-icon">👨‍👩‍👧‍👦</div><div><div class="c-title">21 familias — exclusividad real</div><div class="c-desc">No es un macro-desarrollo de 200 unidades. Son 21 familias que cuidan el estándar juntas.</div></div></div>
+    <div class="c-card"><div class="c-icon">📋</div><div><div class="c-title">Escritura individual</div><div class="c-desc">A tu nombre o persona moral. No es timeshare ni fideicomiso colectivo. Es tuyo.</div></div></div>
+    <div class="c-card"><div class="c-icon">📍</div><div><div class="c-title">Blvd. de las Naciones · Zona Diamante</div><div class="c-desc">5 min de playa · 12 min del aeropuerto · Hoteles de cadenas internacionales en el corredor.</div></div></div>
+  </div>
+
+  <h3 style="font-family:var(--serif);font-size:22px;font-weight:400;color:var(--white);margin-top:3rem;margin-bottom:.5rem;">Las unidades disponibles</h3>
+  <p style="font-size:13px;color:rgba(255,255,255,.4);margin-bottom:1.5rem;">Todos los números son <strong style="color:var(--gold);">estimados de mercado</strong> — los revisamos en vivo en tu sesión.</p>
+  <div class="units-grid">
+    <div class="unit-card">
+      <div class="unit-top"><div class="unit-tag">Nivel 1 y 2</div><div class="unit-name">Condo 2 recámaras</div><div class="unit-price">$3,200,000 MXN</div></div>
+      <div class="unit-body">
+        <div class="unit-row"><span>Superficie</span><strong>92 m²</strong></div>
+        <div class="unit-row"><span>Renta / noche est.</span><strong>~$2,500</strong></div>
+        <div class="unit-row"><span>Mensualidad est. (10.5% · 12 años)</span><strong>~$34,054</strong></div>
+        <div class="unit-row"><span>Noches est. para cubrir mensualidad</span><strong style="color:var(--green);">~14 noches</strong></div>
+        <div class="unit-row"><span>Enganche (10%)</span><strong>$320,000</strong></div>
+        <div class="unit-note">* Estimado con base en comparables Zona Diamante 2024. No garantizado.</div>
+      </div>
+    </div>
+    <div class="unit-card">
+      <div class="unit-top" style="background:#1e3a52;"><div class="unit-tag">Roof Garden</div><div class="unit-name">Roof Garden 2 recámaras</div><div class="unit-price">$3,620,000 MXN</div></div>
+      <div class="unit-body">
+        <div class="unit-row"><span>Superficie</span><strong>150 m²</strong></div>
+        <div class="unit-row"><span>Renta / noche est.</span><strong>~$2,800</strong></div>
+        <div class="unit-row"><span>Mensualidad est. (10.5% · 12 años)</span><strong>~$38,527</strong></div>
+        <div class="unit-row"><span>Noches est. para cubrir mensualidad</span><strong style="color:var(--green);">~14 noches</strong></div>
+        <div class="unit-row"><span>Enganche (10%)</span><strong>$362,000</strong></div>
+        <div class="unit-note">* Estimado con base en comparables Zona Diamante 2024. No garantizado.</div>
+      </div>
+    </div>
+    <div class="unit-card">
+      <div class="unit-top" style="background:#2d4a3e;"><div class="unit-tag">Villa Arena</div><div class="unit-name">Villa Arena Loft</div><div class="unit-price">$3,575,000 MXN</div></div>
+      <div class="unit-body">
+        <div class="unit-row"><span>Superficie</span><strong>110 m²</strong></div>
+        <div class="unit-row"><span>Renta / noche est.</span><strong>~$2,800</strong></div>
+        <div class="unit-row"><span>Mensualidad est. (10.5% · 12 años)</span><strong>~$38,054</strong></div>
+        <div class="unit-row"><span>Noches est. para cubrir mensualidad</span><strong style="color:var(--green);">~14 noches</strong></div>
+        <div class="unit-row"><span>Enganche (10%)</span><strong>$357,500</strong></div>
+        <div class="unit-note">* Estimado con base en comparables Zona Diamante 2024. No garantizado.</div>
+      </div>
+    </div>
+    <div class="unit-card">
+      <div class="unit-top" style="background:#3a2a1e;"><div class="unit-tag">Roof Garden Premium</div><div class="unit-name">Roof Garden 3 recámaras</div><div class="unit-price">$4,580,000 MXN</div></div>
+      <div class="unit-body">
+        <div class="unit-row"><span>Superficie</span><strong>195 m²</strong></div>
+        <div class="unit-row"><span>Renta / noche est.</span><strong>~$3,600</strong></div>
+        <div class="unit-row"><span>Mensualidad est. (10.5% · 12 años)</span><strong>~$48,736</strong></div>
+        <div class="unit-row"><span>Noches est. para cubrir mensualidad</span><strong style="color:var(--green);">~14 noches</strong></div>
+        <div class="unit-row"><span>Enganche (10%)</span><strong>$458,000</strong></div>
+        <div class="unit-note">* Estimado con base en comparables Zona Diamante 2024. No garantizado.</div>
+      </div>
+    </div>
+  </div>
+  <div class="est-box"><strong>Nota sobre los estimados:</strong> Las rentas nocturnas, mensualidades y proyecciones son estimaciones de mercado basadas en comparables de Zona Diamante y condiciones de financiamiento vigentes. No constituyen garantía de rendimiento. Te recomendamos validarlos con tu asesor financiero antes de decidir.</div>
+</div>
+</section>
+
+<!-- CTA 2 -->
+<div class="cta-band">
+  <h2 class="cta-band-title">¿Listo para ver<br><em>los números en vivo?</em></h2>
+  <p class="cta-band-sub">Agenda tu sesión. Abrimos el cotizador con tu unidad, tu tasa y tu plazo — y tú decides si tiene sentido para tu familia.</p>
+  <a href="#form-final" class="btn-navy">Agendar mi sesión de 25 min →</a>
+</div>
+
+<!-- PARA QUIÉN -->
+<section class="sec sec-dark">
+<div class="sec-inner">
+  <div class="lbl">¿Para quién tiene sentido?</div>
+  <h2 class="h2 h2-lt">Cuatro perfiles que<br><em>han encontrado valor aquí.</em></h2>
+  <div class="dg dg-lt"></div>
+  <div class="perfiles-grid">
+    <div class="perfil-card">
+      <div class="p-tag">Perfil 01 · Inversionista</div>
+      <div class="p-name">El que busca rendimiento</div>
+      <div class="p-rol">Empresario · $3.4M–$8M · CDMX, GDL, MTY</div>
+      <div class="p-quote">"Si el metro cuadrado tiene sentido y la renta paga sola, entro."</div>
+      <div class="p-meta">Decide en 2–6 semanas · Ya tiene 1–3 propiedades previas</div>
+    </div>
+    <div class="perfil-card">
+      <div class="p-tag">Perfil 02 · Vacacional + Renta</div>
+      <div class="p-name">El que quiere un lugar propio</div>
+      <div class="p-rol">Profesionista · Enganche $500K–$1.5M · Decide en pareja</div>
+      <div class="p-quote">"Quiero un lugar mío en la playa que se pague solo cuando no estoy."</div>
+      <div class="p-meta">Decide en 4–10 semanas · Uso familiar + renta</div>
+    </div>
+    <div class="perfil-card">
+      <div class="p-tag">Perfil 03 · Negocio familiar</div>
+      <div class="p-name">El que lo convierte en empresa</div>
+      <div class="p-rol">Familia con visión de negocio · Capital $500K–$2M</div>
+      <div class="p-quote">"Queremos un activo que nuestros hijos aprendan a operar como negocio real."</div>
+      <div class="p-meta">Ve la propiedad como negocio familiar a desarrollar</div>
+    </div>
+    <div class="perfil-card">
+      <div class="p-tag">Perfil 04 · Corporativo</div>
+      <div class="p-name">El activo patrimonial</div>
+      <div class="p-rol">Empresa o familia empresaria · $4M–$15M+ · Persona moral</div>
+      <div class="p-quote">"Buscamos diversificar el patrimonio de la empresa con un activo real."</div>
+      <div class="p-meta">Decide en 6–16 semanas · 1–3 unidades posibles</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- MERCADO -->
+<section class="sec sec-cream">
+<div class="sec-inner">
+  <div class="lbl">Investiga por tu cuenta</div>
+  <h2 class="h2">Otras opciones en<br><em>Zona Diamante.</em></h2>
+  <div class="dg"></div>
+  <p class="body-txt" style="margin-bottom:1.5rem;">Antes de decidir, conoce todas las opciones. Una buena decisión se toma con información completa.</p>
+  <div class="market-note">Información obtenida de los sitios web oficiales de cada desarrollo y portales públicos. No representamos estos proyectos ni emitimos juicios sobre ellos.</div>
+  <div class="market-grid">
+    <a href="https://ara.com.mx" target="_blank" class="mkt-card"><div class="mkt-name">Dream Diamante · ARA</div><div class="mkt-info">Desde $3.4M · Club de playa · Infonavit</div><div class="mkt-url">↗ ara.com.mx</div></a>
+    <a href="https://palmdiamante.mx" target="_blank" class="mkt-card"><div class="mkt-name">Palm Diamante</div><div class="mkt-info">Desde $4.9M · 12 torres · 200m de playa</div><div class="mkt-url">↗ palmdiamante.mx</div></a>
+    <a href="https://www.peninsula.mx" target="_blank" class="mkt-card"><div class="mkt-name">Maroa Diamante · Península</div><div class="mkt-info">Desde $3.5M · 240 unidades · Beach club</div><div class="mkt-url">↗ peninsula.mx</div></a>
+    <a href="https://www.olympiaresidencial.com" target="_blank" class="mkt-card"><div class="mkt-name">Olympia Residencial</div><div class="mkt-info">Desde $4.1M · 36 unidades boutique</div><div class="mkt-url">↗ olympiaresidencial.com</div></a>
+    <a href="https://vidamarresidencial.com" target="_blank" class="mkt-card"><div class="mkt-name">Vidamar Residencial</div><div class="mkt-info">Desde $4.6M · Club de playa privado</div><div class="mkt-url">↗ vidamarresidencial.com</div></a>
+    <a href="https://www.vivanuncios.com.mx/s-venta-inmuebles/acapulco-de-juarez/desarrollo/v1c1097l10367a1dgp1" target="_blank" class="mkt-card"><div class="mkt-name">Ver más desarrollos</div><div class="mkt-info">Directorio completo Zona Diamante</div><div class="mkt-url">↗ vivanuncios.com.mx</div></a>
+  </div>
+</div>
+</section>
+
+<!-- FORM FINAL -->
+<section class="sec sec-dark" id="form-final">
+<div class="sec-inner">
+  <div style="text-align:center;margin-bottom:3rem;">
+    <div class="lbl lbl-c">Sesión de evaluación · Sin costo · 25–30 min</div>
+    <h2 class="h2 h2-lt h2-c" style="max-width:520px;margin:0 auto;">¿Qué vas a obtener<br><em>en tu sesión?</em></h2>
+  </div>
+  <div class="form-layout">
+    <div>
+      <div class="sl-item"><div class="sl-num">1</div><div><div class="sl-title">Un panorama real del mercado</div><div class="sl-desc">Opciones disponibles en Zona Diamante hoy — precios, desarrollos y diferencias reales.</div></div></div>
+      <div class="sl-item"><div class="sl-num">2</div><div><div class="sl-title">Cómo funciona la idea de negocio</div><div class="sl-desc">El modelo de renta vacacional en playa — lo que implica, lo que requiere y lo que genera estimado.</div></div></div>
+      <div class="sl-item"><div class="sl-num">3</div><div><div class="sl-title">Una propuesta concreta de inversión</div><div class="sl-desc">Te presentamos un desarrollo boutique en Zona Diamante, Acapulco, construido por uno de los grupos inmobiliarios con mayor trayectoria en México. El nombre, ubicación exacta y disponibilidad te los compartimos en tu sesión.</div><div class="sl-note">Así podemos explicarte el contexto completo antes de que evalúes.</div></div></div>
+      <div class="sl-item"><div class="sl-num">4</div><div><div class="sl-title">Los números estimados de tu unidad</div><div class="sl-desc">Renta, mensualidad, noches necesarias y proyección a 5, 10 y 20 años — para que los valides con tu asesor.</div></div></div>
+      <div class="sl-item"><div class="sl-num">5</div><div><div class="sl-title">Una decisión informada</div><div class="sl-desc">Al final sabrás si esta idea tiene sentido para tu situación. Con información real, no con entusiasmo.</div></div></div>
+    </div>
+    <div class="form-box">
+      <h3 class="form-title">Agenda tu sesión<br><em>de evaluación</em></h3>
+      <p class="form-sub">25–30 minutos · Por videollamada · Sin costo · Tienes mucho que ganar y poco que perder</p>
+      <input type="text" id="f-nombre" class="finput" placeholder="Tu nombre completo" />
+      <input type="tel" id="f-wa" class="finput" placeholder="WhatsApp (10 dígitos)" maxlength="10" />
+      <button class="submit-btn" onclick="submitForm()">QUIERO EVALUAR ESTA IDEA →</button>
+      <div class="form-trust">🔒 Tu información es privada. Sin spam.</div>
+      <div class="form-cierre">"Al final de la sesión, si no es el momento correcto para ti, te habrás ahorrado meses de investigación. Si sí lo es, sabrás exactamente por qué."</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="footer"><p>Desarrollo boutique · Zona Diamante, Acapulco, Guerrero<br>Construido por Grupo Altozano<br>Este material es informativo. Todas las proyecciones, rentas y estimados son referenciales y no constituyen garantía de rendimiento.<br>Se recomienda validar todos los números con un asesor financiero independiente antes de tomar decisiones de inversión.<br>Información de desarrollos de terceros obtenida de sus sitios oficiales. No emitimos juicios sobre proyectos de terceros.</p></div>
+
+<a href="https://wa.me/527441752143?text=Hola,%20quiero%20evaluar%20la%20idea%20de%20negocio%20de%20bienes%20raíces%20en%20Zona%20Diamante,%20Acapulco." target="_blank" class="wa-float">💬</a>
+
+<div id="gracias" style="display:none;min-height:100vh;background:var(--navy);align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:2rem;">
+  <div style="font-size:56px;margin-bottom:1.25rem;">✓</div>
+  <h2 style="font-family:var(--serif);font-size:clamp(26px,5vw,44px);font-weight:300;color:var(--white);margin-bottom:.875rem;">¡Listo!<br><em style="font-style:italic;color:var(--gold2);">Tu sesión está reservada.</em></h2>
+  <p style="font-size:15px;color:rgba(255,255,255,.5);line-height:1.75;max-width:420px;margin:0 auto 2rem;">En los próximos minutos te contactamos por WhatsApp para confirmar fecha y hora. Prepara tus preguntas.</p>
+  <div style="display:flex;gap:.875rem;flex-wrap:wrap;justify-content:center;">
+    <a href="https://wa.me/527441752143" target="_blank" style="display:inline-flex;align-items:center;gap:10px;background:#25d366;color:#fff;font-size:14px;font-weight:600;padding:14px 28px;border-radius:8px;text-decoration:none;">💬 Escríbenos por WhatsApp</a>
+    <a href="https://wa.me/527441752143?text=Hola%20Karina%2C%20quiero%20agendar%20mi%20sesi%C3%B3n%20de%20evaluaci%C3%B3n" target="_blank" style="display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:var(--white);font-size:14px;padding:14px 28px;border-radius:8px;text-decoration:none;">📅 Agendar en Calendar</a>
+  </div>
+</div>
+
+<script>
+function submitForm(){
+  var nombre=document.getElementById('f-nombre').value.trim();
+  var wa=document.getElementById('f-wa').value.trim();
+  if(!nombre||wa.length<10){alert('Por favor completa tu nombre y WhatsApp para continuar.');return;}
+  var msg='Hola, quiero evaluar la idea de negocio de bienes raíces en Zona Diamante.\n\nNombre: '+nombre+'\nWhatsApp: '+wa;
+  var crmUrl='crm_caracol.html?nombre='+encodeURIComponent(nombre)+'&wa='+encodeURIComponent(wa)+'&fuente=Landing+V3';
+  var iframe=document.createElement('iframe');iframe.style.display='none';iframe.src=crmUrl;
+  document.body.appendChild(iframe);setTimeout(function(){document.body.removeChild(iframe);},3000);
+  window.open('https://wa.me/527441752143?text='+encodeURIComponent(msg),'_blank');
+  document.getElementById('main-content').style.display='none';
+  document.querySelectorAll('section,.cta-band,.footer,.wa-float').forEach(function(el){el.style.display='none';});
+  var g=document.getElementById('gracias');g.style.display='flex';
+}
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click',function(e){var t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}});
+});
+</script>
+</body>
+</html>
