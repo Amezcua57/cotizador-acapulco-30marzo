@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tu Ciudad · Tu Ventaja · Acapulco Zona Diamante</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --ocean:#0a2236;--ocean2:#0f3352;--turquesa:#1a8a7a;--turquesa2:#22b09c;
+  --arena:#f5e6c8;--arena2:#edddb0;--blanco:#fff;--dorado:#c8952a;--dorado2:#f0b73a;
+  --tx:#1a1a1a;--txm:#444;--txl:#888;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+html,body{font-family:var(--sans);color:var(--tx);overflow-x:hidden;}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  background:var(--ocean);
+  position:relative;
+  overflow:hidden;
+  display:flex;flex-direction:column;
+}
+.hero-waves{
+  position:absolute;bottom:0;left:0;right:0;height:200px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 200'%3E%3Cpath fill='%23f5e6c8' fill-opacity='0.08' d='M0,100 C360,180 720,20 1440,100 L1440,200 L0,200 Z'/%3E%3Cpath fill='%231a8a7a' fill-opacity='0.15' d='M0,140 C480,60 960,180 1440,140 L1440,200 L0,200 Z'/%3E%3C/svg%3E");
+  background-size:cover;
+}
+.hero-stars{position:absolute;inset:0;background-image:radial-gradient(1px 1px at 20% 15%,rgba(255,255,255,.4) 0%,transparent 100%),radial-gradient(1px 1px at 80% 25%,rgba(255,255,255,.3) 0%,transparent 100%),radial-gradient(1px 1px at 50% 10%,rgba(255,255,255,.2) 0%,transparent 100%),radial-gradient(2px 2px at 35% 40%,rgba(240,183,58,.4) 0%,transparent 100%);}
+
+.nav{position:relative;z-index:10;padding:1.5rem 2.5rem;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{font-family:var(--serif);font-size:13px;color:var(--dorado2);letter-spacing:.15em;text-transform:uppercase;}
+.nav-cta{background:var(--turquesa);color:var(--blanco);font-size:12px;font-weight:600;padding:10px 22px;border-radius:30px;text-decoration:none;letter-spacing:.06em;transition:all .2s;}
+.nav-cta:hover{background:var(--turquesa2);transform:translateY(-1px);}
+
+.hero-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4rem 2rem 6rem;position:relative;z-index:2;}
+
+.hero-pretag{display:inline-flex;align-items:center;gap:10px;background:rgba(26,138,122,.15);border:1px solid rgba(26,138,122,.3);border-radius:30px;padding:6px 18px;font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--turquesa2);margin-bottom:2rem;}
+.hero-pretag::before{content:'🌊';}
+
+.hero-title{font-family:var(--serif);font-size:clamp(36px,6.5vw,78px);font-weight:700;color:var(--blanco);line-height:1.05;margin-bottom:1.5rem;}
+.hero-title span{color:var(--dorado2);display:block;font-style:italic;}
+.hero-title em{color:var(--turquesa2);font-style:normal;}
+
+.hero-sub{font-size:17px;font-weight:300;color:rgba(255,255,255,.65);max-width:580px;line-height:1.8;margin-bottom:2.5rem;}
+.hero-sub strong{color:var(--arena);font-weight:500;}
+
+.hero-cta-wrap{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-bottom:3rem;}
+.btn-main{background:var(--dorado);color:var(--ocean);font-size:15px;font-weight:700;padding:18px 40px;border-radius:50px;text-decoration:none;letter-spacing:.04em;transition:all .2s;border:none;cursor:pointer;font-family:var(--sans);}
+.btn-main:hover{background:var(--dorado2);transform:translateY(-2px);box-shadow:0 8px 30px rgba(200,149,42,.3);}
+.btn-sec{background:rgba(255,255,255,.08);color:rgba(255,255,255,.8);font-size:14px;font-weight:400;padding:18px 30px;border-radius:50px;text-decoration:none;border:1px solid rgba(255,255,255,.15);transition:all .2s;}
+.btn-sec:hover{background:rgba(255,255,255,.12);}
+
+.hero-stats{display:flex;gap:0;border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;background:rgba(255,255,255,.03);}
+.hs{padding:1.25rem 2rem;text-align:center;border-right:1px solid rgba(255,255,255,.08);}
+.hs:last-child{border-right:none;}
+.hs-n{font-family:var(--serif);font-size:32px;font-weight:700;color:var(--dorado2);line-height:1;margin-bottom:.3rem;}
+.hs-l{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.35);line-height:1.4;}
+
+/* ── SECCIONES ── */
+.sec{padding:5rem 2rem;}
+.sec-inner{max-width:960px;margin:0 auto;}
+.sec-ocean{background:var(--ocean);}
+.sec-arena{background:var(--arena);}
+.sec-blanco{background:var(--blanco);}
+.sec-ocean2{background:var(--ocean2);}
+
+.lbl{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--dorado);margin-bottom:.875rem;display:flex;align-items:center;gap:8px;}
+.lbl::before{content:'';width:24px;height:2px;background:var(--dorado);}
+.lbl-turq{color:var(--turquesa2);}
+.lbl-turq::before{background:var(--turquesa2);}
+
+.h2{font-family:var(--serif);font-size:clamp(30px,4vw,50px);font-weight:700;line-height:1.12;margin-bottom:1.25rem;color:var(--tx);}
+.h2 em{font-style:italic;color:var(--dorado);}
+.h2 span{color:var(--turquesa);}
+.h2-lt{color:var(--blanco);}
+.h2-lt em{color:var(--dorado2);}
+.h2-lt span{color:var(--turquesa2);}
+
+.body-txt{font-size:16px;font-weight:300;color:var(--txm);line-height:1.85;max-width:640px;}
+.body-txt-lt{color:rgba(255,255,255,.65);}
+.div-gold{width:48px;height:3px;background:var(--dorado);margin:1.5rem 0;border-radius:2px;}
+.div-turq{background:var(--turquesa);}
+
+/* ── LAS 3 VERDADES ── */
+.verdades-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem;}
+.verdad-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:2rem;position:relative;overflow:hidden;transition:border-color .2s;}
+.verdad-card:hover{border-color:rgba(26,138,122,.4);}
+.verdad-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--turquesa),var(--dorado));}
+.verdad-num{font-family:var(--serif);font-size:52px;font-weight:700;color:rgba(240,183,58,.15);line-height:1;margin-bottom:.875rem;}
+.verdad-title{font-size:16px;font-weight:600;color:var(--blanco);margin-bottom:.625rem;}
+.verdad-desc{font-size:13px;color:rgba(255,255,255,.55);line-height:1.65;}
+
+/* ── CTA BAND ── */
+.cta-band{background:linear-gradient(135deg,var(--turquesa) 0%,var(--ocean2) 100%);padding:4rem 2rem;text-align:center;}
+.cta-band-title{font-family:var(--serif);font-size:clamp(28px,4vw,46px);font-weight:700;color:var(--blanco);margin-bottom:.875rem;line-height:1.2;}
+.cta-band-title em{font-style:italic;color:var(--dorado2);}
+.cta-band-sub{font-size:16px;color:rgba(255,255,255,.7);margin-bottom:2rem;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.7;}
+.btn-arena{background:var(--arena);color:var(--ocean);font-size:15px;font-weight:700;padding:18px 40px;border-radius:50px;text-decoration:none;letter-spacing:.04em;display:inline-block;transition:all .2s;}
+.btn-arena:hover{background:var(--arena2);transform:translateY(-2px);}
+
+/* ── PARA QUIÉN ── */
+.quien-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem;margin-top:2.5rem;}
+.quien-card{background:var(--blanco);border:0.5px solid rgba(0,0,0,.08);border-radius:14px;padding:1.75rem;display:flex;gap:14px;align-items:flex-start;transition:box-shadow .2s;}
+.quien-card:hover{box-shadow:0 8px 30px rgba(0,0,0,.08);}
+.quien-icon{width:44px;height:44px;border-radius:12px;background:rgba(26,138,122,.1);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.quien-title{font-size:15px;font-weight:600;color:var(--ocean);margin-bottom:.375rem;}
+.quien-desc{font-size:13px;color:var(--txm);line-height:1.6;}
+
+/* ── FORM ── */
+.form-wrap{max-width:520px;margin:0 auto;}
+.form-box{background:rgba(255,255,255,.05);border:1px solid rgba(240,183,58,.2);border-radius:20px;padding:2.5rem 2rem;}
+.form-title{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--blanco);margin-bottom:.5rem;text-align:center;}
+.form-title em{font-style:italic;color:var(--dorado2);}
+.form-sub{font-size:13px;color:rgba(255,255,255,.45);text-align:center;margin-bottom:1.75rem;line-height:1.6;}
+.finput{width:100%;font-family:var(--sans);font-size:14px;padding:14px 16px;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.12);border-radius:10px;color:var(--blanco);outline:none;margin-bottom:.75rem;transition:border-color .2s;}
+.finput:focus{border-color:var(--dorado);}
+.finput::placeholder{color:rgba(255,255,255,.3);}
+.submit-btn{width:100%;background:var(--dorado);color:var(--ocean);font-family:var(--sans);font-size:15px;font-weight:700;padding:17px;border:none;border-radius:10px;cursor:pointer;letter-spacing:.04em;transition:all .2s;}
+.submit-btn:hover{background:var(--dorado2);transform:translateY(-1px);}
+.form-trust{text-align:center;font-size:11px;color:rgba(255,255,255,.3);margin-top:.875rem;}
+.form-cierre{font-family:var(--serif);font-size:15px;font-style:italic;color:rgba(255,255,255,.45);text-align:center;margin-top:1.25rem;line-height:1.6;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,.07);}
+
+/* ── WA FLOTANTE ── */
+.wa-float{position:fixed;bottom:1.5rem;right:1.5rem;z-index:999;background:#25d366;color:#fff;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,.4);transition:transform .2s;}
+.wa-float:hover{transform:scale(1.08);}
+
+/* ── FOOTER ── */
+.footer{background:#050f1a;padding:2rem;text-align:center;border-top:1px solid rgba(255,255,255,.05);}
+.footer p{font-size:11px;color:rgba(255,255,255,.2);line-height:1.8;}
+
+/* ── GRACIAS ── */
+#gracias{display:none;min-height:100vh;background:var(--ocean);align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:2rem;}
+.g-icon{font-size:60px;margin-bottom:1.25rem;}
+.g-title{font-family:var(--serif);font-size:clamp(28px,5vw,48px);font-weight:700;color:var(--blanco);margin-bottom:.875rem;}
+.g-title em{font-style:italic;color:var(--dorado2);}
+.g-sub{font-size:16px;color:rgba(255,255,255,.55);max-width:420px;margin:0 auto 2rem;line-height:1.75;}
+.g-btns{display:flex;gap:.875rem;flex-wrap:wrap;justify-content:center;}
+.g-wa{display:inline-flex;align-items:center;gap:10px;background:#25d366;color:#fff;font-size:14px;font-weight:600;padding:14px 30px;border-radius:50px;text-decoration:none;}
+
+@media(max-width:768px){
+  .verdades-grid,.quien-grid{grid-template-columns:1fr;}
+  .hero-stats{flex-wrap:wrap;}
+  .hs{border-right:none;border-bottom:1px solid rgba(255,255,255,.08);}
+  .hs:last-child{border-bottom:none;}
+  .sec{padding:3.5rem 1.25rem;}
+  .nav{padding:1rem 1.25rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero" id="main-content">
+  <div class="hero-stars"></div>
+  <div class="hero-waves"></div>
+
+  <nav class="nav">
+    <div class="nav-logo">Zona Diamante · Acapulco</div>
+    <a href="#form-final" class="nav-cta">Quiero saber más →</a>
+  </nav>
+
+  <div class="hero-body">
+    <div class="hero-pretag">Para el guerrerense con visión</div>
+    <h1 class="hero-title">
+      Ser guerrerense es<br>
+      tu mayor ventaja<br>
+      <em>para invertir en tu ciudad.</em>
+    </h1>
+    <p class="hero-sub">
+      Tú que eres guerrerense conoces tu ciudad mejor que nadie — la zona, la gente, las oportunidades.<br>
+      Es momento de convertir ese conocimiento en patrimonio real.
+    </p>
+    <div class="hero-cta-wrap">
+      <a href="https://wa.me/527442676415?text=Hola%2C%20estoy%20interesado%20en%20conocer%20las%20opciones%20de%20propiedad%20en%20Zona%20Diamante%2C%20Acapulco." target="_blank" class="btn-main">Quiero conocer más →</a>
+      <a href="#verdades" class="btn-sec">¿Por qué ahora? ↓</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hs"><div class="hs-n">29</div><div class="hs-l">minutos · sesión<br>informativa gratuita</div></div>
+      <div class="hs"><div class="hs-n">0</div><div class="hs-l">costo · sin<br>compromiso</div></div>
+      <div class="hs"><div class="hs-n">Zona</div><div class="hs-l">Diamante · el corredor<br>más exclusivo</div></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ANTICIPO -->
+<section class="sec sec-arena">
+<div class="sec-inner">
+  <div class="lbl">¿Qué vas a ver en esta sesión?</div>
+  <h2 class="h2">29 minutos que pueden<br><em>cambiar tu patrimonio.</em></h2>
+  <div class="div-gold"></div>
+  <p class="body-txt">En esta plática te mostramos los <strong>6 mejores desarrollos de Acapulco</strong> — en el rango de <strong>$3 a $6 millones de pesos</strong> — y cómo, a través de un enganche accesible y operando un negocio de renta vacacional, puedes pagar tu propiedad de manera parcial o total.</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2.5rem;">
+    <div style="background:var(--blanco);border-radius:14px;padding:1.5rem;text-align:center;border:0.5px solid rgba(0,0,0,.08);">
+      <div style="font-family:var(--serif);font-size:36px;font-weight:700;color:var(--dorado);margin-bottom:.5rem;">6</div>
+      <div style="font-size:13px;color:var(--txm);line-height:1.5;">Desarrollos seleccionados<br>en Acapulco Zona Diamante</div>
+    </div>
+    <div style="background:var(--blanco);border-radius:14px;padding:1.5rem;text-align:center;border:0.5px solid rgba(0,0,0,.08);">
+      <div style="font-family:var(--serif);font-size:36px;font-weight:700;color:var(--turquesa);margin-bottom:.5rem;">$3M–$6M</div>
+      <div style="font-size:13px;color:var(--txm);line-height:1.5;">Rango de precio<br>en pesos mexicanos</div>
+    </div>
+    <div style="background:var(--blanco);border-radius:14px;padding:1.5rem;text-align:center;border:0.5px solid rgba(0,0,0,.08);">
+      <div style="font-family:var(--serif);font-size:36px;font-weight:700;color:var(--ocean);margin-bottom:.5rem;">1</div>
+      <div style="font-size:13px;color:var(--txm);line-height:1.5;">Idea de negocio que puede<br>pagar tu propiedad</div>
+    </div>
+  </div>
+  <div style="background:var(--ocean);border-radius:14px;padding:1.75rem;margin-top:1.5rem;text-align:center;">
+    <p style="font-family:var(--serif);font-size:18px;font-style:italic;color:var(--dorado2);line-height:1.6;">"Un enganche accesible + un negocio de renta vacacional = una propiedad que se desarrolla contigo."</p>
+  </div>
+</div>
+</section>
+
+<!-- LAS 3 VERDADES -->
+<section class="sec sec-ocean" id="verdades">
+<div class="sec-inner">
+  <div class="lbl lbl-turq">Lo que ya sabes pero no has aprovechado</div>
+  <h2 class="h2 h2-lt">Las 3 verdades del<br><em>guerrerense con visión.</em></h2>
+  <div class="div-gold div-turq"></div>
+  <div class="verdades-grid">
+    <div class="verdad-card">
+      <div class="verdad-num">01</div>
+      <div class="verdad-title">Tú conoces lo que vale</div>
+      <div class="verdad-desc">No necesitas que nadie te explique qué es Zona Diamante. La has visto crecer. Sabes lo que está pasando. Esa información es tu mayor ventaja al momento de invertir en tu propia ciudad.</div>
+    </div>
+    <div class="verdad-card">
+      <div class="verdad-num">02</div>
+      <div class="verdad-title">Tu ciudad está siendo comprada</div>
+      <div class="verdad-desc">Inversionistas de CDMX, Puebla, Monterrey y hasta del extranjero están comprando en Acapulco ahora mismo. No porque sean más listos — sino porque se adelantaron. Tú puedes adelantarte también.</div>
+    </div>
+    <div class="verdad-card">
+      <div class="verdad-num">03</div>
+      <div class="verdad-title">Tu turno es ahora</div>
+      <div class="verdad-desc">No mañana. No cuando "estés listo". El mercado no espera. Los que compraron hace 3 años hoy tienen patrimonio. Los que compren hoy — en 3 años también lo tendrán.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- CTA BAND 1 -->
+<div class="cta-band">
+  <h2 class="cta-band-title">Acapulco es una ciudad<br><em>llena de oportunidades.</em></h2>
+  <p class="cta-band-sub">Para quienes la conocen, para quienes la visitan y para quienes la aman. En 29 minutos te mostramos cómo ser parte de su crecimiento.</p>
+  <a href="https://wa.me/527442676415?text=Hola%2C%20estoy%20interesado%20en%20conocer%20las%20opciones%20de%20propiedad%20en%20Zona%20Diamante%2C%20Acapulco." target="_blank" class="btn-arena">Quiero más información →</a>
+</div>
+
+<!-- PARA QUIÉN ES -->
+<section class="sec sec-arena">
+<div class="sec-inner">
+  <div class="lbl">¿Para quién es esta sesión?</div>
+  <h2 class="h2">Para el guerrerense<br><em>que ya está listo.</em></h2>
+  <div class="div-gold"></div>
+  <div class="quien-grid">
+    <div class="quien-card">
+      <div class="quien-icon">🌊</div>
+      <div>
+        <div class="quien-title">El que ve el crecimiento todos los días</div>
+        <div class="quien-desc">Vives en Acapulco y ves cómo Zona Diamante creció. Sabes que algo está pasando y quieres ser parte de ello.</div>
+      </div>
+    </div>
+    <div class="quien-card">
+      <div class="quien-icon">💼</div>
+      <div>
+        <div class="quien-title">El que tiene capacidad y no sabe por dónde</div>
+        <div class="quien-desc">Tienes los recursos. Lo que te falta es información concreta y de alguien de confianza que te muestre las opciones reales.</div>
+      </div>
+    </div>
+    <div class="quien-card">
+      <div class="quien-icon">🏠</div>
+      <div>
+        <div class="quien-title">El que quiere dejarle algo a su familia</div>
+        <div class="quien-desc">No solo dinero. Un patrimonio real, en tu ciudad, que tus hijos puedan ver, tocar y heredar.</div>
+      </div>
+    </div>
+    <div class="quien-card">
+      <div class="quien-icon">🎯</div>
+      <div>
+        <div class="quien-title">El que quiere ser parte del crecimiento</div>
+        <div class="quien-desc">Acapulco está creciendo y tú lo estás viendo desde adentro. Esta sesión es para que crezcas con tu ciudad — no solo como testigo, sino como protagonista.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+
+<!-- PROCESO -->
+<section class="sec sec-blanco">
+<div class="sec-inner">
+  <div class="lbl">Así funciona</div>
+  <h2 class="h2">El proceso es<br><em>simple y sin presión.</em></h2>
+  <div class="div-gold"></div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:2.5rem;">
+    <div style="text-align:center;padding:1.5rem 1rem;">
+      <div style="width:52px;height:52px;border-radius:50%;background:var(--ocean);color:var(--dorado2);font-family:var(--serif);font-size:24px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">1</div>
+      <div style="font-size:15px;font-weight:600;color:var(--ocean);margin-bottom:.5rem;">Déjanos tus datos</div>
+      <div style="font-size:13px;color:var(--txm);line-height:1.6;">Llena el formulario con tu nombre y WhatsApp.</div>
+    </div>
+    <div style="text-align:center;padding:1.5rem 1rem;">
+      <div style="width:52px;height:52px;border-radius:50%;background:var(--ocean);color:var(--dorado2);font-family:var(--serif);font-size:24px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">2</div>
+      <div style="font-size:15px;font-weight:600;color:var(--ocean);margin-bottom:.5rem;">Te contactamos</div>
+      <div style="font-size:13px;color:var(--txm);line-height:1.6;">Nos comunicamos contigo para agendar la fecha de la sesión.</div>
+    </div>
+    <div style="text-align:center;padding:1.5rem 1rem;">
+      <div style="width:52px;height:52px;border-radius:50%;background:var(--ocean);color:var(--dorado2);font-family:var(--serif);font-size:24px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">3</div>
+      <div style="font-size:15px;font-weight:600;color:var(--ocean);margin-bottom:.5rem;">Sesión informativa grupal</div>
+      <div style="font-size:13px;color:var(--txm);line-height:1.6;">En 29 minutos te explicamos los 6 desarrollos, el modelo de negocio y cómo funciona. Sin compromiso.</div>
+    </div>
+    <div style="text-align:center;padding:1.5rem 1rem;">
+      <div style="width:52px;height:52px;border-radius:50%;background:var(--ocean);color:var(--dorado2);font-family:var(--serif);font-size:24px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">4</div>
+      <div style="font-size:15px;font-weight:600;color:var(--ocean);margin-bottom:.5rem;">Tú decides</div>
+      <div style="font-size:13px;color:var(--txm);line-height:1.6;">Si quieres avanzar, agendamos una segunda reunión — en persona o por Zoom.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+
+<!-- PROCESO -->
+<section class="sec sec-blanco">
+<div class="sec-inner">
+  <div class="lbl">¿Cómo funciona?</div>
+  <h2 class="h2">Un proceso simple<br><em>en 4 pasos.</em></h2>
+  <div class="div-gold"></div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:2.5rem;">
+    <div style="text-align:center;padding:1.75rem 1.25rem;background:var(--cream);border-radius:14px;border:0.5px solid rgba(0,0,0,.08);">
+      <div style="font-family:var(--serif);font-size:48px;font-weight:700;color:var(--dorado);line-height:1;margin-bottom:.875rem;">1</div>
+      <div style="font-size:15px;font-weight:600;color:var(--ocean);margin-bottom:.5rem;">Déjanos tus datos</div>
+      <div style="font-size:13px;color:var(--txm);line-height:1.6;">Llena el formulario con tu nombre y WhatsApp.</div>
+    </div>
+    <div style="text-align:center;padding:1.75rem 1.25rem;background:var(--cream);border-radius:14px;border:0.5px solid rgba(0,0,0,.08);">
+      <div style="font-family:var(--serif);font-size:48px;font-weight:700;color:var(--turquesa);line-height:1;margin-bottom:.875rem;">2</div>
+      <div style="font-size:15px;font-weight:600;color:var(--ocean);margin-bottom:.5rem;">Te contactamos</div>
+      <div style="font-size:13px;color:var(--txm);line-height:1.6;">Nos comunicamos contigo por WhatsApp para agendar la fecha de la sesión.</div>
+    </div>
+    <div style="text-align:center;padding:1.75rem 1.25rem;background:var(--cream);border-radius:14px;border:0.5px solid rgba(0,0,0,.08);">
+      <div style="font-family:var(--serif);font-size:48px;font-weight:700;color:var(--ocean);line-height:1;margin-bottom:.875rem;">3</div>
+      <div style="font-size:15px;font-weight:600;color:var(--ocean);margin-bottom:.5rem;">Sesión informativa grupal</div>
+      <div style="font-size:13px;color:var(--txm);line-height:1.6;">29 minutos donde te explicamos los 6 desarrollos, el modelo de negocio y cómo funciona. Sin compromiso.</div>
+    </div>
+    <div style="text-align:center;padding:1.75rem 1.25rem;background:var(--cream);border-radius:14px;border:0.5px solid rgba(0,0,0,.08);">
+      <div style="font-family:var(--serif);font-size:48px;font-weight:700;color:var(--dorado);line-height:1;margin-bottom:.875rem;">4</div>
+      <div style="font-size:15px;font-weight:600;color:var(--ocean);margin-bottom:.5rem;">Tú decides</div>
+      <div style="font-size:13px;color:var(--txm);line-height:1.6;">Si quieres avanzar, agendamos una segunda reunión en la modalidad que prefieras:<br><br>📍 En persona<br>💻 Por Zoom</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- FORM FINAL -->
+<section class="sec sec-ocean" id="form-final">
+<div class="sec-inner">
+  <div style="text-align:center;margin-bottom:3rem;">
+    <div class="lbl" style="justify-content:center;">Sesión informativa · Gratuita · 29 minutos</div>
+    <h2 class="h2 h2-lt" style="max-width:500px;margin:0 auto;">Esta sesión no es para<br>explicarte qué es Acapulco.<br><em>Tú ya lo sabes.</em></h2>
+    <p style="font-size:15px;color:rgba(255,255,255,.55);margin-top:1rem;line-height:1.7;">Es para mostrarte cómo expandir tus inversiones a través de un negocio de casa en renta — reduciendo costos porque tú ya estás en Acapulco y conoces el terreno mejor que nadie.</p>
+  </div>
+  <div class="form-wrap">
+    <div class="form-box">
+      <h3 class="form-title">Agenda tu sesión<br><em>gratuita ahora</em></h3>
+      <p class="form-sub">29 minutos · Por videollamada o en persona · Sin costo</p>
+      <input type="text" id="f-nombre" class="finput" placeholder="Tu nombre completo" />
+      <input type="tel" id="f-wa" class="finput" placeholder="WhatsApp (10 dígitos)" maxlength="10" />
+      <button class="submit-btn" onclick="submitForm()">ESTOY INTERESADO · QUIERO INFORMACIÓN →</button>
+      <div class="form-trust">🔒 Tu información es privada. Sin spam.</div>
+      <div class="form-cierre">"Nuestro único compromiso es que nos des 29 minutos.<br>Tienes mucho que ganar y nada que perder."</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="footer">
+  <p>Zona Diamante · Acapulco, Guerrero · Boulevard de las Naciones<br>
+  Material informativo. Las proyecciones son estimativas y no constituyen garantía de rendimiento.</p>
+</div>
+
+<a href="https://wa.me/527442676415?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20sobre%20Zona%20Diamante." target="_blank" class="wa-float">💬</a>
+
+<div id="gracias" style="display:none;min-height:100vh;background:var(--ocean);align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:2rem;">
+  <div class="g-icon">🌊</div>
+  <h2 class="g-title">¡Listo!<br><em>Tu sesión está reservada.</em></h2>
+  <p class="g-sub">En los próximos minutos te contactamos por WhatsApp para confirmar fecha y hora.</p>
+  <div class="g-btns">
+    <a href="https://wa.me/527442676415" target="_blank" class="g-wa">💬 Escríbenos por WhatsApp</a>
+  </div>
+</div>
+
+<script>
+function submitForm(){
+  var nombre=document.getElementById('f-nombre').value.trim();
+  var wa=document.getElementById('f-wa').value.trim();
+  if(!nombre||wa.length<10){alert('Por favor completa tu nombre y WhatsApp.');return;}
+  var msg='Hola%2C%20estoy%20interesado%20en%20conocer%20m%C3%A1s%20sobre%20Zona%20Diamante.%0A%0ANombre%3A%20'+encodeURIComponent(nombre)+'%0AWhatsApp%3A%20'+encodeURIComponent(wa);
+  window.open('https://wa.me/527442676415?text='+msg,'_blank');
+  document.getElementById('main-content').style.display='none';
+  document.querySelectorAll('section,.cta-band,.footer,.wa-float').forEach(function(el){el.style.display='none';});
+  document.getElementById('gracias').style.display='flex';
+}
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    var t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
+  });
+});
+</script>
+</body>
+</html>
